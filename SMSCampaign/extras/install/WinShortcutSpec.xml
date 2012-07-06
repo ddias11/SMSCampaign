@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<shortcuts>
+   <programGroup defaultName="SMSCampaign CORP." location="startMenu"/>
+   <shortcut name="SMSCampaign"
+      target="$INSTALL_PATH\SMSCampaign.jar"
+         iconFile="$INSTALL_PATH\smscampaign.ico"
+         commandLine="" 
+		 workingDirectory="$INSTALL_PATH"
+         description="Clique aqui para iniciar SMSCampaign"
+         programGroup="yes" desktop="yes"    applications="no"
+         startMenu="no" startup="no">
+      </shortcut>
+</shortcuts>

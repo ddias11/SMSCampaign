@@ -70,6 +70,7 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 	private JButton btnRemovePhoneNumber = new JButton();
 	private JButton btnRemoveReceiver = null;
 	private JButton btnStartCamp = null;
+	private JButton btnTest = null;
 	private JComboBox<String> cbCOMPort = null;
 	private JPanel emailNotificator = null;
 	private JFormattedTextField fmtTextPhoneNumber = null;
@@ -84,6 +85,7 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 	private DefaultListModel<String> lstNotificationReceiversModel;
 	private JList<String> lstSMSPriorityContactsList = null;
 	private DefaultListModel<String> lstSMSPriorityContactsListModel;
+
 	private JPanel priorityContacts = null;
 
 	private JPanel receiversPanel = null;
@@ -95,11 +97,9 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 	private Color statLineBackgroundColor;
 
 	private Color statLIneforegroundColor;
-
 	private JTabbedPane tabbedPane = null;
-	private JTextArea textMessage = null;
 
-	private JButton btnTest = null;
+	private JTextArea textMessage = null;
 
 	/**
 	 * Create the application.
@@ -446,7 +446,7 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 	private JLabel getLblStatLine() {
 		if (lblStatLine == null) {
 			lblStatLine = new JLabel();
-			lblStatLine.setFont(STAT_LINE_FONT); 
+			lblStatLine.setFont(STAT_LINE_FONT);
 			lblStatLine.setBounds(0, 349, 419, 23);
 			statLIneforegroundColor = lblStatLine.getForeground();
 			statLineBackgroundColor = lblStatLine.getBackground();
@@ -572,37 +572,6 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 		return sMSServicePanel;
 	}
 
-	private JButton getTestJButton() {
-		if (btnTest == null) {
-			btnTest = new JButton();
-			btnTest.setToolTipText("Test");
-			btnTest.setText("Test"); 
-			btnTest.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			btnTest.setBounds(254, 59, 120, 23);
-			btnTest.setEnabled(false);
-			btnTest.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					SystemPrevaylerModel systemPrevaylerModel = SystemPrevayler.getSystemPrevaylerModel();
-					String textMessage = systemPrevaylerModel.getTextMessage();
-					String contact = JOptionPane.showInputDialog("Input the test contact number");
-					try {
-						Contato contactObj = new Contato(contact);
-						SMSServiceWrapper.initialize(systemPrevaylerModel.getCOMPort());
-						SMSServiceWrapper.sendMessage(contactObj.getFormattedContact() , textMessage);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-				}
-			});
-			
-		}
-
-		return btnTest;
-	}
-
 	public JTextArea getSMSText() {
 		if (textMessage == null) {
 			textMessage = new JTextArea();
@@ -629,6 +598,37 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 		systemPrevaylerModel.setSMSPriorityContactsList(formDataWrapper.getSMSPriorityContactsList());
 		systemPrevaylerModel.setTextMessage(formDataWrapper.getTextMessage());
 		return systemPrevaylerModel;
+	}
+
+	private JButton getTestJButton() {
+		if (btnTest == null) {
+			btnTest = new JButton();
+			btnTest.setToolTipText("Test");
+			btnTest.setText("Test");
+			btnTest.setFont(new Font("Tahoma", Font.PLAIN, 11));
+			btnTest.setBounds(254, 59, 120, 23);
+			btnTest.setEnabled(false);
+			btnTest.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					SystemPrevaylerModel systemPrevaylerModel = SystemPrevayler.getSystemPrevaylerModel();
+					String textMessage = systemPrevaylerModel.getTextMessage();
+					String contact = JOptionPane.showInputDialog("Input the test contact number");
+					try {
+						Contato contactObj = new Contato(contact);
+						SMSServiceWrapper.initialize(systemPrevaylerModel.getCOMPort());
+						SMSServiceWrapper.sendMessage(contactObj.getFormattedContact(), textMessage);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
+			});
+
+		}
+
+		return btnTest;
 	}
 
 	@Override

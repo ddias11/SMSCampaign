@@ -26,7 +26,7 @@ public class SendMessageJob implements Job {
 			}
 			String contact = currentContact.toString();
 			SMSServiceWrapper.initialize(systemPrevaylerModel.getCOMPort());
-			if(Boolean.valueOf(ApplicationProperties.getString("Application.isDebugMode"))){
+			if (Boolean.valueOf(ApplicationProperties.getString("Application.isDebugMode"))) {
 				textMessage += ";Dbg Msg to " + contact;
 				contact = ApplicationProperties.getString("Application.DebugContact");
 			}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"    standalone="yes"?>
+<installation version="1.0">
+	<info>
+		<appname>SMS Campaign</appname>
+		<appversion>1.0</appversion>
+		<authors>
+			<author name="Diego Dias" email="ddias11@gmail.com" />
+		</authors>
+		<javaversion>1.7</javaversion>
+	</info>
+	<guiprefs width="480" height="320" resizable="no" />
+
+	<locale>
+		<langpack iso3="por" />
+	</locale>
+
+	<native type="izpack" name="ShellLink.dll" />
+
+	<resources>
+		<res src="C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\extras\install\WinShortcutSpec.xml" id="shortcutSpec.xml" />
+	</resources>
+
+	<panels>
+		<panel classname="HelloPanel" />
+		<panel classname="TargetPanel" />
+		<panel classname="PacksPanel" />
+		<panel classname="ShortcutPanel" />
+		<panel classname="InstallPanel" />
+		<panel classname="SimpleFinishPanel" />
+	</panels>
+
+	<packs>
+		<pack name="Principal" required="yes">
+			<description>Contém os arquivos necessários para execução do programa
+			</description>
+			<fileset dir="C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\dist" targetdir="$INSTALL_PATH">
+				<include name="**/*" />
+				<exclude name="**/bin" />
+			</fileset>
+			<fileset dir="C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\dist\bin" targetdir="$JAVA_HOME\bin">
+				<include name="**/*.dll" />
+			</fileset>
+			
+		</pack>
+	</packs>
+</installation>
