@@ -25,6 +25,11 @@
 	<classpathentry kind="lib" path="mailapi.jar"/>
 	<classpathentry kind="lib" path="pop3.jar"/>
 	<classpathentry kind="lib" path="smtp.jar"/>
-	<classpathentry kind="lib" path="RXTXcomm.jar"/>
+	<classpathentry kind="lib" path="RXTXcomm.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/diegod/git/SMSCampaignRemote/SMSCampaign/dist/bin"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="dist/res/properties"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

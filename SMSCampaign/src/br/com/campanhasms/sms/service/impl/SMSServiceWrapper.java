@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import org.smslib.InboundMessage;
 import org.smslib.InboundMessage.MessageClasses;
+import org.smslib.Message.MessageTypes;
 import org.smslib.OutboundMessage;
 import org.smslib.Service;
 import org.smslib.Service.ServiceStatus;
 import org.smslib.modem.SerialModemGateway;
 
+import br.com.campanhasms.properties.ApplicationProperties;
 import br.com.campanhasms.sms.notification.CallNotification;
 import br.com.campanhasms.sms.notification.GatewayStatusNotification;
 import br.com.campanhasms.sms.notification.InboundMessageNotification;

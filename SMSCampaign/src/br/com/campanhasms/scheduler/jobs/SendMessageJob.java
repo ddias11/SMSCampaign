@@ -8,6 +8,7 @@ import org.quartz.SchedulerException;
 import br.com.campanhasms.persistence.SystemPrevayler;
 import br.com.campanhasms.persistence.model.SystemPrevaylerModel;
 import br.com.campanhasms.persistence.transactions.GetNextContactNumber;
+import br.com.campanhasms.properties.ApplicationProperties;
 import br.com.campanhasms.sms.exception.NoMoreContactsAvailable;
 import br.com.campanhasms.sms.service.impl.SMSServiceWrapper;
 
@@ -25,6 +26,11 @@ public class SendMessageJob implements Job {
 			}
 			String contact = currentContact.toString();
 			SMSServiceWrapper.initialize(systemPrevaylerModel.getCOMPort());
+			if(Boolean.valueOf(ApplicationProperties.getString("Application.isDebugMode"))){
+				textMessage += ";Dbg Msg to " + contact;
+				contact = ApplicationProperties.getString("Application.DebugContact");
+			}
+
 			SMSServiceWrapper.sendMessage(contact, textMessage);
 		} catch (NoMoreContactsAvailable e) {
 			// ERROR ON Obtain Next Contact Number

@@ -4,7 +4,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class FormProperties {
-	private static final String BUNDLE_NAME = "br.com.campanhasms.properties.formproperties"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "formproperties"; //$NON-NLS-1$
 
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 

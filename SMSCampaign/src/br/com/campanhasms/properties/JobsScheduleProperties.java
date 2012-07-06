@@ -4,7 +4,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class JobsScheduleProperties {
-	private static final String BUNDLE_NAME = "br.com.campanhasms.properties.jobsscheduleproperties"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "jobsscheduleproperties"; //$NON-NLS-1$
 
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
