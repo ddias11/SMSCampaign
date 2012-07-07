@@ -17,6 +17,12 @@ public class GetNextContactNumber implements Transaction {
 	@Override
 	public void executeOn(Object businessModel, Date arg1) {
 		systemPrevaylerModel = (SystemPrevaylerModel) businessModel;
+		
+		System.out.println("CurrentContact: " + systemPrevaylerModel.getCurrentContact());
+		
+		for (String contact : systemPrevaylerModel.getSMSPriorityContactsList()) {
+			System.out.println("Priority Contact: (" + systemPrevaylerModel.getSMSPriorityContactsList().indexOf(contact) + ") => " + contact);	
+		}
 
 		if (hasNoPriorityList()) {
 			if (hasNoCurrentContacts()) {
@@ -44,7 +50,7 @@ public class GetNextContactNumber implements Transaction {
 	}
 
 	private int getIndexOfTheCurrentContact() {
-		return systemPrevaylerModel.getSMSPriorityContactsList().indexOf(systemPrevaylerModel.getCurrentContact());
+		return systemPrevaylerModel.getSMSPriorityContactsList().indexOf(systemPrevaylerModel.getCurrentContact().toString());
 	}
 
 	private boolean hasNoCurrentContacts() {

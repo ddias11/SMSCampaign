@@ -60,6 +60,7 @@ public class SMSServiceWrapper {
 	}
 
 	public static void sendMessage(String contactNumber, String message) throws Exception {
+		System.out.println("Sendind Message Contact	: " + contactNumber);
 		OutboundMessage outboundMessage = new OutboundMessage(contactNumber, convertToASCII2(message));
 		outboundMessage.setStatusReport(true);
 		Service.getInstance().queueMessage(outboundMessage);

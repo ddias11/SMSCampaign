@@ -292,6 +292,7 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 						SMSJobsScheduler.scheduleQueryRemainCreditJob();
 						SMSJobsScheduler.getScheduler().start();
 						btnStartCamp.setEnabled(false);
+						getTestJButton().setEnabled(false);
 						setMessage(Messages.getString("MESSAGE.CAMPAIGN_STARTED_MSG")); //$NON-NLS-1$
 					} catch (SchedulerException e1) {
 						e1.printStackTrace();

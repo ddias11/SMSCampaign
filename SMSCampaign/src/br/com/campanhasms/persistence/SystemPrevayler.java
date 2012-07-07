@@ -52,6 +52,7 @@ public class SystemPrevayler {
 	public static Prevayler getPrevaylerInstance() {
 		if (systemPrevayler == null) {
 			PrevaylerFactory factory = new PrevaylerFactory();
+			factory.configureTransactionFiltering(false);
 			factory.configurePrevalenceDirectory(PrevaylerProperties.getString("SystemPrevayler.PREVAYLER_BASE_DIR")); //$NON-NLS-1$
 			factory.configurePrevalentSystem(new SystemPrevaylerModel());
 			factory.configureJournalFileSizeThreshold(new Integer(PrevaylerProperties

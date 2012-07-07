@@ -1,7 +1,7 @@
 package br.com.campanhasms.scheduler.jobs;
 
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.quartz.Job;

@@ -9,6 +9,7 @@ import org.smslib.AGateway;
 import org.smslib.IInboundMessageNotification;
 import org.smslib.InboundMessage;
 import org.smslib.Message.MessageTypes;
+import org.smslib.StatusReportMessage;
 
 import br.com.campanhasms.persistence.SystemPrevayler;
 import br.com.campanhasms.properties.PrevaylerProperties;
@@ -40,7 +41,10 @@ public class InboundMessageNotification implements IInboundMessageNotification {
 			break;
 		case STATUSREPORT:
 			SystemPrevayler.getSystemPrevaylerModel().incrementMessagesConfirmedCounter();
-			persistValidContact(msg.getOriginator());
+			if(msg instanceof StatusReportMessage) {
+				StatusReportMessage statusReportMessage = (StatusReportMessage)msg;
+				persistValidContact(statusReportMessage.getRecipient());
+			}
 			break;
 		}
 	}
