@@ -10,8 +10,6 @@ import org.smslib.Service;
 import org.smslib.Service.ServiceStatus;
 import org.smslib.modem.SerialModemGateway;
 
-import br.com.campanhasms.model.Contato;
-import br.com.campanhasms.sms.contacts.AdminContactsListBuilder;
 import br.com.campanhasms.sms.notification.CallNotification;
 import br.com.campanhasms.sms.notification.GatewayStatusNotification;
 import br.com.campanhasms.sms.notification.InboundMessageNotification;
@@ -54,11 +52,6 @@ public class SMSServiceWrapper {
 			Service.getInstance().setCallNotification(new CallNotification());
 			Service.getInstance().addGateway(gateway);
 			Service.getInstance().startService();
-			Service.getInstance().createGroup(ADMIN_CONTACTS_GROUP);
-			for (Contato contato : AdminContactsListBuilder.getAdminContacts()) {
-				Service.getInstance().addToGroup(ADMIN_CONTACTS_GROUP, contato.getFormattedContact());
-			}
-			
 		}
 	}
 

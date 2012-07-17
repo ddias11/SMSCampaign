@@ -28,6 +28,15 @@
 		</layout>
 	</appender>
 
+	<appender name="validContactsAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="logs/validContacts.log" />
+		<param name="MaxBackupIndex" value="50" />
+		<param name="append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{dd/MMM/yyyy HH:mm:ss,SSS} %-5p %C{1} - %m%n" />
+		</layout>
+	</appender>
+
 	<logger name="br" additivity="true">
 		<level value="INFO" />
 		<appender-ref ref="fileAppender" />
@@ -37,6 +46,11 @@
 	<logger name="br.com.campanhasms.sms" additivity="true">
 		<level value="INFO" />
 		<appender-ref ref="smsServiceAppender" />
+	</logger>
+
+	<logger name="validContacts" additivity="true">
+		<level value="INFO" />
+		<appender-ref ref="validContactsAppender" />
 	</logger>
 
 	<root>

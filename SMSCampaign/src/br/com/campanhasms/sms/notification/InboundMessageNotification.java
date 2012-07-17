@@ -34,11 +34,14 @@ public class InboundMessageNotification implements IInboundMessageNotification {
 			case STATUSREPORT:
 				if (msg instanceof StatusReportMessage) {
 					StatusReportMessage statusReportMessage = (StatusReportMessage) msg;
-					LOGGER.info(MessageTypes.STATUSREPORT.name() + " from recipient: " + statusReportMessage.getRecipient()
-							+ "; from originator: " + statusReportMessage.getOriginator());
+					LOGGER.info(MessageTypes.STATUSREPORT.name() + " from Recipient: " + statusReportMessage.getRecipient()
+							+ "; from Originator: " + statusReportMessage.getOriginator());
+					Logger.getLogger("validContacts").info("recipient: " + statusReportMessage.getRecipient()
+						+ "; from originator: " + statusReportMessage.getOriginator());
 				}
 				break;
 			default:
+				LOGGER.info(MessageTypes.INBOUND.name() + " from Originator: " + msg.getOriginator()+"; Text: " + msg.getText());
 				if (isFunctionMessage(msg)) {
 					Integer requiredFunction = -1;
 					try {

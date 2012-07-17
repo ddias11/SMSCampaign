@@ -64,7 +64,7 @@ public class SMSJobsScheduler {
 	public static void scheduleQueryRemainCreditJob() throws SchedulerException {
 		LOGGER.info("Scheduling QueryRemainCreditJob at " + JobsScheduleProperties
 				.getString("JobsScheduler.QUERY_REMAIN_CREDIT_SCHEDULE"));
-		JobDetail job = JobBuilder.newJob(MailMessagesReceivedJob.class)
+		JobDetail job = JobBuilder.newJob(QueryRemainCreditJob.class)
 				.withIdentity(QUERY_REMAIN_CREDIT_JOB_KEY, QUERY_REMAIN_CREDIT_JOB_GROUP_KEY).build();
 
 		Trigger trigger = null;

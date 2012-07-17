@@ -78,7 +78,7 @@ public class ReceivedMessage implements Serializable, Comparable<ReceivedMessage
 	public String getMessaFormatToComparison() {
 		
 		String time = String.format("%015d", this.messageTimeInMilis);
-		String messageOriginator = this.messageOriginator.getFormattedContact();
+		String messageOriginator = this.messageOriginator != null?this.messageOriginator.getFormattedContact():"";
 		String messateText = String.format("%"+SMSServiceProperties.getString("MensagemSMS.SMS_LENGTH")+"s", this.messateText);
 		String messageType = String.format("%7s", this.messageType.name());
 		

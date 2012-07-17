@@ -14,14 +14,14 @@ import br.com.campanhasms.model.Contato;
 
 public class AdminContactsListBuilder {
 
-	private static final String ADMIN_CONTACTS_XML = "/adminContacts.xml";
+	private static final String ADMIN_CONTACTS_XML = "res/properties/adminContacts.xml";
 	private static final Logger LOGGER = Logger.getLogger(AdminContactsListBuilder.class);
 
 	public static Contato[] getAdminContacts() {
 		
 		try {
 			TreeSet<Contato> treeSet = new TreeSet<Contato>();
-			File fXmlFile = new File(AdminContactsListBuilder.class.getResource(ADMIN_CONTACTS_XML).getFile());
+			File fXmlFile = new File(ADMIN_CONTACTS_XML);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(fXmlFile);
@@ -35,7 +35,7 @@ public class AdminContactsListBuilder {
 
 			return treeSet.toArray(new Contato[treeSet.size()]);
 		} catch (Exception e) {
-			LOGGER.info("Error when importing admin contact from file: " + ADMIN_CONTACTS_XML, e);
+			LOGGER.error("Error when importing admin contact from file: " + ADMIN_CONTACTS_XML, e);
 			return null;
 		}
 	}

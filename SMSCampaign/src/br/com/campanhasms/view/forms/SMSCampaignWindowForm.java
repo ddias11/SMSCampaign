@@ -204,7 +204,8 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-						SystemPrevayler.execute(new ApplyFormChangesToSystemPrevayler(getSystemPrevaylerModel()));
+						setMessage(Messages.getString("MESSAGE.INITIALIZING_SMS_SERVICE"));
+   						SystemPrevayler.execute(new ApplyFormChangesToSystemPrevayler(getSystemPrevaylerModel()));
 						if (!SMSJobsScheduler.getScheduler().isStarted()) {
 							getBtnStartCamp().setEnabled(true);
 							getTestJButton().setEnabled(true);
