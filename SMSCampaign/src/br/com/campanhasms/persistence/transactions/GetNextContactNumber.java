@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
 import org.prevayler.Transaction;
 
 import br.com.campanhasms.persistence.model.SystemPrevaylerModel;
@@ -13,24 +14,19 @@ public class GetNextContactNumber implements Transaction {
 
 	private static final long serialVersionUID = -3948842046799876001L;
 	private SystemPrevaylerModel systemPrevaylerModel;
+	private static final Logger LOGGER = Logger.getLogger(GetNextContactNumber.class);
 
 	@Override
 	public void executeOn(Object businessModel, Date arg1) {
 		systemPrevaylerModel = (SystemPrevaylerModel) businessModel;
-		
-		System.out.println("CurrentContact: " + systemPrevaylerModel.getCurrentContact());
-		
-		for (String contact : systemPrevaylerModel.getSMSPriorityContactsList()) {
-			System.out.println("Priority Contact: (" + systemPrevaylerModel.getSMSPriorityContactsList().indexOf(contact) + ") => " + contact);	
-		}
+
+		LOGGER.info("Getting The CurrentContact value: " + systemPrevaylerModel.getCurrentContact());
 
 		if (hasNoPriorityList()) {
 			if (hasNoCurrentContacts()) {
 				initializeRandomContact();
 			} else {
-				do {
-					setNextRandomContact();
-				} while (isCurrentContactInThePriorityList());
+				setNextRandomContact();
 			}
 		} else {
 			if (hasNoCurrentContacts()) {
@@ -50,23 +46,32 @@ public class GetNextContactNumber implements Transaction {
 	}
 
 	private int getIndexOfTheCurrentContact() {
-		return systemPrevaylerModel.getSMSPriorityContactsList().indexOf(systemPrevaylerModel.getCurrentContact().toString());
+		return systemPrevaylerModel.getSMSPriorityContactsList().indexOf(
+				systemPrevaylerModel.getCurrentContact().toString());
 	}
 
 	private boolean hasNoCurrentContacts() {
-		return systemPrevaylerModel.getCurrentContact() == null;
+		boolean hasNoCurrentContact = systemPrevaylerModel.getCurrentContact() == null;
+		LOGGER.info("Has No CurrentContacts? " + hasNoCurrentContact);
+		return hasNoCurrentContact;
 	}
 
 	private boolean hasNoPriorityList() {
-		return systemPrevaylerModel.getSMSPriorityContactsList().size() <= 0;
+		boolean hasNoPriorityList = systemPrevaylerModel.getSMSPriorityContactsList().size() <= 0;
+		LOGGER.info("Has No Priority List? " + hasNoPriorityList);
+		return hasNoPriorityList;
 	}
 
 	private void initializePriorityContact() {
-		systemPrevaylerModel.setCurrentContact(Long.valueOf(systemPrevaylerModel.getSMSPriorityContactsList().get(0)));
+		Long firstPriorityContact = Long.valueOf(systemPrevaylerModel.getSMSPriorityContactsList().get(0));
+		LOGGER.info("Initializing the first priority Contact with value: " + firstPriorityContact);
+		systemPrevaylerModel.setCurrentContact(firstPriorityContact);
 	}
 
 	private void initializeRandomContact() {
-		systemPrevaylerModel.setCurrentContact(99999999L);
+		Long initialRandomContact = 99999999L - getRandomNumber();
+		LOGGER.info("Initializing Random Contact with value: " + initialRandomContact);
+		systemPrevaylerModel.setCurrentContact(initialRandomContact);
 	}
 
 	private boolean isCurrentContactInThePriorityList() {
@@ -74,22 +79,34 @@ public class GetNextContactNumber implements Transaction {
 	}
 
 	private boolean isTheLastPriorityContact() {
-		return getIndexOfTheCurrentContact() == systemPrevaylerModel.getSMSPriorityContactsList().size() - 1;
+		boolean isTheLastPriorityContact = getIndexOfTheCurrentContact() == systemPrevaylerModel
+				.getSMSPriorityContactsList().size() - 1;
+		LOGGER.info("Is the Last Priority Contact? " + isTheLastPriorityContact);
+		return isTheLastPriorityContact;
 	}
 
 	private void setNextPriorityContact() {
-		systemPrevaylerModel.setCurrentContact(Long.valueOf(systemPrevaylerModel.getSMSPriorityContactsList().get(
-				getIndexOfTheCurrentContact() + 1)));
+		Long nextPriorityContact = Long.valueOf(systemPrevaylerModel.getSMSPriorityContactsList().get(
+				getIndexOfTheCurrentContact() + 1));
+		LOGGER.info("Setting the next priority contact with the value: " + nextPriorityContact);
+		systemPrevaylerModel.setCurrentContact(nextPriorityContact);
 	}
 
 	private void setNextRandomContact() {
-		int randomReduceNumber = new Random(Calendar.getInstance().getTimeInMillis()).nextInt(Integer
-				.valueOf(SMSServiceProperties.getString("RANDOM_CONTACT.MAX_RANDOM_INTERVAL"))) + 1; //$NON-NLS-1$
+		int randomReduceNumber = getRandomNumber();
 		systemPrevaylerModel.setCurrentContact(systemPrevaylerModel.getCurrentContact() - randomReduceNumber);
 		while (isCurrentContactInThePriorityList()) {
-			systemPrevaylerModel.setCurrentContact(systemPrevaylerModel.getCurrentContact() - 1L);
+			Long newCurrentContact = systemPrevaylerModel.getCurrentContact() - 1L;
+			LOGGER.info("The contact " + systemPrevaylerModel.getCurrentContact() + " is in the Priority List;"
+					+ " Changing to " + newCurrentContact);
+			systemPrevaylerModel.setCurrentContact(newCurrentContact);
 		}
 
+	}
+
+	public int getRandomNumber() throws NumberFormatException {
+		return new Random(Calendar.getInstance().getTimeInMillis()).nextInt(Integer.valueOf(SMSServiceProperties
+				.getString("RANDOM_CONTACT.MAX_RANDOM_INTERVAL"))) + 1; //$NON-NLS-1$
 	}
 
 }

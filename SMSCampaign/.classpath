@@ -30,6 +30,7 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/diegod/git/SMSCampaignRemote/SMSCampaign/dist/bin"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="dist/res/properties"/>
+	<classpathentry kind="lib" path="images"/>
+	<classpathentry kind="lib" path="res"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

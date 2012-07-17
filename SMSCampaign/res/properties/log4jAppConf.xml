@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{dd/MMM/yyyy HH:mm:ss,SSS} %-5p %C{1} - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="logs/appLog.log" />
+		<param name="MaxBackupIndex" value="50" />
+		<param name="append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{dd/MMM/yyyy HH:mm:ss,SSS} %-5p %C{1} - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="smsServiceAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="logs/smsServiceLog.log" />
+		<param name="MaxBackupIndex" value="50" />
+		<param name="append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{dd/MMM/yyyy HH:mm:ss,SSS} %-5p %C{1} - %m%n" />
+		</layout>
+	</appender>
+
+	<logger name="br" additivity="true">
+		<level value="INFO" />
+		<appender-ref ref="fileAppender" />
+		<appender-ref ref="console" />
+	</logger>
+
+	<logger name="br.com.campanhasms.sms" additivity="true">
+		<level value="INFO" />
+		<appender-ref ref="smsServiceAppender" />
+	</logger>
+
+	<root>
+		<priority value="debug" />
+		<appender-ref ref="fileAppender" />
+	</root>
+</log4j:configuration>

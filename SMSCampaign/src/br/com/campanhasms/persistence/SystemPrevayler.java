@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
 import org.prevayler.Prevayler;
 import org.prevayler.PrevaylerFactory;
 import org.prevayler.Transaction;
@@ -14,11 +15,13 @@ import br.com.campanhasms.properties.PrevaylerProperties;
 public class SystemPrevayler {
 
 	private static Prevayler systemPrevayler = null;
+	private static final Logger LOGGER = Logger.getLogger(SystemPrevayler.class);
 
 	private SystemPrevayler() {
 	}
 
 	public static void execute(Transaction transaction) {
+		LOGGER.info("Executing persistence transaction");
 		getPrevaylerInstance().execute(transaction);
 		takeSnapShot();
 	}
@@ -27,6 +30,7 @@ public class SystemPrevayler {
 		File[] listFilteredFiles = new File(PrevaylerProperties.getString("SystemPrevayler.PREVAYLER_BASE_DIR")).listFiles(filter); //$NON-NLS-1$
 
 		for (int i = 0; i < listFilteredFiles.length - 1; i++) {
+			LOGGER.info("Expurge file: " + listFilteredFiles[i].getName());
 			listFilteredFiles[i].delete();
 		}
 	}
@@ -73,6 +77,7 @@ public class SystemPrevayler {
 
 	public static void takeSnapShot() {
 		try {
+			LOGGER.info("Taking Snaphhot");
 			getPrevaylerInstance().takeSnapshot();
 
 			expurgeSnapshotFiles();
@@ -80,7 +85,7 @@ public class SystemPrevayler {
 			expurgeJournalFiles();
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error("Error when taking Snapshot", e);
 		}
 	}
 

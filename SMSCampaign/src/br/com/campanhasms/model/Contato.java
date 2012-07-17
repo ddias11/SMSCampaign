@@ -1,8 +1,11 @@
 package br.com.campanhasms.model;
 
+import java.io.Serializable;
+
 import br.com.campanhasms.properties.Messages;
 
-public class Contato implements Comparable<Contato> {
+public class Contato implements Serializable, Comparable<Contato> {
+	private static final long serialVersionUID = 1713352709080995366L;
 	private static final Integer DEFAULT_DDD = 11;
 	private static final Integer DEFAULT_DDI = 55;
 	private Integer ddd;

@@ -3,8 +3,10 @@ package br.com.campanhasms.view.forms;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -30,6 +32,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.quartz.SchedulerException;
 import org.smslib.helper.CommPortIdentifier;
 
@@ -39,6 +43,7 @@ import br.com.campanhasms.persistence.model.SystemPrevaylerModel;
 import br.com.campanhasms.persistence.transactions.ApplyFormChangesToSystemPrevayler;
 import br.com.campanhasms.properties.FormProperties;
 import br.com.campanhasms.properties.Messages;
+import br.com.campanhasms.properties.SMSServiceProperties;
 import br.com.campanhasms.scheduler.jobs.SMSJobsScheduler;
 import br.com.campanhasms.sms.contacts.ContactsListBuilder;
 import br.com.campanhasms.sms.service.impl.SMSServiceWrapper;
@@ -51,6 +56,8 @@ import br.com.campanhasms.view.forms.validation.domain.EmailInputVerifier;
 
 public class SMSCampaignWindowForm implements IFormDataWrapper {
 
+	private static final Logger LOGGER = Logger.getLogger(SMSCampaignWindowForm.class);
+	
 	private static final Font DEFAULT_FONT = new Font(
 			FormProperties.getString("Form.FONT_NAME"), Font.PLAIN, Integer.valueOf(FormProperties.getString("Form.FONT_SIZE"))); //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -105,6 +112,7 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 	 * Create the application.
 	 */
 	public SMSCampaignWindowForm() {
+		DOMConfigurator.configure(new File("res/properties/log4jAppConf.xml").getAbsolutePath());
 		initialize();
 		loadSavedData();
 	}
@@ -154,10 +162,11 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-						new AddItemList<String>(getLstSMSPriorityContactsListModel(), new Contato(
-								getFmtTextPhoneNumber().getText()).getFormattedContact()).execute();
+						Contato contato = new Contato(getFmtTextPhoneNumber().getText());
+						new AddItemList<String>(getLstSMSPriorityContactsListModel(), contato.getFormattedContact()).execute();
+						LOGGER.info("Adding prioroty contact: " + contato.getFormattedContact());
 					} catch (Exception e) {
-						e.printStackTrace();
+						LOGGER.error("Error when adding prioroty contact", e);
 					}
 				}
 			});
@@ -172,8 +181,9 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 			btnAddReceiver.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					new AddItemList<String>(getLstNotificationReceiversModel(), getFmtTextReceiverEmailAddress()
-							.getText()).execute();
+					String itemToAdd = getFmtTextReceiverEmailAddress().getText();
+					new AddItemList<String>(getLstNotificationReceiversModel(), itemToAdd).execute();
+					LOGGER.info("Adding receiver: " + itemToAdd);
 				}
 			});
 			btnAddReceiver.setFont(DEFAULT_FONT);
@@ -200,10 +210,14 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 							getTestJButton().setEnabled(true);
 						}
 						setMessage(Messages.getString("MESSAGE.CHANGES_APPPLIED_WITH_SUCCESS_MSG")); //$NON-NLS-1$
+						SMSServiceWrapper.initialize(getSystemPrevaylerModel().getCOMPort());
+						LOGGER.info("Form Changes committed with success");
 					} catch (FormDataException e) {
 						setErrorMessage(e.getMessage());
 					} catch (SchedulerException e) {
-						e.printStackTrace();
+						LOGGER.error("Error when schedule the jobs", e);
+					} catch (Exception e) {
+						LOGGER.error("Error when applying the form changes", e);
 					}
 				}
 			});
@@ -229,6 +243,7 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 						new AddItemList<String>(getLstSMSPriorityContactsListModel(), contact.getFormattedContact())
 								.execute();
 					}
+					LOGGER.info("Succes importing contacts");
 				}
 			}
 		});
@@ -249,6 +264,7 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 			public void actionPerformed(ActionEvent arg0) {
 				for (Object itemSelected : getLstSMSPriorityContactsList().getSelectedValuesList()) {
 					new RemoveItemList<String>(getLstSMSPriorityContactsListModel(), (String) itemSelected).execute();
+					LOGGER.info("Success removing contact " + (String) itemSelected);
 				}
 			}
 		});
@@ -264,6 +280,7 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 				public void actionPerformed(ActionEvent e) {
 					for (Object itemSelected : getLstNotificationReceivers().getSelectedValuesList()) {
 						new RemoveItemList<String>(getLstNotificationReceiversModel(), (String) itemSelected).execute();
+						LOGGER.info("Success removing receiver " + (String) itemSelected);
 					}
 				}
 			});
@@ -292,10 +309,10 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 						SMSJobsScheduler.scheduleQueryRemainCreditJob();
 						SMSJobsScheduler.getScheduler().start();
 						btnStartCamp.setEnabled(false);
-						getTestJButton().setEnabled(false);
 						setMessage(Messages.getString("MESSAGE.CAMPAIGN_STARTED_MSG")); //$NON-NLS-1$
-					} catch (SchedulerException e1) {
-						e1.printStackTrace();
+						LOGGER.info("Success starting SMS Campaign");
+					} catch (SchedulerException ex) {
+						LOGGER.error("Error when starting SMS Campaign", ex);
 					}
 				}
 			});
@@ -369,12 +386,13 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 	private JFrame getJFrame() {
 		if (frmSmscampaign == null) {
 			frmSmscampaign = new JFrame();
+			frmSmscampaign.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frmSmscampaign.setIconImage(Toolkit.getDefaultToolkit().getImage(new File("images/smscampaign.gif").getAbsolutePath()));
 			frmSmscampaign.getContentPane().setFont(DEFAULT_FONT);
 			frmSmscampaign.setTitle(FormProperties.getString("Form.WINDOW_TITLE")); //$NON-NLS-1$
 			frmSmscampaign.setForeground(Color.BLACK);
 			frmSmscampaign.setFont(DEFAULT_FONT);
 			frmSmscampaign.setBounds(100, 100, 427, 399);
-			frmSmscampaign.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
 		return frmSmscampaign;
 	}
@@ -411,10 +429,8 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 		if (lblMessageCharactersRemainingCounter == null) {
 			lblMessageCharactersRemainingCounter = new JLabel();
 			lblMessageCharactersRemainingCounter.setFont(DEFAULT_FONT);
-			lblMessageCharactersRemainingCounter.setText(FormProperties
-					.getString("Form.LABEL_MESSAGE_CHARACTERS_REMAINING_COUNTER_TEXT")); //$NON-NLS-1$
-			lblMessageCharactersRemainingCounter.setToolTipText(FormProperties
-					.getString("Form.LABEL_MESSAGE_CHARACTERS_REMAINING_COUNTER_TOOL_TIP")); //$NON-NLS-1$
+			lblMessageCharactersRemainingCounter.setText(SMSServiceProperties.getString("MensagemSMS.SMS_LENGTH")); //$NON-NLS-1$
+			lblMessageCharactersRemainingCounter.setToolTipText(SMSServiceProperties.getString("MensagemSMS.SMS_LENGTH")); //$NON-NLS-1$
 			lblMessageCharactersRemainingCounter.setHorizontalAlignment(SwingConstants.CENTER);
 			lblMessageCharactersRemainingCounter.setBounds(222, 202, 22, 14);
 		}
@@ -617,11 +633,10 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 					String contact = JOptionPane.showInputDialog("Input the test contact number");
 					try {
 						Contato contactObj = new Contato(contact);
-						SMSServiceWrapper.initialize(systemPrevaylerModel.getCOMPort());
 						SMSServiceWrapper.sendMessage(contactObj.getFormattedContact(), textMessage);
+						LOGGER.info("SMS Test Message Sended to: " + contactObj.getFormattedContact() + " with text: " + textMessage);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						LOGGER.error("Erro when Send SMS Test Message ", e);
 					}
 
 				}

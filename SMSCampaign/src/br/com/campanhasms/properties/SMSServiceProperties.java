@@ -1,20 +1,21 @@
 package br.com.campanhasms.properties;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
 
 public class SMSServiceProperties {
-	private static final String BUNDLE_NAME = "smsserviceproperties"; //$NON-NLS-1$
-
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
+	private static final String BUNDLE_NAME = "res/properties/smsserviceproperties.properties"; //$NON-NLS-1$
 
 	private SMSServiceProperties() {
 	}
 
 	public static String getString(String key) {
 		try {
-			return RESOURCE_BUNDLE.getString(key);
-		} catch (MissingResourceException e) {
+			Properties properties = new Properties();
+			properties.load(new FileInputStream(new File(BUNDLE_NAME)));
+			return properties.getProperty(key);
+		} catch (Exception e) {
 			return '!' + key + '!';
 		}
 	}

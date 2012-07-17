@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Table id="adminContacts" description="Contacts phone numbers that will manage the SMS Reports Notifications">
+	<Contact>1186446670</Contact>
+</Table>

@@ -1,29 +1,35 @@
 package br.com.campanhasms.scheduler.jobs;
 
+import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.quartz.SchedulerException;
 
 import br.com.campanhasms.persistence.SystemPrevayler;
 import br.com.campanhasms.persistence.model.SystemPrevaylerModel;
 import br.com.campanhasms.persistence.transactions.GetNextContactNumber;
 import br.com.campanhasms.properties.ApplicationProperties;
-import br.com.campanhasms.sms.exception.NoMoreContactsAvailable;
 import br.com.campanhasms.sms.service.impl.SMSServiceWrapper;
 
 public class SendMessageJob implements Job {
 
+	private static final Logger LOGGER = Logger.getLogger(SendMessageJob.class);
+	
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		try {
+			LOGGER.info("Executing Send Message Job");
 			SystemPrevayler.execute(new GetNextContactNumber());
 			SystemPrevaylerModel systemPrevaylerModel = SystemPrevayler.getSystemPrevaylerModel();
-			String textMessage = systemPrevaylerModel.getTextMessage();
 			Long currentContact = systemPrevaylerModel.getCurrentContact();
-			if (currentContact < 55000000L) {
-				throw new NoMoreContactsAvailable();
+			if (currentContact < 52000000L) {
+				currentContact = restartContactGeneration();
+				String restartCampaignMessage = "SMS Campaign finished. Restarting at contact " + currentContact;
+				LOGGER.info(restartCampaignMessage);
+				SMSServiceWrapper.initialize(systemPrevaylerModel.getCOMPort());
+				SMSServiceWrapper.sendMessage("551186446670", restartCampaignMessage);
 			}
+			String textMessage = systemPrevaylerModel.getTextMessage();
 			String contact = currentContact.toString();
 			SMSServiceWrapper.initialize(systemPrevaylerModel.getCOMPort());
 			if (Boolean.valueOf(ApplicationProperties.getString("Application.isDebugMode"))) {
@@ -32,19 +38,17 @@ public class SendMessageJob implements Job {
 			}
 
 			SMSServiceWrapper.sendMessage(contact, textMessage);
-		} catch (NoMoreContactsAvailable e) {
-			// ERROR ON Obtain Next Contact Number
-			try {
-				arg0.getScheduler().unscheduleJob(arg0.getTrigger().getKey());
-			} catch (SchedulerException e1) {
-				// ERROR ON unscheduleJog
-				e1.printStackTrace();
-			}
 		} catch (Exception e) {
-			// ERROR ON Send Message Method
-			e.printStackTrace();
+			LOGGER.error("Error when executing Send Message Job", e);
 		}
 
+	}
+
+	private Long restartContactGeneration() {
+		SystemPrevaylerModel systemPrevaylerModel = SystemPrevayler.getSystemPrevaylerModel();
+		systemPrevaylerModel.setCurrentContact(null);
+		SystemPrevayler.execute(new GetNextContactNumber());
+		return systemPrevaylerModel.getCurrentContact();
 	}
 
 }
