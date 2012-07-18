@@ -18,7 +18,7 @@ public class AdminContactsListBuilder {
 	private static final Logger LOGGER = Logger.getLogger(AdminContactsListBuilder.class);
 
 	public static Contato[] getAdminContacts() {
-		
+
 		try {
 			TreeSet<Contato> treeSet = new TreeSet<Contato>();
 			File fXmlFile = new File(ADMIN_CONTACTS_XML);

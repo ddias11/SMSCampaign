@@ -12,42 +12,23 @@ import br.com.campanhasms.properties.SMSServiceProperties;
 public class ReceivedMessage implements Serializable, Comparable<ReceivedMessage> {
 
 	private static final long serialVersionUID = -5078789497534008164L;
-	
-	private Long messageTimeInMilis;
-
-	public Long getMessageTimeInMilis() {
-		return messageTimeInMilis;
-	}
-
-
-	public String getMessateText() {
-		return messateText;
-	}
-
-
-	public Contato getMessageOriginator() {
-		return messageOriginator;
-	}
-
-
-	public MessageTypes getMessageType() {
-		return messageType;
-	}
-
-	private String messateText;
 
 	private Contato messageOriginator;
 
+	private Long messageTimeInMilis;
+
 	private MessageTypes messageType;
-	
-	
+
+	private String messateText;
+
 	public ReceivedMessage(InboundMessage message) {
 		this.messageType = message.getType();
-		if(MessageTypes.STATUSREPORT.equals(message.getType())) {
+		if (MessageTypes.STATUSREPORT.equals(message.getType())) {
 			try {
-				StatusReportMessage statusReportMessage = (StatusReportMessage)message;
+				StatusReportMessage statusReportMessage = (StatusReportMessage) message;
 				this.messageTimeInMilis = statusReportMessage.getSent().getTime();
-				this.messageOriginator = new Contato(statusReportMessage.getRecipient());
+				this.messageOriginator = new Contato(String.format("%8s", statusReportMessage.getRecipient())
+						.replaceAll("\\s", "0"));
 			} catch (Exception e) {
 			}
 		} else {
@@ -60,8 +41,8 @@ public class ReceivedMessage implements Serializable, Comparable<ReceivedMessage
 		this.messateText = message.getText();
 	}
 
-
-	public ReceivedMessage(Long messageTimeInMilis, String messateText, Contato messageOriginator, MessageTypes messageType) {
+	public ReceivedMessage(Long messageTimeInMilis, String messateText, Contato messageOriginator,
+			MessageTypes messageType) {
 		super();
 		this.messageTimeInMilis = messageTimeInMilis;
 		this.messateText = messateText;
@@ -69,21 +50,37 @@ public class ReceivedMessage implements Serializable, Comparable<ReceivedMessage
 		this.messageType = messageType;
 	}
 
-
 	@Override
 	public int compareTo(ReceivedMessage receivedMessage) {
 		return receivedMessage.getMessaFormatToComparison().compareTo(getMessaFormatToComparison());
 	}
-	
+
 	public String getMessaFormatToComparison() {
-		
+
 		String time = String.format("%015d", this.messageTimeInMilis);
-		String messageOriginator = this.messageOriginator != null?this.messageOriginator.getFormattedContact():"";
-		String messateText = String.format("%"+SMSServiceProperties.getString("MensagemSMS.SMS_LENGTH")+"s", this.messateText);
+		String messageOriginator = this.messageOriginator != null ? this.messageOriginator.getFormattedContact() : "";
+		String messateText = String.format("%" + SMSServiceProperties.getString("MensagemSMS.SMS_LENGTH") + "s",
+				this.messateText);
 		String messageType = String.format("%7s", this.messageType.name());
-		
+
 		return time.concat(messageOriginator).concat(messateText).concat(messageType);
-		
+
+	}
+
+	public Contato getMessageOriginator() {
+		return messageOriginator;
+	}
+
+	public Long getMessageTimeInMilis() {
+		return messageTimeInMilis;
+	}
+
+	public MessageTypes getMessageType() {
+		return messageType;
+	}
+
+	public String getMessateText() {
+		return messateText;
 	}
 
 }

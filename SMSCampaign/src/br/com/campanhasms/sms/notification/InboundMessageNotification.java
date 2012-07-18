@@ -25,54 +25,12 @@ public class InboundMessageNotification implements IInboundMessageNotification {
 
 	private static final Logger LOGGER = Logger.getLogger(InboundMessageNotification.class);
 
-	@Override
-	public void process(AGateway gateway, MessageTypes msgType, InboundMessage msg) {
-
-		if(SystemPrevayler.getSystemPrevaylerModel().addReceivedMessage(msg)) {
-			LOGGER.info("Processing a Inbound Message Notification");
-			switch (msgType) {
-			case STATUSREPORT:
-				if (msg instanceof StatusReportMessage) {
-					StatusReportMessage statusReportMessage = (StatusReportMessage) msg;
-					LOGGER.info(MessageTypes.STATUSREPORT.name() + " from Recipient: " + statusReportMessage.getRecipient()
-							+ "; from Originator: " + statusReportMessage.getOriginator());
-					Logger.getLogger("validContacts").info("recipient: " + statusReportMessage.getRecipient()
-						+ "; from originator: " + statusReportMessage.getOriginator());
-				}
-				break;
-			default:
-				LOGGER.info(MessageTypes.INBOUND.name() + " from Originator: " + msg.getOriginator()+"; Text: " + msg.getText());
-				if (isFunctionMessage(msg)) {
-					Integer requiredFunction = -1;
-					try {
-						requiredFunction = Integer.valueOf(msg.getText().trim());
-					}catch (Exception e) {
-						LOGGER.error("Error when parsing ReportRequiredType for value: " + msg.getText().trim());
-					}
-	
-					switch (ReportRequiredType.parse(requiredFunction)) {
-					case SMS_RATING:
-						new SmsRatingReport().execute();
-						break;
-	
-					case EMAIL_RATING:
-						new EmailRatingReport().execute();
-						break;
-	
-					case NOT_DEFINED:
-						new NotSupportedReport().execute();
-						break;
-					}
-				}
-				break;
-			}
-			SystemPrevayler.takeSnapShot();
+	private void deleteMessage(InboundMessage msg) {
+		try {
+			Service.getInstance().deleteMessage(msg);
+		} catch (TimeoutException | GatewayException | IOException | InterruptedException e) {
+			LOGGER.error("Error when trying to delete the function message: " + msg.getText().toUpperCase(), e);
 		}
-		deleteMessage(msg);
-	}
-
-	private boolean isFunctionMessage(InboundMessage msg) {
-		return isRecentlyMessage(msg) && isFromAdminContact(msg.getOriginator());
 	}
 
 	private boolean isFromAdminContact(String originator) {
@@ -84,16 +42,61 @@ public class InboundMessageNotification implements IInboundMessageNotification {
 		return false;
 	}
 
+	private boolean isFunctionMessage(InboundMessage msg) {
+		return isRecentlyMessage(msg) && isFromAdminContact(msg.getOriginator());
+	}
+
 	private boolean isRecentlyMessage(InboundMessage msg) {
 		Long dateDiff = GregorianCalendar.getInstance().getTimeInMillis() - msg.getDate().getTime();
 		return dateDiff < (1L * (1000L * 60L * 60L));
 	}
 
-	private void deleteMessage(InboundMessage msg) {
-		try {
-			Service.getInstance().deleteMessage(msg);
-		} catch (TimeoutException | GatewayException | IOException | InterruptedException e) {
-			LOGGER.error("Error when trying to delete the function message: " + msg.getText().toUpperCase(), e);
+	@Override
+	public void process(AGateway gateway, MessageTypes msgType, InboundMessage msg) {
+
+		if (SystemPrevayler.getSystemPrevaylerModel().addReceivedMessage(msg)) {
+			LOGGER.info("Processing a Inbound Message Notification");
+			switch (msgType) {
+			case STATUSREPORT:
+				if (msg instanceof StatusReportMessage) {
+					StatusReportMessage statusReportMessage = (StatusReportMessage) msg;
+					LOGGER.info(MessageTypes.STATUSREPORT.name() + " from Recipient: "
+							+ statusReportMessage.getRecipient() + "; from Originator: "
+							+ statusReportMessage.getOriginator());
+					Logger.getLogger("validContacts").info(
+							"recipient: " + statusReportMessage.getRecipient() + "; from originator: "
+									+ statusReportMessage.getOriginator());
+				}
+				break;
+			default:
+				LOGGER.info(MessageTypes.INBOUND.name() + " from Originator: " + msg.getOriginator() + "; Text: "
+						+ msg.getText());
+				if (isFunctionMessage(msg)) {
+					Integer requiredFunction = -1;
+					try {
+						requiredFunction = Integer.valueOf(msg.getText().trim());
+					} catch (Exception e) {
+						LOGGER.error("Error when parsing ReportRequiredType for value: " + msg.getText().trim());
+					}
+
+					switch (ReportRequiredType.parse(requiredFunction)) {
+					case SMS_RATING:
+						new SmsRatingReport().execute();
+						break;
+
+					case EMAIL_RATING:
+						new EmailRatingReport().execute();
+						break;
+
+					case NOT_DEFINED:
+						new NotSupportedReport().execute();
+						break;
+					}
+				}
+				break;
+			}
+			SystemPrevayler.takeSnapShot();
 		}
+		deleteMessage(msg);
 	}
 }

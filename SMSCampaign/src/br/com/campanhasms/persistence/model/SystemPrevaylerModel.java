@@ -7,14 +7,17 @@ import java.util.TreeSet;
 import org.apache.log4j.Logger;
 import org.smslib.InboundMessage;
 import org.smslib.Message.MessageTypes;
-import org.smslib.Service;
+import org.smslib.OutboundMessage;
 
 import br.com.campanhasms.properties.Messages;
 import br.com.campanhasms.sms.model.ReceivedMessage;
+import br.com.campanhasms.sms.model.SendedMessage;
 import br.com.campanhasms.view.forms.exception.FormDataException;
 import br.com.campanhasms.view.forms.model.IFormDataWrapper;
 
 public class SystemPrevaylerModel implements Serializable, IFormDataWrapper {
+
+	private static final Logger LOGGER = Logger.getLogger(SystemPrevaylerModel.class);
 
 	private static final long serialVersionUID = -651641218710234008L;
 
@@ -22,20 +25,34 @@ public class SystemPrevaylerModel implements Serializable, IFormDataWrapper {
 
 	private Long currentContact = null;
 
+	private TreeSet<SendedMessage> lastSendedMessages;
+
 	private List<String> listNotificationReceivers;
 
 	private Integer messagesConfirmedCounter;
 
+	private TreeSet<ReceivedMessage> receivedMessages = null;
+
+	private Integer sendedMessagesCouter = new Integer(0);
+
 	private List<String> smsPriorityContactsList;
 
 	private String textMessage;
-	
-	private static final Logger LOGGER = Logger.getLogger(SystemPrevaylerModel.class);
-	
-	private TreeSet<ReceivedMessage> receivedMessages = null;
 
 	public SystemPrevaylerModel() {
 
+	}
+
+	public boolean addReceivedMessage(InboundMessage inboundMessage) {
+		return getReceivedMessages().add(new ReceivedMessage(inboundMessage));
+	}
+
+	public boolean addSendedMessage(OutboundMessage outboundMessage) {
+		boolean isAdded = getLastSendedMessages().add(new SendedMessage(outboundMessage));
+		if (isAdded) {
+			this.sendedMessagesCouter++;
+		}
+		return isAdded;
 	}
 
 	@Override
@@ -47,43 +64,48 @@ public class SystemPrevaylerModel implements Serializable, IFormDataWrapper {
 		return currentContact;
 	}
 
+	public TreeSet<SendedMessage> getLastSendedMessages() {
+		if (lastSendedMessages == null) {
+			lastSendedMessages = new TreeSet<SendedMessage>();
+		}
+		if (lastSendedMessages.size() > 10)
+			lastSendedMessages.remove(lastSendedMessages.first());
+		return lastSendedMessages;
+	}
+
 	@Override
 	public List<String> getListNotificationReceivers() {
 		return this.listNotificationReceivers;
 	}
 
-	public Integer getMessagesConfirmedCounter() {
-		return getMessageCounter(MessageTypes.STATUSREPORT);
-	}
-
 	private Integer getMessageCounter(MessageTypes messageType) {
 		Integer counter = 0;
 		for (ReceivedMessage receivedMessage : getReceivedMessages()) {
-			if(receivedMessage.getMessageType().equals(messageType)){
+			if (receivedMessage.getMessageType().equals(messageType)) {
 				counter++;
 			}
 		}
 		return counter;
 	}
 
-	public boolean addReceivedMessage(InboundMessage inboundMessage) {
-		return getReceivedMessages().add(new ReceivedMessage(inboundMessage));
+	public Integer getMessagesConfirmedCounter() {
+		return getMessageCounter(MessageTypes.STATUSREPORT);
 	}
 
 	public TreeSet<ReceivedMessage> getReceivedMessages() {
 		if (receivedMessages == null) {
 			receivedMessages = new TreeSet<ReceivedMessage>();
-			
+
 		}
 		return receivedMessages;
 	}
-	
+
 	public Integer getReceivedMessagesCounter() {
 		return getMessageCounter(MessageTypes.INBOUND);
 	}
 
-	public Integer getMessagesSendedCounter() {
-		return Service.getInstance().getOutboundMessageCount();
+	public Integer getSendedMessagesCouter() {
+		return sendedMessagesCouter;
 	}
 
 	@Override

@@ -7,7 +7,6 @@ import java.util.Properties;
 public class ApplicationProperties {
 	private static final String BUNDLE_NAME = "res/properties/application.properties"; //$NON-NLS-1$
 
-
 	private ApplicationProperties() {
 	}
 

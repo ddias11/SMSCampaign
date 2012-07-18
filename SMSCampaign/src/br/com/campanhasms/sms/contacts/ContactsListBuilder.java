@@ -13,7 +13,7 @@ import br.com.campanhasms.model.Contato;
 public class ContactsListBuilder {
 
 	private static final Logger LOGGER = Logger.getLogger(ContactsListBuilder.class);
-	
+
 	public static Contato[] getContactsFromFile(File file) {
 		try {
 			LOGGER.info("Importing contact from file: " + file.getAbsolutePath());

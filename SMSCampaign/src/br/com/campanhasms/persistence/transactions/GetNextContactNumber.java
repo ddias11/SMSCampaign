@@ -12,9 +12,9 @@ import br.com.campanhasms.properties.SMSServiceProperties;
 
 public class GetNextContactNumber implements Transaction {
 
+	private static final Logger LOGGER = Logger.getLogger(GetNextContactNumber.class);
 	private static final long serialVersionUID = -3948842046799876001L;
 	private SystemPrevaylerModel systemPrevaylerModel;
-	private static final Logger LOGGER = Logger.getLogger(GetNextContactNumber.class);
 
 	@Override
 	public void executeOn(Object businessModel, Date arg1) {
@@ -48,6 +48,11 @@ public class GetNextContactNumber implements Transaction {
 	private int getIndexOfTheCurrentContact() {
 		return systemPrevaylerModel.getSMSPriorityContactsList().indexOf(
 				systemPrevaylerModel.getCurrentContact().toString());
+	}
+
+	public int getRandomNumber() throws NumberFormatException {
+		return new Random(Calendar.getInstance().getTimeInMillis()).nextInt(Integer.valueOf(SMSServiceProperties
+				.getString("RANDOM_CONTACT.MAX_RANDOM_INTERVAL"))) + 1; //$NON-NLS-1$
 	}
 
 	private boolean hasNoCurrentContacts() {
@@ -102,11 +107,6 @@ public class GetNextContactNumber implements Transaction {
 			systemPrevaylerModel.setCurrentContact(newCurrentContact);
 		}
 
-	}
-
-	public int getRandomNumber() throws NumberFormatException {
-		return new Random(Calendar.getInstance().getTimeInMillis()).nextInt(Integer.valueOf(SMSServiceProperties
-				.getString("RANDOM_CONTACT.MAX_RANDOM_INTERVAL"))) + 1; //$NON-NLS-1$
 	}
 
 }

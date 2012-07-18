@@ -14,8 +14,8 @@ import br.com.campanhasms.properties.PrevaylerProperties;
 
 public class SystemPrevayler {
 
-	private static Prevayler systemPrevayler = null;
 	private static final Logger LOGGER = Logger.getLogger(SystemPrevayler.class);
+	private static Prevayler systemPrevayler = null;
 
 	private SystemPrevayler() {
 	}

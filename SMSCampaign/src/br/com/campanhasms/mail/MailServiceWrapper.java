@@ -15,10 +15,49 @@ import br.com.campanhasms.properties.MailProperties;
 import br.com.campanhasms.zipping.ZipUtility;
 
 public class MailServiceWrapper {
-	
+
 	private final Logger LOGGER = Logger.getLogger(getClass());
 
 	private HtmlEmail mailMessageInstace;
+
+	private EmailAttachment getEmailAttachment() throws IOException {
+
+		File appDirectory = new File(".");
+		zipLogFiles();
+
+		File[] listFiles = getFilesByPattern(appDirectory, ".*\\.zip");
+
+		Arrays.sort(listFiles);
+
+		EmailAttachment attachment = new EmailAttachment();
+		File lastZippedLogFiles = listFiles[listFiles.length - 1];
+		attachment.setPath(lastZippedLogFiles.getAbsolutePath());
+		attachment.setDisposition(EmailAttachment.ATTACHMENT);
+		attachment.setDescription("SMS Campaign Logs; "
+				+ (listFiles.length > 0 ? "There are previous zip files in the App Folder" : ""));
+		attachment.setName(lastZippedLogFiles.getName());
+
+		return attachment;
+	}
+
+	private String getFileIndex() {
+		final String NO_INDEX = "";
+		File[] existentZipFiles = getFilesByPattern(new File("."), ".*\\.zip");
+		if (existentZipFiles.length == 0) {
+			return NO_INDEX;
+		} else {
+			return existentZipFiles.length + "";
+		}
+	}
+
+	private File[] getFilesByPattern(File appDirectory, final String matchPattern) {
+		return appDirectory.listFiles(new FileFilter() {
+			@Override
+			public boolean accept(File file) {
+				return file.getName().matches(matchPattern);
+			}
+		});
+	}
 
 	private HtmlEmail getMailMessageInstace() {
 		if (mailMessageInstace == null) {
@@ -60,48 +99,9 @@ public class MailServiceWrapper {
 		this.mailMessageInstace = mailMessageInstace;
 	}
 
-	private EmailAttachment getEmailAttachment() throws IOException {
-
-		File appDirectory = new File(".");
-		zipLogFiles();
-
-		File[] listFiles = getFilesByPattern(appDirectory, ".*\\.zip");
-
-		Arrays.sort(listFiles);
-
-		EmailAttachment attachment = new EmailAttachment();
-		File lastZippedLogFiles = listFiles[listFiles.length - 1];
-		attachment.setPath(lastZippedLogFiles.getAbsolutePath());
-		attachment.setDisposition(EmailAttachment.ATTACHMENT);
-		attachment.setDescription("SMS Campaign Logs; "
-				+ (listFiles.length > 0 ? "There are previous zip files in the App Folder" : ""));
-		attachment.setName(lastZippedLogFiles.getName());
-
-		return attachment;
-	}
-
-	private File[] getFilesByPattern(File appDirectory, final String matchPattern) {
-		return appDirectory.listFiles(new FileFilter() {
-			@Override
-			public boolean accept(File file) {
-				return file.getName().matches(matchPattern);
-			}
-		});
-	}
-
 	private void zipLogFiles() throws IOException {
 		File directoryToZip = new File("logs");
 		ZipUtility.zipDirectory(directoryToZip, new File("logs" + getFileIndex() + ".zip"));
-	}
-
-	private String getFileIndex() {
-		final String NO_INDEX = "";
-		File[] existentZipFiles = getFilesByPattern(new File("."), ".*\\.zip");
-		if (existentZipFiles.length == 0) {
-			return NO_INDEX;
-		} else {
-			return existentZipFiles.length + "";
-		}
 	}
 
 }

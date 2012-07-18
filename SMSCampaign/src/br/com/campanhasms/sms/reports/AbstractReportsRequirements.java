@@ -1,22 +1,16 @@
 package br.com.campanhasms.sms.reports;
 
-
-
 public abstract class AbstractReportsRequirements {
 
 	public enum ReportRequiredType {
+		EMAIL_RATING(2),
 		NOT_DEFINED(-1),
-		SMS_RATING(1),
-		EMAIL_RATING(2);
+		SMS_RATING(1);
 
 		private Integer value;
 
 		private ReportRequiredType(Integer value) {
 			this.value = value;
-		}
-		
-		public Integer getValue() {
-			return this.value;
 		}
 
 		public static ReportRequiredType parse(Integer value) {
@@ -26,6 +20,10 @@ public abstract class AbstractReportsRequirements {
 				}
 			}
 			return NOT_DEFINED;
+		}
+
+		public Integer getValue() {
+			return this.value;
 		}
 
 	}

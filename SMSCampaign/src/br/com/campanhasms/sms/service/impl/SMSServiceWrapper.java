@@ -18,9 +18,9 @@ import br.com.campanhasms.sms.notification.OutboundMessageNotification;
 
 public class SMSServiceWrapper {
 
-	private static final Logger LOGGER = Logger.getLogger(SMSServiceWrapper.class);
-	
 	public static final String ADMIN_CONTACTS_GROUP = "ADMIN_CONTACTS";
+
+	private static final Logger LOGGER = Logger.getLogger(SMSServiceWrapper.class);
 
 	private static String convertToASCII2(String text) {
 		return text.replaceAll("[דגאבה]", "a").replaceAll("[ךטיכ]", "e").replaceAll("[מלםן]", "i")
@@ -44,7 +44,7 @@ public class SMSServiceWrapper {
 			gateway.setInbound(true);
 			gateway.setOutbound(true);
 			gateway.setSimPin("0000");
-//			gateway.getATHandler().setStorageLocations("SM");
+			// gateway.getATHandler().setStorageLocations("SM");
 			Service.getInstance().setInboundMessageNotification(new InboundMessageNotification());
 			Service.getInstance().setOutboundMessageNotification(new OutboundMessageNotification());
 			Service.getInstance().setGatewayStatusNotification(new GatewayStatusNotification());
@@ -64,10 +64,12 @@ public class SMSServiceWrapper {
 		ArrayList<InboundMessage> msgList = new ArrayList<InboundMessage>();
 		Service.getInstance().readMessages(msgList, MessageClasses.ALL);
 		for (InboundMessage inboundMessage : msgList) {
-			if(Service.getInstance().deleteMessage(inboundMessage)) {
-				LOGGER.info("Message [Originator: " + inboundMessage.getOriginator() + "Text: " + inboundMessage.getText() + "] was sucessfuly removed");
+			if (Service.getInstance().deleteMessage(inboundMessage)) {
+				LOGGER.info("Message [Originator: " + inboundMessage.getOriginator() + "Text: "
+						+ inboundMessage.getText() + "] was sucessfuly removed");
 			} else {
-				LOGGER.info("Message [Originator: " + inboundMessage.getOriginator() + "Text: " + inboundMessage.getText() + "] was not removed");
+				LOGGER.info("Message [Originator: " + inboundMessage.getOriginator() + "Text: "
+						+ inboundMessage.getText() + "] was not removed");
 			}
 		}
 	}

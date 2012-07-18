@@ -1,7 +1,6 @@
 package br.com.campanhasms.sms.reports;
 
 import org.apache.log4j.Logger;
-import org.smslib.Service;
 
 import br.com.campanhasms.model.Contato;
 import br.com.campanhasms.persistence.SystemPrevayler;
@@ -16,7 +15,7 @@ public class SmsRatingReport extends AbstractReportsRequirements {
 		LOGGER.info("Trying to send Sms Rating Report");
 		try {
 			String message = "";
-			message += "\nMsgs Sended: " + Service.getInstance().getOutboundMessageCount();
+			message += "\nMsgs Sended: " + SystemPrevayler.getSystemPrevaylerModel().getSendedMessagesCouter();
 			message += "\nMsgs Received: " + SystemPrevayler.getSystemPrevaylerModel().getReceivedMessagesCounter();
 			message += "\nMsgs Confirmed: " + SystemPrevayler.getSystemPrevaylerModel().getMessagesConfirmedCounter();
 			message += "\nLast Contact: " + SystemPrevayler.getSystemPrevaylerModel().getCurrentContact();
@@ -26,7 +25,7 @@ public class SmsRatingReport extends AbstractReportsRequirements {
 		} catch (Exception e) {
 			LOGGER.error("Error when trying to send Sms Rating Report", e);
 		}
-		
+
 	}
 
 }

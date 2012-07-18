@@ -9,7 +9,6 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.smslib.Message.MessageTypes;
-import org.smslib.Service;
 
 import br.com.campanhasms.mail.MailServiceWrapper;
 import br.com.campanhasms.persistence.SystemPrevayler;
@@ -18,9 +17,9 @@ import br.com.campanhasms.properties.MailProperties;
 import br.com.campanhasms.sms.model.ReceivedMessage;
 
 public class MailMessagesReceivedJob implements Job {
-	
+
 	private static final Logger LOGGER = Logger.getLogger(MailMessagesReceivedJob.class);
-	
+
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		try {
@@ -61,7 +60,7 @@ public class MailMessagesReceivedJob implements Job {
 		messageContent += "<TBODY>";
 
 		messageContent += "<TR>";
-		messageContent += "<TD>" + Service.getInstance().getOutboundMessageCount() + "</TD>";
+		messageContent += "<TD>" + systemPrevaylerModel.getSendedMessagesCouter() + "</TD>";
 		messageContent += "<TD>" + systemPrevaylerModel.getReceivedMessagesCounter() + "</TD>";
 		messageContent += "<TD>" + systemPrevaylerModel.getMessagesConfirmedCounter() + "</TD>";
 		messageContent += "</TR>";

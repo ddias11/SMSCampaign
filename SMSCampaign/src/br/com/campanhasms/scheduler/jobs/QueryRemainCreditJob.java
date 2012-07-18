@@ -13,6 +13,7 @@ import br.com.campanhasms.sms.service.impl.SMSServiceWrapper;
 public class QueryRemainCreditJob implements Job {
 
 	private static final Logger LOGGER = Logger.getLogger(QueryRemainCreditJob.class);
+
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		try {

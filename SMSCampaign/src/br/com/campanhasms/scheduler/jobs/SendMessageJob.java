@@ -14,7 +14,7 @@ import br.com.campanhasms.sms.service.impl.SMSServiceWrapper;
 public class SendMessageJob implements Job {
 
 	private static final Logger LOGGER = Logger.getLogger(SendMessageJob.class);
-	
+
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		try {
