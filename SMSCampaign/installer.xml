@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"    standalone="yes"?>
+<!-- CmdLine=> C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign>"c:\Program Files (x86)\IzPack\bin\compile" installer.xml -b . -o install.jar-->
 <installation version="1.0">
 	<info>
 		<appname>SMS Campaign</appname>
@@ -33,14 +34,15 @@
 		<pack name="Principal" required="yes">
 			<description>Contém os arquivos necessários para execução do programa
 			</description>
-			<fileset dir="C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\dist" targetdir="$INSTALL_PATH">
-				<include name="**/*" />
-				<exclude name="**/bin" />
-			</fileset>
+			<file src="C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\dist\SMSCampaign.jar" targetdir="$INSTALL_PATH">
+			</file>
+			<file src="C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\images" targetdir="$INSTALL_PATH">
+			</file>
+			<file src="C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\res" targetdir="$INSTALL_PATH">
+			</file>
 			<fileset dir="C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\dist\bin" targetdir="$JAVA_HOME\bin">
 				<include name="**/*.dll" />
 			</fileset>
-			
 		</pack>
 	</packs>
 </installation>
