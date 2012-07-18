@@ -2,6 +2,7 @@ package br.com.campanhasms.sms.model;
 
 import java.io.Serializable;
 
+import org.apache.log4j.Logger;
 import org.smslib.InboundMessage;
 import org.smslib.Message.MessageTypes;
 import org.smslib.StatusReportMessage;
@@ -11,6 +12,8 @@ import br.com.campanhasms.properties.SMSServiceProperties;
 
 public class ReceivedMessage implements Serializable, Comparable<ReceivedMessage> {
 
+	private static final Logger LOGGER = Logger.getLogger(ReceivedMessage.class);
+	
 	private static final long serialVersionUID = -5078789497534008164L;
 
 	private Contato messageOriginator;
@@ -30,13 +33,16 @@ public class ReceivedMessage implements Serializable, Comparable<ReceivedMessage
 				this.messageOriginator = new Contato(String.format("%8s", statusReportMessage.getRecipient())
 						.replaceAll("\\s", "0"));
 			} catch (Exception e) {
+				LOGGER.error("Erro when instantiate " + ReceivedMessage.class.getSimpleName() + ";", e);
 			}
 		} else {
 			try {
-				this.messageOriginator = new Contato(message.getOriginator());
+				this.messageTimeInMilis = message.getDate().getTime() / 100000;
+				this.messageOriginator = new Contato(String.format("%8s", message.getOriginator())
+						.replaceAll("\\s", "0"));
 			} catch (Exception e) {
+				LOGGER.error("Erro when instantiate " + ReceivedMessage.class.getSimpleName() + ";", e);
 			}
-			this.messageTimeInMilis = message.getDate().getTime() / 100000;
 		}
 		this.messateText = message.getText();
 	}
