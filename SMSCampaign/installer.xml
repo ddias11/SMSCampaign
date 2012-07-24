@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"    standalone="yes"?>
-<!-- CmdLine=> C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign>"c:\Program Files (x86)\IzPack\bin\compile" installer.xml -b . -o install.jar-->
+<!-- CmdLine=> C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign>"c:\Program Files (x86)\IzPack\bin\compile" installer.xml -b . -o SMSCampaignInstaller.jar-->
 <installation version="1.0">
 	<info>
 		<appname>SMS Campaign</appname>
