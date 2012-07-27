@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.TreeSet;
 
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
@@ -70,34 +71,44 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 	private static final Font STAT_LINE_FONT = new Font(
 			FormProperties.getString("Form.STAT_LINE_FONT_NAME"), Font.BOLD, Integer.valueOf(FormProperties.getString("Form.STAT_LINE_FONT_SIZE"))); //$NON-NLS-1$ //$NON-NLS-2$
 
-	private JButton btnAddContact = null;
+	private JButton btnAddPriorityContact = null;
+	private JButton btnAddContactInBlackList = null;
 	private JButton btnAddReceiver = null;
 	private JButton btnApplyChanges = null;
-	private JButton btnImportPhoneNumbers = new JButton();
-	private JButton btnRemovePhoneNumber = new JButton();
+	private JButton btnImportPriorityPhoneNumbers = null;
+	private JButton btnRemovePriorityPhoneNumber = null;
+	private JButton btnRemovePhoneNumberFromBlackList = null;
 	private JButton btnRemoveReceiver = null;
 	private JButton btnStartCamp = null;
 	private JButton btnTest = null;
 	private JComboBox<String> cbCOMPort = null;
 	private JPanel emailNotificator = null;
-	private JFormattedTextField fmtTextPhoneNumber = null;
+	private JFormattedTextField fmtTextPriorityPhoneNumber = null;
+	private JFormattedTextField fmtTextBlackListPhoneNumber = null;
 	private JFormattedTextField fmtTextReceiverEmailAddress = null;
 	private JFrame frmSmscampaign;
 	private JLabel lblMessage = null;
 	private JLabel lblMessageCharactersRemainingCounter = null;
-	private JLabel lblPhoneNumber = null;
+	private JLabel lblPriorityPhoneNumber = null;
+	private JLabel lblBlackListPhoneNumber = null;
+	
 	private JLabel lblReceiverEmailAddress = null;
 	private JLabel lblStatLine = null;
 	private JList<String> lstNotificationReceivers = null;
 	private DefaultListModel<String> lstNotificationReceiversModel;
 	private JList<String> lstSMSPriorityContactsList = null;
+	private JList<String> lstSMSBlackListContacts = null;
 	private DefaultListModel<String> lstSMSPriorityContactsListModel;
+	private DefaultListModel<String> lstSMSBlackListContactsModel;
 
 	private JPanel priorityContacts = null;
+	
+	private JPanel blackListContacts = null;
 
 	private JPanel receiversPanel = null;
 
-	private JScrollPane scrollPane;
+	private JScrollPane scrollPanePriorityContacts;
+	private JScrollPane scrollPaneContactsInBlackList;
 
 	private JPanel sMSServicePanel = null;
 
@@ -151,28 +162,53 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 		getLblStatLine().repaint();
 	}
 
-	private JButton getBtnAddContact() {
-		if (btnAddContact == null) {
-			btnAddContact = new JButton();
-			btnAddContact.setToolTipText(FormProperties.getString("Form.ADD_CONTACT_BTN_TOOL_TIP")); //$NON-NLS-1$
-			btnAddContact.setFont(DEFAULT_FONT);
-			btnAddContact.setText(FormProperties.getString("Form.ADD_CONTACT_BTN_TEXT")); //$NON-NLS-1$
-			btnAddContact.setBounds(196, 27, 84, 23);
-			btnAddContact.addActionListener(new ActionListener() {
+	private JButton getBtnAddPriorityContact() {
+		if (btnAddPriorityContact == null) {
+			btnAddPriorityContact = new JButton();
+			btnAddPriorityContact.setToolTipText(FormProperties.getString("Form.ADD_CONTACT_BTN_TOOL_TIP")); //$NON-NLS-1$
+			btnAddPriorityContact.setFont(DEFAULT_FONT);
+			btnAddPriorityContact.setText(FormProperties.getString("Form.ADD_CONTACT_BTN_TEXT")); //$NON-NLS-1$
+			btnAddPriorityContact.setBounds(196, 27, 84, 23);
+			btnAddPriorityContact.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-						Contato contato = new Contato(getFmtTextPhoneNumber().getText());
+						Contato contato = new Contato(getFmtTextPriorityPhoneNumber().getText());
 						new AddItemList<String>(getLstSMSPriorityContactsListModel(), contato.getFormattedContact())
 								.execute();
-						LOGGER.info("Adding prioroty contact: " + contato.getFormattedContact());
+						LOGGER.info("Adding priority contact: " + contato.getFormattedContact());
 					} catch (Exception e) {
-						LOGGER.error("Error when adding prioroty contact", e);
+						LOGGER.error("Error when adding priority contact", e);
 					}
 				}
 			});
 		}
-		return btnAddContact;
+		return btnAddPriorityContact;
+	}
+
+	private JButton getBtnAddContactInBlackList() {
+		if (btnAddContactInBlackList == null) {
+			btnAddContactInBlackList = new JButton();
+			btnAddContactInBlackList.setToolTipText(FormProperties.getString("Form.ADD_CONTACT_BTN_TOOL_TIP")); //$NON-NLS-1$
+			btnAddContactInBlackList.setFont(DEFAULT_FONT);
+			btnAddContactInBlackList.setText(FormProperties.getString("Form.ADD_CONTACT_BTN_TEXT")); //$NON-NLS-1$
+			btnAddContactInBlackList.setBounds(196, 27, 84, 23);
+			btnAddContactInBlackList.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					try {
+						Contato contato = new Contato(getFmtTextBlackListPhoneNumber().getText());
+						new AddItemList<String>(getLstSMSBlackListContactsModel(), contato.getFormattedContact())
+								.execute();
+						LOGGER.info("Adding contact into Black List: " + contato.getFormattedContact());
+						SystemPrevayler.getSystemPrevaylerModel().addContactInBlackList(contato);
+					} catch (Exception e) {
+						LOGGER.error("Error when adding contact in Black List", e);
+					}
+				}
+			});
+		}
+		return btnAddContactInBlackList;
 	}
 
 	private JButton getBtnAddReceiver() {
@@ -227,50 +263,79 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 		return btnApplyChanges;
 	}
 
-	private JButton getBtnImportPhoneNumbers() {
-		if (this.btnImportPhoneNumbers == null) {
-			this.btnImportPhoneNumbers = new JButton();
+	private JButton getBtnImportPriorityPhoneNumbers() {
+		if (btnImportPriorityPhoneNumbers == null) {
+			btnImportPriorityPhoneNumbers = new JButton();
+
+			btnImportPriorityPhoneNumbers.setText(FormProperties.getString("Form.IMPORT_PHONE_NUMBERS_BTN_TEXT")); //$NON-NLS-1$
+			btnImportPriorityPhoneNumbers.setToolTipText(FormProperties.getString("Form.IMPORT_PHONE_NUMBERS_BTN_TOOL_TIP")); //$NON-NLS-1$
+			btnImportPriorityPhoneNumbers.setFont(DEFAULT_FONT);
+			btnImportPriorityPhoneNumbers.setBounds(196, 95, 84, 23);
+			btnImportPriorityPhoneNumbers.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					JFileChooser jFileChooser = new JFileChooser();
+					if (jFileChooser.showDialog(getJFrame(), FormProperties.getString("Form.CHOOSE_WINDOW_TITLE")) == JFileChooser.APPROVE_OPTION) { //$NON-NLS-1$
+						Contato[] contactsFromFile = ContactsListBuilder.getContactsFromFile(jFileChooser.getSelectedFile());
+						for (Contato contact : contactsFromFile) {
+							new AddItemList<String>(getLstSMSPriorityContactsListModel(), contact.getFormattedContact())
+									.execute();
+						}
+						LOGGER.info("Succes importing contacts");
+					}
+				}
+			});
 		}
 
-		btnImportPhoneNumbers.setText(FormProperties.getString("Form.IMPORT_PHONE_NUMBERS_BTN_TEXT")); //$NON-NLS-1$
-		btnImportPhoneNumbers.setFont(DEFAULT_FONT);
-		btnImportPhoneNumbers.setBounds(196, 95, 84, 23);
-		btnImportPhoneNumbers.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				JFileChooser jFileChooser = new JFileChooser();
-				if (jFileChooser.showDialog(getJFrame(), FormProperties.getString("Form.CHOOSE_WINDOW_TITLE")) == 0) { //$NON-NLS-1$
-					Contato[] contactsFromFile = ContactsListBuilder.getContactsFromFile(jFileChooser.getSelectedFile());
-					for (Contato contact : contactsFromFile) {
-						new AddItemList<String>(getLstSMSPriorityContactsListModel(), contact.getFormattedContact())
-								.execute();
-					}
-					LOGGER.info("Succes importing contacts");
-				}
-			}
-		});
-
-		return this.btnImportPhoneNumbers;
+		return btnImportPriorityPhoneNumbers;
 	}
 
-	private JButton getBtnRemovePhoneNumber() {
-		if (this.btnRemovePhoneNumber == null) {
-			this.btnRemovePhoneNumber = new JButton();
-		}
+	private JButton getBtnRemovePriorityPhoneNumber() {
+		if (btnRemovePriorityPhoneNumber == null) {
+			btnRemovePriorityPhoneNumber = new JButton();
 
-		btnRemovePhoneNumber.setText(FormProperties.getString("Form.REMOVE_PHONE_NUMBER_BTN_TEXT")); //$NON-NLS-1$
-		btnRemovePhoneNumber.setFont(DEFAULT_FONT);
-		btnRemovePhoneNumber.setBounds(196, 61, 84, 23);
-		btnRemovePhoneNumber.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				for (Object itemSelected : getLstSMSPriorityContactsList().getSelectedValuesList()) {
-					new RemoveItemList<String>(getLstSMSPriorityContactsListModel(), (String) itemSelected).execute();
-					LOGGER.info("Success removing contact " + (String) itemSelected);
+			btnRemovePriorityPhoneNumber.setText(FormProperties.getString("Form.REMOVE_PHONE_NUMBER_BTN_TEXT")); //$NON-NLS-1$
+			btnRemovePriorityPhoneNumber.setToolTipText(FormProperties.getString("Form.REMOVE_PHONE_NUMBER_BTN_TOOL_TIP")); //$NON-NLS-1$
+			btnRemovePriorityPhoneNumber.setFont(DEFAULT_FONT);
+			btnRemovePriorityPhoneNumber.setBounds(196, 61, 84, 23);
+			btnRemovePriorityPhoneNumber.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					for (Object itemSelected : getLstSMSPriorityContactsList().getSelectedValuesList()) {
+						new RemoveItemList<String>(getLstSMSPriorityContactsListModel(), (String) itemSelected).execute();
+						LOGGER.info("Success removing contact " + (String) itemSelected);
+					}
 				}
-			}
-		});
-		return this.btnRemovePhoneNumber;
+			});
+		}
+		return btnRemovePriorityPhoneNumber;
+	}
+
+	private JButton getBtnRemovePhoneNumberFromBlackList() {
+		if (btnRemovePhoneNumberFromBlackList == null) {
+			btnRemovePhoneNumberFromBlackList = new JButton();
+
+			btnRemovePhoneNumberFromBlackList.setText(FormProperties.getString("Form.REMOVE_PHONE_NUMBER_BTN_TEXT")); //$NON-NLS-1$
+			btnRemovePhoneNumberFromBlackList.setToolTipText(FormProperties.getString("Form.REMOVE_PHONE_NUMBER_BTN_TOOL_TIP")); //$NON-NLS-1$
+			btnRemovePhoneNumberFromBlackList.setFont(DEFAULT_FONT);
+			btnRemovePhoneNumberFromBlackList.setBounds(196, 61, 84, 23);
+			btnRemovePhoneNumberFromBlackList.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					for (Object itemSelected : getLstSMSBlackListContacts().getSelectedValuesList()) {
+						new RemoveItemList<String>(getLstSMSBlackListContactsModel(), (String) itemSelected).execute();
+						LOGGER.info("Success removing contact " + (String) itemSelected + " from Black List");
+						try {
+							Contato contato = new Contato((String) itemSelected);
+							SystemPrevayler.getSystemPrevaylerModel().removeContactFromBlackList(contato );
+						} catch (Exception e) {
+							LOGGER.error("Erro generating the contact to be removed from persisted Black list", e);
+						}
+					}
+				}
+			});
+		}
+		return btnRemovePhoneNumberFromBlackList;
 	}
 
 	private JButton getBtnRemoveReceiver() {
@@ -360,17 +425,30 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 		return emailNotificator;
 	}
 
-	private JFormattedTextField getFmtTextPhoneNumber() {
-		if (fmtTextPhoneNumber == null) {
-			fmtTextPhoneNumber = new JFormattedTextField();
-			fmtTextPhoneNumber.setToolTipText(FormProperties.getString("Form.CONTACT_PHONE_NUMBER_TXT_TOOL_TIP")); //$NON-NLS-1$
-			fmtTextPhoneNumber.setFont(DEFAULT_FONT);
-			fmtTextPhoneNumber.setHorizontalAlignment(SwingConstants.TRAILING);
-			fmtTextPhoneNumber.setBounds(85, 28, 101, 20);
-			fmtTextPhoneNumber.setFormatterFactory(PHONE_NUMBER_FORMATTER_FACTORY);
+	private JFormattedTextField getFmtTextPriorityPhoneNumber() {
+		if (fmtTextPriorityPhoneNumber == null) {
+			fmtTextPriorityPhoneNumber = new JFormattedTextField();
+			fmtTextPriorityPhoneNumber.setToolTipText(FormProperties.getString("Form.CONTACT_PHONE_NUMBER_TXT_TOOL_TIP")); //$NON-NLS-1$
+			fmtTextPriorityPhoneNumber.setFont(DEFAULT_FONT);
+			fmtTextPriorityPhoneNumber.setHorizontalAlignment(SwingConstants.TRAILING);
+			fmtTextPriorityPhoneNumber.setBounds(85, 28, 101, 20);
+			fmtTextPriorityPhoneNumber.setFormatterFactory(PHONE_NUMBER_FORMATTER_FACTORY);
 
 		}
-		return fmtTextPhoneNumber;
+		return fmtTextPriorityPhoneNumber;
+	}
+
+	private JFormattedTextField getFmtTextBlackListPhoneNumber() {
+		if (fmtTextBlackListPhoneNumber == null) {
+			fmtTextBlackListPhoneNumber = new JFormattedTextField();
+			fmtTextBlackListPhoneNumber.setToolTipText(FormProperties.getString("Form.CONTACT_PHONE_NUMBER_TXT_TOOL_TIP")); //$NON-NLS-1$
+			fmtTextBlackListPhoneNumber.setFont(DEFAULT_FONT);
+			fmtTextBlackListPhoneNumber.setHorizontalAlignment(SwingConstants.TRAILING);
+			fmtTextBlackListPhoneNumber.setBounds(85, 28, 101, 20);
+			fmtTextBlackListPhoneNumber.setFormatterFactory(PHONE_NUMBER_FORMATTER_FACTORY);
+
+		}
+		return fmtTextBlackListPhoneNumber;
 	}
 
 	private JFormattedTextField getFmtTextReceiverEmailAddress() {
@@ -403,6 +481,7 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 	private JTabbedPane getJTabbedPane() {
 		if (tabbedPane == null) {
 			tabbedPane = new JTabbedPane();
+			tabbedPane.setTabPlacement(JTabbedPane.TOP);
 			tabbedPane.setFont(DEFAULT_FONT);
 			tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 			tabbedPane.setBounds(10, 11, 398, 302);
@@ -412,6 +491,8 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 					FormProperties.getString("Form.EMAIL_NOTIFICATOR_TAB_TOOL_TIP")); //$NON-NLS-1$
 			tabbedPane.addTab(FormProperties.getString("Form.PRIORITY_CONTACTS_TAB_TEXT"), null, getPriorityContacts(),
 					FormProperties.getString("Form.PRIORITY_CONTACTS_TAB_TOOL_TIP")); //$NON-NLS-1$
+			tabbedPane.addTab(FormProperties.getString("Form.BLACK_LIST_CONTACTS_TAB_TEXT"), null, getBlackListContacts(),
+					FormProperties.getString("Form.BLACK_LIST_CONTACTS_TAB_TOOL_TIP")); //$NON-NLS-1$
 
 		}
 
@@ -442,16 +523,28 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 		return lblMessageCharactersRemainingCounter;
 	}
 
-	private JLabel getLblPhoneNumber() {
-		if (lblPhoneNumber == null) {
-			lblPhoneNumber = new JLabel();
-			lblPhoneNumber.setFont(DEFAULT_FONT);
-			lblPhoneNumber.setText(FormProperties.getString("Form.LABEL_PHONE_NUMBER_TEXT")); //$NON-NLS-1$
-			lblPhoneNumber.setLabelFor(fmtTextPhoneNumber);
-			lblPhoneNumber.setBounds(23, 31, 62, 14);
+	private JLabel getLblPriorityPhoneNumber() {
+		if (lblPriorityPhoneNumber == null) {
+			lblPriorityPhoneNumber = new JLabel();
+			lblPriorityPhoneNumber.setFont(DEFAULT_FONT);
+			lblPriorityPhoneNumber.setText(FormProperties.getString("Form.LABEL_PHONE_NUMBER_TEXT")); //$NON-NLS-1$
+			lblPriorityPhoneNumber.setLabelFor(fmtTextPriorityPhoneNumber);
+			lblPriorityPhoneNumber.setBounds(23, 31, 62, 14);
 
 		}
-		return lblPhoneNumber;
+		return lblPriorityPhoneNumber;
+	}
+
+	private JLabel getLblBlackListPhoneNumber() {
+		if (lblBlackListPhoneNumber== null) {
+			lblBlackListPhoneNumber= new JLabel();
+			lblBlackListPhoneNumber.setFont(DEFAULT_FONT);
+			lblBlackListPhoneNumber.setText(FormProperties.getString("Form.LABEL_PHONE_NUMBER_TEXT")); //$NON-NLS-1$
+			lblBlackListPhoneNumber.setLabelFor(fmtTextPriorityPhoneNumber);
+			lblBlackListPhoneNumber.setBounds(23, 31, 62, 14);
+
+		}
+		return lblBlackListPhoneNumber;
 	}
 
 	private JLabel getLblReceiverEmailAddress() {
@@ -500,10 +593,10 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 	}
 
 	private DefaultListModel<String> getLstNotificationReceiversModel() {
-		if (this.lstNotificationReceiversModel == null) {
-			this.lstNotificationReceiversModel = new DefaultListModel<String>();
+		if (lstNotificationReceiversModel == null) {
+			lstNotificationReceiversModel = new DefaultListModel<String>();
 		}
-		return this.lstNotificationReceiversModel;
+		return lstNotificationReceiversModel;
 	}
 
 	private JList<String> getLstSMSPriorityContactsList() {
@@ -518,29 +611,61 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 		return lstSMSPriorityContactsList;
 	}
 
+	private JList<String> getLstSMSBlackListContacts() {
+		if (lstSMSBlackListContacts == null) {
+			lstSMSBlackListContacts = new JList<String>();
+			lstSMSBlackListContacts.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+			lstSMSBlackListContacts.setToolTipText(FormProperties.getString("Form.SMS_BLACK_LST_CONTACTS_TOOL_TIP")); //$NON-NLS-1$
+			lstSMSBlackListContacts.setFont(DEFAULT_FONT);
+			lstSMSBlackListContacts.setLayoutOrientation(JList.VERTICAL);
+			lstSMSBlackListContacts.setModel(getLstSMSBlackListContactsModel());
+		}
+		return lstSMSBlackListContacts;
+	}
+
 	private DefaultListModel<String> getLstSMSPriorityContactsListModel() {
-		if (this.lstSMSPriorityContactsListModel == null) {
-			this.lstSMSPriorityContactsListModel = new DefaultListModel<String>();
+		if (lstSMSPriorityContactsListModel == null) {
+			lstSMSPriorityContactsListModel = new DefaultListModel<String>();
 
 		}
-		return this.lstSMSPriorityContactsListModel;
+		return lstSMSPriorityContactsListModel;
+	}
+
+	
+	private DefaultListModel<String> getLstSMSBlackListContactsModel() {
+		if (lstSMSBlackListContactsModel == null) {
+			lstSMSBlackListContactsModel = new DefaultListModel<String>();
+
+		}
+		return lstSMSBlackListContactsModel;
 	}
 
 	private JPanel getPriorityContacts() {
 		if (priorityContacts == null) {
 			priorityContacts = new JPanel();
 			priorityContacts.setLayout(null);
-			priorityContacts.add(getLblPhoneNumber());
-			priorityContacts.add(getFmtTextPhoneNumber());
-			priorityContacts.add(getBtnAddContact());
-			priorityContacts.add(getScrollPane());
-			btnRemovePhoneNumber.setToolTipText(FormProperties.getString("Form.REMOVE_PHONE_NUMBER_BTN_TOOL_TIP")); //$NON-NLS-1$
-			priorityContacts.add(getBtnRemovePhoneNumber());
-			btnImportPhoneNumbers.setToolTipText(FormProperties.getString("Form.IMPORT_PHONE_NUMBERS_BTN_TOOL_TIP")); //$NON-NLS-1$
-			priorityContacts.add(getBtnImportPhoneNumbers());
+			priorityContacts.add(getLblPriorityPhoneNumber());
+			priorityContacts.add(getFmtTextPriorityPhoneNumber());
+			priorityContacts.add(getBtnAddPriorityContact());
+			priorityContacts.add(getScrollPanePriorityContacts());
+			priorityContacts.add(getBtnRemovePriorityPhoneNumber());
+			priorityContacts.add(getBtnImportPriorityPhoneNumbers());
 
 		}
 		return priorityContacts;
+	}
+
+	private JPanel getBlackListContacts() {
+		if (blackListContacts == null) {
+			blackListContacts = new JPanel();
+			blackListContacts.setLayout(null);
+			blackListContacts.add(getLblBlackListPhoneNumber());
+			blackListContacts.add(getFmtTextBlackListPhoneNumber());
+			blackListContacts.add(getBtnAddContactInBlackList());
+			blackListContacts.add(getScrollPaneContactsInBlackList());
+			blackListContacts.add(getBtnRemovePhoneNumberFromBlackList());
+		}
+		return blackListContacts;
 	}
 
 	private JPanel getReceiversPanel() {
@@ -560,13 +685,22 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 		return receiversPanel;
 	}
 
-	private JScrollPane getScrollPane() {
-		if (scrollPane == null) {
-			scrollPane = new JScrollPane();
-			scrollPane.setBounds(23, 59, 163, 207);
-			scrollPane.setViewportView(getLstSMSPriorityContactsList());
+	private JScrollPane getScrollPanePriorityContacts() {
+		if (scrollPanePriorityContacts == null) {
+			scrollPanePriorityContacts = new JScrollPane();
+			scrollPanePriorityContacts.setBounds(23, 59, 163, 207);
+			scrollPanePriorityContacts.setViewportView(getLstSMSPriorityContactsList());
 		}
-		return scrollPane;
+		return scrollPanePriorityContacts;
+	}
+	
+	private JScrollPane getScrollPaneContactsInBlackList() {
+		if (scrollPaneContactsInBlackList == null) {
+			scrollPaneContactsInBlackList = new JScrollPane();
+			scrollPaneContactsInBlackList.setBounds(23, 59, 163, 207);
+			scrollPaneContactsInBlackList.setViewportView(getLstSMSBlackListContacts());
+		}
+		return scrollPaneContactsInBlackList;
 	}
 
 	@Override
@@ -687,6 +821,12 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 			setTextMessage(SystemPrevayler.getSystemPrevaylerModel().getTextMessage());
 		} catch (Exception e) {
 		}
+		try {
+			SystemPrevayler.getSystemPrevaylerModel().loadBlackListContactsFromXml();
+			setSMSContactsInBlackList(SystemPrevayler.getSystemPrevaylerModel().getBlackListContacts());
+		} catch (Exception e) {
+		}
+
 	}
 
 	@Override
@@ -717,10 +857,18 @@ public class SMSCampaignWindowForm implements IFormDataWrapper {
 	}
 
 	@Override
-	public void setSMSPriorityContactsList(List<String> smsContactsBlackList) {
+	public void setSMSPriorityContactsList(List<String> smsPriorityContact) {
 		getLstSMSPriorityContactsListModel().clear();
-		for (String item : smsContactsBlackList) {
+		for (String item : smsPriorityContact) {
 			getLstSMSPriorityContactsListModel().addElement(item);
+		}
+	}
+
+	
+	public void setSMSContactsInBlackList(TreeSet<Contato> contatos) {
+		getLstSMSBlackListContactsModel().clear();
+		for (Contato item : contatos) {
+			getLstSMSBlackListContactsModel().addElement(item.getFormattedContact());
 		}
 	}
 

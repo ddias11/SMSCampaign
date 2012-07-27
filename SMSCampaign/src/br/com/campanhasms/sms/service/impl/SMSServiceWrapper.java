@@ -10,6 +10,7 @@ import org.smslib.Service;
 import org.smslib.Service.ServiceStatus;
 import org.smslib.modem.SerialModemGateway;
 
+import br.com.campanhasms.properties.PrevaylerProperties;
 import br.com.campanhasms.sms.notification.CallNotification;
 import br.com.campanhasms.sms.notification.GatewayStatusNotification;
 import br.com.campanhasms.sms.notification.InboundMessageNotification;
@@ -40,11 +41,12 @@ public class SMSServiceWrapper {
 		if (isServiceStopped()) {
 			LOGGER.info("Initializing SMS Service...");
 			SerialModemGateway gateway = new SerialModemGateway("Modem - " + COMPortName, COMPortName, 115200,
-					"Huawei", "");
+					"Huawei", "E160");
+			Service.getInstance().S.QUEUE_DIRECTORY = PrevaylerProperties.getString("SystemPrevayler.PREVAYLER_BASE_DIR");
+			Service.getInstance().S.MASK_IMSI = false;
 			gateway.setInbound(true);
 			gateway.setOutbound(true);
 			gateway.setSimPin("0000");
-			// gateway.getATHandler().setStorageLocations("SM");
 			Service.getInstance().setInboundMessageNotification(new InboundMessageNotification());
 			Service.getInstance().setOutboundMessageNotification(new OutboundMessageNotification());
 			Service.getInstance().setGatewayStatusNotification(new GatewayStatusNotification());

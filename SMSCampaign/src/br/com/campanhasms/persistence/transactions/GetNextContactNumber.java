@@ -7,6 +7,7 @@ import java.util.Random;
 import org.apache.log4j.Logger;
 import org.prevayler.Transaction;
 
+import br.com.campanhasms.model.Contato;
 import br.com.campanhasms.persistence.model.SystemPrevaylerModel;
 import br.com.campanhasms.properties.SMSServiceProperties;
 
@@ -82,7 +83,18 @@ public class GetNextContactNumber implements Transaction {
 	private boolean isCurrentContactInThePriorityList() {
 		return getIndexOfTheCurrentContact() != -1;
 	}
+	
+	private boolean isCurrentContactInTheBlackList() {
+		try {
+			Contato contato = new Contato(systemPrevaylerModel.getCurrentContact().toString());
+			return systemPrevaylerModel.getBlackListContacts().contains(contato);
+		} catch (Exception e) {
+			LOGGER.error("Error when parsing the current contact to Contato object", e);
+			return false;
+		}
+	}
 
+	
 	private boolean isTheLastPriorityContact() {
 		boolean isTheLastPriorityContact = getIndexOfTheCurrentContact() == systemPrevaylerModel
 				.getSMSPriorityContactsList().size() - 1;
@@ -100,11 +112,21 @@ public class GetNextContactNumber implements Transaction {
 	private void setNextRandomContact() {
 		int randomReduceNumber = getRandomNumber();
 		systemPrevaylerModel.setCurrentContact(systemPrevaylerModel.getCurrentContact() - randomReduceNumber);
-		while (isCurrentContactInThePriorityList()) {
+		boolean isCurrentContactInThePriorityList = false;
+		boolean isCurrentContactInTheBlackList = false;
+		while ((isCurrentContactInThePriorityList = isCurrentContactInThePriorityList()) || (isCurrentContactInTheBlackList = isCurrentContactInTheBlackList())) {
 			Long newCurrentContact = systemPrevaylerModel.getCurrentContact() - 1L;
-			LOGGER.info("The contact " + systemPrevaylerModel.getCurrentContact() + " is in the Priority List;"
-					+ " Changing to " + newCurrentContact);
+			if(isCurrentContactInThePriorityList) {
+				LOGGER.info("The contact " + systemPrevaylerModel.getCurrentContact() + " is in the Priority List;"
+						+ " Changing to " + newCurrentContact);
+			}
+			if(isCurrentContactInTheBlackList) {
+				LOGGER.info("The contact " + systemPrevaylerModel.getCurrentContact() + " is in the Black List;"
+						+ " Changing to " + newCurrentContact);
+			}
+			
 			systemPrevaylerModel.setCurrentContact(newCurrentContact);
+			isCurrentContactInThePriorityList = isCurrentContactInTheBlackList = false;
 		}
 
 	}

@@ -25,7 +25,7 @@ public class SmsRatingReport extends AbstractReportsRequirements {
 		} catch (Exception e) {
 			LOGGER.error("Error when trying to send Sms Rating Report", e);
 		}
-
+		LOGGER.info("Sms Rating Report sended ");
 	}
 
 }

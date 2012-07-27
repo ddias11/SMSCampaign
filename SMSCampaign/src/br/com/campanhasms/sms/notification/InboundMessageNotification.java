@@ -81,15 +81,15 @@ public class InboundMessageNotification implements IInboundMessageNotification {
 
 					switch (ReportRequiredType.parse(requiredFunction)) {
 					case SMS_RATING:
-						new SmsRatingReport().execute();
+						new Thread(new SmsRatingReport()).start();
 						break;
 
 					case EMAIL_RATING:
-						new EmailRatingReport().execute();
+						new Thread(new EmailRatingReport()).start();
 						break;
 
 					case NOT_DEFINED:
-						new NotSupportedReport().execute();
+						new Thread(new NotSupportedReport()).start();
 						break;
 					}
 				}

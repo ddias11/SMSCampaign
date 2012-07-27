@@ -32,5 +32,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="images"/>
 	<classpathentry kind="lib" path="res"/>
+	<classpathentry kind="lib" path="xstream-1.4.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

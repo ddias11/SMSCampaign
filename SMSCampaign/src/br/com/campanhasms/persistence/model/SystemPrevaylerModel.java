@@ -9,7 +9,9 @@ import org.smslib.InboundMessage;
 import org.smslib.Message.MessageTypes;
 import org.smslib.OutboundMessage;
 
+import br.com.campanhasms.model.Contato;
 import br.com.campanhasms.properties.Messages;
+import br.com.campanhasms.sms.contacts.BlackListContactsListBuilder;
 import br.com.campanhasms.sms.model.ReceivedMessage;
 import br.com.campanhasms.sms.model.SendedMessage;
 import br.com.campanhasms.view.forms.exception.FormDataException;
@@ -28,6 +30,50 @@ public class SystemPrevaylerModel implements Serializable, IFormDataWrapper {
 	private TreeSet<SendedMessage> lastSendedMessages;
 
 	private List<String> listNotificationReceivers;
+	
+	private TreeSet<Contato> blackListContacts;
+
+	public TreeSet<Contato> getBlackListContacts() {
+		if (blackListContacts == null) {
+			blackListContacts = new TreeSet<Contato>();
+			loadBlackListContactsFromXml();
+			
+		}
+		return blackListContacts;
+	}
+
+	public void loadBlackListContactsFromXml() {
+		try {
+			blackListContacts = BlackListContactsListBuilder.getPersistedContactsInBlackList();
+		} catch (Exception e) {
+			blackListContacts = new TreeSet<Contato>();
+			LOGGER.error("Setting empty BlackList");
+		}
+	}
+
+	public boolean addContactInBlackList(Contato contato) {
+		boolean contactWasAdded = getBlackListContacts().add(contato);
+		if(contactWasAdded) {
+			persistXML();
+		}
+		return contactWasAdded;
+	}
+	
+	public void persistXML() {
+		try {
+			BlackListContactsListBuilder.persistContactsInBlackList(getBlackListContacts());
+		} catch (Exception e) {
+			LOGGER.error("The BlackList was not synchronized");
+		}
+	}
+
+	public boolean removeContactFromBlackList(Contato contato) {
+		boolean contactWasRemoved = getBlackListContacts().remove(contato);
+		if(contactWasRemoved) {
+			persistXML();
+		}
+		return contactWasRemoved;
+	}
 
 	private Integer messagesConfirmedCounter;
 
