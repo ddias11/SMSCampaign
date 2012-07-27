@@ -12,8 +12,8 @@ public class SmsRatingReport extends AbstractReportsRequirements {
 	private static final Logger LOGGER = Logger.getLogger(SmsRatingReport.class);
 
 	public void execute() {
-		LOGGER.info("Trying to send Sms Rating Report");
 		try {
+			LOGGER.info("Trying to send Sms Rating Report");
 			String message = "";
 			message += "\nMsgs Sended: " + SystemPrevayler.getSystemPrevaylerModel().getSendedMessagesCouter();
 			message += "\nMsgs Received: " + SystemPrevayler.getSystemPrevaylerModel().getReceivedMessagesCounter();
@@ -22,10 +22,10 @@ public class SmsRatingReport extends AbstractReportsRequirements {
 			for (Contato contato : AdminContactsListBuilder.getAdminContacts()) {
 				SMSServiceWrapper.sendMessage(contato.getFormattedContact(), message);
 			}
+			LOGGER.info("Sms Rating Report sended ");
 		} catch (Exception e) {
 			LOGGER.error("Error when trying to send Sms Rating Report", e);
 		}
-		LOGGER.info("Sms Rating Report sended ");
 	}
 
 }

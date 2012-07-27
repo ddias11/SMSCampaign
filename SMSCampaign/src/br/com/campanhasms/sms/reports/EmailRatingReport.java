@@ -9,13 +9,13 @@ public class EmailRatingReport extends AbstractReportsRequirements {
 	private static final Logger LOGGER = Logger.getLogger(EmailRatingReport.class);
 
 	public void execute() {
-		LOGGER.info("Trying to send Email Rating Report");
 		try {
+			LOGGER.info("Trying to send Email Rating Report");
 			new RatingMailMessage().send();
+			LOGGER.info("Email Rating Report sended ");
 		} catch (Exception e1) {
 			LOGGER.error("Error when trying to send Email Rating Report", e1);
 		}
-		LOGGER.info("Email Rating Report sended ");
 	}
 
 }

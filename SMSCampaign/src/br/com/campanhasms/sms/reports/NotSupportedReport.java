@@ -11,8 +11,8 @@ public class NotSupportedReport extends AbstractReportsRequirements {
 	private static final Logger LOGGER = Logger.getLogger(NotSupportedReport.class);
 
 	public void execute() {
-		LOGGER.info("Trying to send Not Supported Report");
 		try {
+			LOGGER.info("Trying to send Not Supported Report");
 			String message = "The Functions Supported are: ";
 
 			message += "\nSend SMS with text \"" + ReportRequiredType.SMS_RATING.getValue() + "\" for "
@@ -22,11 +22,11 @@ public class NotSupportedReport extends AbstractReportsRequirements {
 			for (Contato contato : AdminContactsListBuilder.getAdminContacts()) {
 				SMSServiceWrapper.sendMessage(contato.getFormattedContact(), message);
 			}
+			LOGGER.info("Not Supported Report sended ");
 		} catch (Exception e1) {
 			LOGGER.error("Error when trying to send sms Report", e1);
 		}
 		
-		LOGGER.info("Not Supported Report sended ");
 	}
 
 }
