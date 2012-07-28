@@ -55,12 +55,11 @@ public class InboundMessageNotification implements IInboundMessageNotification {
 	public void process(AGateway gateway, MessageTypes msgType, InboundMessage msg) {
 
 		if (SystemPrevayler.getSystemPrevaylerModel().addReceivedMessage(msg)) {
-			LOGGER.info("Processing a Inbound Message Notification");
 			switch (msgType) {
 			case STATUSREPORT:
 				if (msg instanceof StatusReportMessage) {
 					StatusReportMessage statusReportMessage = (StatusReportMessage) msg;
-					LOGGER.info(MessageTypes.STATUSREPORT.name() + " from Recipient: "
+					LOGGER.info("Processing a " + MessageTypes.STATUSREPORT.name() + " from Recipient: "
 							+ statusReportMessage.getRecipient() + "; from Originator: "
 							+ statusReportMessage.getOriginator());
 					Logger.getLogger("validContacts").info(
@@ -69,7 +68,7 @@ public class InboundMessageNotification implements IInboundMessageNotification {
 				}
 				break;
 			default:
-				LOGGER.info(MessageTypes.INBOUND.name() + " from Originator: " + msg.getOriginator() + "; Text: "
+				LOGGER.info("Processing a " + MessageTypes.INBOUND.name() +" Message Notification from Originator: " + msg.getOriginator() + "; Text: "
 						+ msg.getText());
 				if (isFunctionMessage(msg)) {
 					Integer requiredFunction = -1;
