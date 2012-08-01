@@ -21,6 +21,7 @@ public class BlackListContactsListBuilder {
 
 		try {
 			XStream xstream = new XStream(new StaxDriver());
+			xstream.autodetectAnnotations(true);
 			return (TreeSet<Contato>) xstream.fromXML(new File(CONTACTS_IN_BLACK_LIST_XML));
 		} catch (Exception e) {
 			LOGGER.error("Error when reading Black List Contacts from file: " + CONTACTS_IN_BLACK_LIST_XML, e);
@@ -32,6 +33,7 @@ public class BlackListContactsListBuilder {
 
 		try {
 			XStream xstream = new XStream(new StaxDriver());
+			xstream.autodetectAnnotations(true);
 			File file = new File(CONTACTS_IN_BLACK_LIST_XML);
 			if(!file.exists()) {
 				file.createNewFile();

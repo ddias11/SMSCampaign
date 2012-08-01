@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import org.apache.log4j.Logger;
 
 import br.com.campanhasms.model.Contato;
+import br.com.campanhasms.sms.contacts.normalization.model.ContactFactory;
 
 public class ContactsListBuilder {
 
@@ -23,7 +24,11 @@ public class ContactsListBuilder {
 			String readedLine;
 			while ((readedLine = bufReader.readLine()) != null) {
 				if (!"".equals(readedLine)) {
-					treeSet.add(new Contato(readedLine));
+					try {
+						treeSet.add(ContactFactory.getInstance().createContact(new Long(readedLine)));
+					} catch (NumberFormatException e) {
+						LOGGER.error("Error when creating admin contact ", e);
+					}
 				}
 			}
 			bufReader.close();

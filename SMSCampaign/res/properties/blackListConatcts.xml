@@ -1,1 +1,6 @@
-<?xml version="1.0" ?><sorted-set><br.com.campanhasms.model.Contato><ddd>11</ddd><ddi>55</ddi><lineNumber>1233</lineNumber><prefix>9505</prefix></br.com.campanhasms.model.Contato></sorted-set>
+<?xml version="1.0" ?>
+<sorted-set>
+	<br.com.campanhasms.model.Contato>
+		<contactNumber>5511986446670</contactNumber>
+	</br.com.campanhasms.model.Contato>
+</sorted-set>

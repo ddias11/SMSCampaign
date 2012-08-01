@@ -11,6 +11,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 import br.com.campanhasms.model.Contato;
+import br.com.campanhasms.sms.contacts.normalization.model.ContactFactory;
 
 public class AdminContactsListBuilder {
 
@@ -29,8 +30,13 @@ public class AdminContactsListBuilder {
 
 			NodeList contactsNodeList = doc.getElementsByTagName("Contact");
 			for (int i = 0; i < contactsNodeList.getLength(); i++) {
+				try {
+					
 				String readedValue = contactsNodeList.item(i).getChildNodes().item(0).getNodeValue();
-				treeSet.add(new Contato(readedValue));
+				treeSet.add(ContactFactory.getInstance().createContact(new Long(readedValue)));
+				} catch (NumberFormatException e) {
+					LOGGER.error("Error when creating admin contact ", e);
+				}
 			}
 
 			return treeSet.toArray(new Contato[treeSet.size()]);

@@ -9,6 +9,7 @@ import org.smslib.StatusReportMessage;
 
 import br.com.campanhasms.model.Contato;
 import br.com.campanhasms.properties.SMSServiceProperties;
+import br.com.campanhasms.sms.contacts.normalization.model.ContactFactory;
 
 public class ReceivedMessage implements Serializable, Comparable<ReceivedMessage> {
 
@@ -26,20 +27,24 @@ public class ReceivedMessage implements Serializable, Comparable<ReceivedMessage
 
 	public ReceivedMessage(InboundMessage message) {
 		this.messageType = message.getType();
-		if (MessageTypes.STATUSREPORT.equals(message.getType())) {
+		if (MessageTypes.STATUSREPORT.equals(message.getType()) && message instanceof StatusReportMessage) {
 			try {
 				StatusReportMessage statusReportMessage = (StatusReportMessage) message;
 				this.messageTimeInMilis = statusReportMessage.getSent().getTime();
-				this.messageOriginator = new Contato(String.format("%8s", statusReportMessage.getRecipient())
-						.replaceAll("\\s", "0"));
+				Long contactNumber = 0l;
+				try {
+					contactNumber = Long.valueOf(statusReportMessage.getRecipient().replaceAll("\\D", ""));
+				} catch (Exception e) {
+					LOGGER.error("Erro when parsing " + statusReportMessage.getRecipient() + "to Long Value; Zero(0) will be considered;", e);
+				}
+				this.messageOriginator = ContactFactory.getInstance().createContact(contactNumber);
 			} catch (Exception e) {
 				LOGGER.error("Erro when instantiate " + ReceivedMessage.class.getSimpleName() + ";", e);
 			}
 		} else {
 			try {
 				this.messageTimeInMilis = message.getDate().getTime() / 100000;
-				this.messageOriginator = new Contato(String.format("%8s", message.getOriginator())
-						.replaceAll("\\s", "0"));
+				this.messageOriginator = new Contato(new Long(message.getOriginator().replaceAll("\\D", "")));
 			} catch (Exception e) {
 				LOGGER.error("Erro when instantiate " + ReceivedMessage.class.getSimpleName() + ";", e);
 			}

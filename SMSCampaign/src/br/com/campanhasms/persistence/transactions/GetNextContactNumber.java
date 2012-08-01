@@ -10,6 +10,7 @@ import org.prevayler.Transaction;
 import br.com.campanhasms.model.Contato;
 import br.com.campanhasms.persistence.model.SystemPrevaylerModel;
 import br.com.campanhasms.properties.SMSServiceProperties;
+import br.com.campanhasms.sms.contacts.normalization.model.ContactFactory;
 
 public class GetNextContactNumber implements Transaction {
 
@@ -86,7 +87,7 @@ public class GetNextContactNumber implements Transaction {
 	
 	private boolean isCurrentContactInTheBlackList() {
 		try {
-			Contato contato = new Contato(systemPrevaylerModel.getCurrentContact().toString());
+			Contato contato = ContactFactory.getInstance().createContact(systemPrevaylerModel.getCurrentContact());
 			return systemPrevaylerModel.getBlackListContacts().contains(contato);
 		} catch (Exception e) {
 			LOGGER.error("Error when parsing the current contact to Contato object", e);

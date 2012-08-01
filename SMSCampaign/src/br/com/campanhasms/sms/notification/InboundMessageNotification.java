@@ -35,7 +35,7 @@ public class InboundMessageNotification implements IInboundMessageNotification {
 
 	private boolean isFromAdminContact(String originator) {
 		for (Contato contato : AdminContactsListBuilder.getAdminContacts()) {
-			if (originator.trim().matches("\\d*" + contato.getPrefix().toString() + contato.getLineNumber().toString())) {
+			if (originator.trim().matches("\\d*" + contato.getContactNumber().toString())) {
 				return true;
 			}
 		}

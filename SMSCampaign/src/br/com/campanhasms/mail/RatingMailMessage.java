@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.smslib.Message.MessageTypes;
 
 import br.com.campanhasms.persistence.SystemPrevayler;
@@ -12,6 +13,8 @@ import br.com.campanhasms.properties.MailProperties;
 import br.com.campanhasms.sms.model.ReceivedMessage;
 
 public class RatingMailMessage {
+	
+	private final Logger LOGGER = Logger.getLogger(getClass());
 
 	public void send() throws Exception {
 		SystemPrevaylerModel systemPrevaylerModel = SystemPrevayler.getSystemPrevaylerModel();
@@ -24,11 +27,15 @@ public class RatingMailMessage {
 		messageContent += "<TBODY>";
 
 		for (ReceivedMessage message : systemPrevaylerModel.getReceivedMessages()) {
-			if (MessageTypes.INBOUND.equals(message.getMessageType())) {
-				messageContent += "<TR>";
-				messageContent += "<TD>" + message.getMessageOriginator().getFormattedContact() + "</TD>";
-				messageContent += "<TD>" + message.getMessateText() + "</TD>";
-				messageContent += "</TR>";
+			try {
+				if (MessageTypes.INBOUND.equals(message.getMessageType())) {
+					messageContent += "<TR>";
+					messageContent += "<TD>" + message.getMessageOriginator().getFormattedContact() + "</TD>";
+					messageContent += "<TD>" + message.getMessateText() + "</TD>";
+					messageContent += "</TR>";
+				}
+			} catch (Exception e) {
+				LOGGER.error("Error when addind content of message into the Mail Report", e);
 			}
 		}
 

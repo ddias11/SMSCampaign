@@ -24,8 +24,7 @@ public class SendedMessage implements Serializable, Comparable<SendedMessage> {
 		try {
 			
 		this.messageTimeInMilis = message.getDate().getTime() / 10000;
-		this.destination = new Contato(String.format("%8s", message.getRecipient())
-				.replaceAll("\\s", "0"));
+		this.destination = new Contato(new Long(message.getRecipient().replaceAll("\\D", "")));
 		} catch (Exception e) {
 			LOGGER.error("Erro when instantiate " + SendedMessage.class.getSimpleName() + ";", e);
 		}
