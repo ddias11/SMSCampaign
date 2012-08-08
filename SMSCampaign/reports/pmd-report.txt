@@ -1,0 +1,617 @@
+
+src/br/com/campanhasms/mail/MailServiceWrapper.java:21	Avoid excessively long variable names like mailMessageInstace
+src/br/com/campanhasms/mail/MailServiceWrapper.java:25	Local variable 'appDirectory' could be declared final
+src/br/com/campanhasms/mail/MailServiceWrapper.java:28	Local variable 'listFiles' could be declared final
+src/br/com/campanhasms/mail/MailServiceWrapper.java:32	Local variable 'attachment' could be declared final
+src/br/com/campanhasms/mail/MailServiceWrapper.java:33	Avoid excessively long variable names like lastZippedLogFiles
+src/br/com/campanhasms/mail/MailServiceWrapper.java:33	Local variable 'lastZippedLogFiles' could be declared final
+src/br/com/campanhasms/mail/MailServiceWrapper.java:43	Avoid using final local variables, turn them into fields
+src/br/com/campanhasms/mail/MailServiceWrapper.java:43	Found 'DU'-anomaly for variable 'NO_INDEX' (lines '43'-'50').
+src/br/com/campanhasms/mail/MailServiceWrapper.java:44	Local variable 'existentZipFiles' could be declared final
+src/br/com/campanhasms/mail/MailServiceWrapper.java:46	A method should have only one exit point, and that should be the last statement in the method
+src/br/com/campanhasms/mail/MailServiceWrapper.java:48	Do not add empty strings
+src/br/com/campanhasms/mail/MailServiceWrapper.java:52	Parameter 'appDirectory' is not assigned and could be declared final
+src/br/com/campanhasms/mail/MailServiceWrapper.java:55	Parameter 'file' is not assigned and could be declared final
+src/br/com/campanhasms/mail/MailServiceWrapper.java:69	Avoid variables with short names like to
+src/br/com/campanhasms/mail/MailServiceWrapper.java:70	Avoid excessively long variable names like messageContentToSend
+src/br/com/campanhasms/mail/MailServiceWrapper.java:96	Avoid excessively long variable names like mailMessageInstace
+src/br/com/campanhasms/mail/MailServiceWrapper.java:96	Parameter 'mailMessageInstace' is not assigned and could be declared final
+src/br/com/campanhasms/mail/RatingMailMessage.java:17	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/mail/RatingMailMessage.java:17	The Logger variable declaration does not contain the static and final modifiers
+src/br/com/campanhasms/mail/RatingMailMessage.java:19	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/mail/RatingMailMessage.java:19	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/mail/RatingMailMessage.java:20	Avoid excessively long variable names like systemPrevaylerModel
+src/br/com/campanhasms/mail/RatingMailMessage.java:20	Local variable 'systemPrevaylerModel' could be declared final
+src/br/com/campanhasms/mail/RatingMailMessage.java:21	Local variable 'messageContent' could be declared final
+src/br/com/campanhasms/mail/RatingMailMessage.java:21	StringBuffer constructor is initialized with size 16, but has at least 340 characters appended.
+src/br/com/campanhasms/mail/RatingMailMessage.java:23	StringBuffer.append is called 5 consecutive times with literal Strings. Use a single append with a single String.
+src/br/com/campanhasms/mail/RatingMailMessage.java:32	StringBuffer.append is called 2 consecutive times with literal Strings. Use a single append with a single String.
+src/br/com/campanhasms/mail/RatingMailMessage.java:33	StringBuffer.append is called 2 consecutive times with literal Strings. Use a single append with a single String.
+src/br/com/campanhasms/mail/RatingMailMessage.java:33	The String literal "</TD>" appears 5 times in this file; the first occurrence is on line 33
+src/br/com/campanhasms/mail/RatingMailMessage.java:33	The String literal "<TD>" appears 5 times in this file; the first occurrence is on line 33
+src/br/com/campanhasms/mail/RatingMailMessage.java:34	StringBuffer.append is called 2 consecutive times with literal Strings. Use a single append with a single String.
+src/br/com/campanhasms/mail/RatingMailMessage.java:42	StringBuffer.append is called 9 consecutive times with literal Strings. Use a single append with a single String.
+src/br/com/campanhasms/mail/RatingMailMessage.java:60	Avoid excessively long variable names like mailServiceWrapper
+src/br/com/campanhasms/mail/RatingMailMessage.java:60	Local variable 'mailServiceWrapper' could be declared final
+src/br/com/campanhasms/mail/RatingMailMessage.java:62	Avoid variables with short names like to
+src/br/com/campanhasms/mail/RatingMailMessage.java:62	Local variable 'to' could be declared final
+src/br/com/campanhasms/mail/RatingMailMessage.java:66	Local variable 'subject' could be declared final
+src/br/com/campanhasms/model/Contato.java:12	Avoid excessively long variable names like FORMAT_NORMALIZED_CONTACT
+src/br/com/campanhasms/model/Contato.java:13	Avoid excessively long variable names like LOWER_BOUND_CONTACT
+src/br/com/campanhasms/model/Contato.java:13	Avoid instantiating Long objects.Call Long.valueOf() instead
+src/br/com/campanhasms/model/Contato.java:17	Avoid excessively long variable names like UPPER_BOUND_CONTACT
+src/br/com/campanhasms/model/Contato.java:17	Avoid instantiating Long objects.Call Long.valueOf() instead
+src/br/com/campanhasms/model/Contato.java:18	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/model/Contato.java:18	Private field 'contactNumber' could be made final; it is only initialized in the declaration or constructor.
+src/br/com/campanhasms/model/Contato.java:20	Parameter 'contactNumber' is not assigned and could be declared final
+src/br/com/campanhasms/model/Contato.java:26	Singleton is not thread safe
+src/br/com/campanhasms/model/Contato.java:33	Parameter 'contato' is not assigned and could be declared final
+src/br/com/campanhasms/model/Contato.java:42	Local variable 'matcher' could be declared final
+src/br/com/campanhasms/model/Contato.java:44	A method should have only one exit point, and that should be the last statement in the method
+src/br/com/campanhasms/model/Contato.java:44	Avoid instantiating Long objects.Call Long.valueOf() instead
+src/br/com/campanhasms/model/Contato.java:44	Avoid using if...else statements without curly braces
+src/br/com/campanhasms/model/Contato.java:46	Avoid using if...else statements without curly braces
+src/br/com/campanhasms/model/Contato.java:54	Avoid instantiating Long objects.Call Long.valueOf() instead
+src/br/com/campanhasms/model/Contato.java:63	Parameter 'obj' is not assigned and could be declared final
+src/br/com/campanhasms/model/Contato.java:66	A method should have only one exit point, and that should be the last statement in the method
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:26	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:28	Avoid excessively long variable names like commPortIdentifier
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:28	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:32	Avoid excessively long variable names like lastSendedMessages
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:32	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:34	Avoid excessively long variable names like listNotificationReceivers
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:36	Avoid excessively long variable names like messagesConfirmedCounter
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:36	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:38	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:40	Avoid excessively long variable names like sendedMessagesCouter
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:46	Avoid unnecessary constructors - the compiler will generate these for you
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:46	Document empty constructor
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:50	Parameter 'contato' is not assigned and could be declared final
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:51	Local variable 'contactWasAdded' could be declared final
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:58	Parameter 'inboundMessage' is not assigned and could be declared final
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:62	Parameter 'outboundMessage' is not assigned and could be declared final
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:63	Local variable 'isAdded' could be declared final
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:92	Avoid using if statements without curly braces
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:102	Parameter 'messageType' is not assigned and could be declared final
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:103	Found 'DD'-anomaly for variable 'counter' (lines '103'-'106').
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:106	Found 'DD'-anomaly for variable 'counter' (lines '106'-'106').
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:166	Parameter 'contato' is not assigned and could be declared final
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:167	Local variable 'contactWasRemoved' could be declared final
+src/br/com/campanhasms/persistence/model/SystemPrevaylerModel.java:190	Substitute calls to size() == 0 (or size() != 0) with calls to isEmpty()
+src/br/com/campanhasms/persistence/transactions/ApplyFormChangesToSystemPrevayler.java:14	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/persistence/transactions/ApplyFormChangesToSystemPrevayler.java:14	Private field 'formDataWrapper' could be made final; it is only initialized in the declaration or constructor.
+src/br/com/campanhasms/persistence/transactions/ApplyFormChangesToSystemPrevayler.java:16	Parameter 'formDataWrapper' is not assigned and could be declared final
+src/br/com/campanhasms/persistence/transactions/ApplyFormChangesToSystemPrevayler.java:22	Parameter 'arg1' is not assigned and could be declared final
+src/br/com/campanhasms/persistence/transactions/ApplyFormChangesToSystemPrevayler.java:22	Parameter 'businessModel' is not assigned and could be declared final
+src/br/com/campanhasms/persistence/transactions/ApplyFormChangesToSystemPrevayler.java:23	Avoid excessively long variable names like systemPrevaylerModel
+src/br/com/campanhasms/persistence/transactions/ApplyFormChangesToSystemPrevayler.java:23	Local variable 'systemPrevaylerModel' could be declared final
+src/br/com/campanhasms/persistence/transactions/ApplyFormChangesToSystemPrevayler.java:26	Avoid empty catch blocks
+src/br/com/campanhasms/persistence/transactions/ApplyFormChangesToSystemPrevayler.java:31	Avoid empty catch blocks
+src/br/com/campanhasms/persistence/transactions/ApplyFormChangesToSystemPrevayler.java:37	Avoid empty catch blocks
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:20	Avoid excessively long variable names like systemPrevaylerModel
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:20	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:24	Parameter 'arg1' is not assigned and could be declared final
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:24	Parameter 'businessModel' is not assigned and could be declared final
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:62	Avoid excessively long variable names like hasNoCurrentContact
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:62	Local variable 'hasNoCurrentContact' could be declared final
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:69	Local variable 'hasNoPriorityList' could be declared final
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:76	Avoid excessively long variable names like firstPriorityContact
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:76	Local variable 'firstPriorityContact' could be declared final
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:83	Avoid excessively long variable names like initialRandomContact
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:83	Local variable 'initialRandomContact' could be declared final
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:92	A method should have only one exit point, and that should be the last statement in the method
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:105	Avoid excessively long variable names like isTheLastPriorityContact
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:105	Local variable 'isTheLastPriorityContact' could be declared final
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:122	Found 'DD'-anomaly for variable 'isCurrentContactInThePriorityList' (lines '122'-'126').
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:124	Found 'DD'-anomaly for variable 'isCurrentContactInTheBlackList' (lines '124'-'126').
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:126	Avoid assignments in operands
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:126	Found 'DU'-anomaly for variable 'isCurrentContactInTheBlackList' (lines '126'-'140').
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:126	Found 'DU'-anomaly for variable 'isCurrentContactInThePriorityList' (lines '126'-'140').
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:137	Found 'DD'-anomaly for variable 'isCurrentContactInTheBlackList' (lines '137'-'126').
+src/br/com/campanhasms/persistence/transactions/GetNextContactNumber.java:137	Found 'DD'-anomaly for variable 'isCurrentContactInThePriorityList' (lines '137'-'126').
+src/br/com/campanhasms/properties/ApplicationProperties.java:4	A class which only has private constructors should be final
+src/br/com/campanhasms/properties/ApplicationProperties.java:10	Parameter 'key' is not assigned and could be declared final
+src/br/com/campanhasms/properties/FormProperties.java:4	A class which only has private constructors should be final
+src/br/com/campanhasms/properties/FormProperties.java:12	Parameter 'key' is not assigned and could be declared final
+src/br/com/campanhasms/properties/JobsScheduleProperties.java:3	Avoid unused imports such as 'java.io.File'
+src/br/com/campanhasms/properties/JobsScheduleProperties.java:3	Avoid unused imports such as 'java.io.File'
+src/br/com/campanhasms/properties/JobsScheduleProperties.java:4	Avoid unused imports such as 'java.io.FileInputStream'
+src/br/com/campanhasms/properties/JobsScheduleProperties.java:4	Avoid unused imports such as 'java.io.FileInputStream'
+src/br/com/campanhasms/properties/JobsScheduleProperties.java:5	Avoid unused imports such as 'java.util.Properties'
+src/br/com/campanhasms/properties/JobsScheduleProperties.java:5	Avoid unused imports such as 'java.util.Properties'
+src/br/com/campanhasms/properties/JobsScheduleProperties.java:7	A class which only has private constructors should be final
+src/br/com/campanhasms/properties/JobsScheduleProperties.java:15	Parameter 'key' is not assigned and could be declared final
+src/br/com/campanhasms/properties/MailProperties.java:4	A class which only has private constructors should be final
+src/br/com/campanhasms/properties/MailProperties.java:12	Parameter 'key' is not assigned and could be declared final
+src/br/com/campanhasms/properties/Messages.java:4	A class which only has private constructors should be final
+src/br/com/campanhasms/properties/Messages.java:12	Parameter 'key' is not assigned and could be declared final
+src/br/com/campanhasms/properties/PrevaylerProperties.java:4	A class which only has private constructors should be final
+src/br/com/campanhasms/properties/PrevaylerProperties.java:12	Parameter 'key' is not assigned and could be declared final
+src/br/com/campanhasms/properties/PropertiesReader.java:7	All methods are static.  Consider using Singleton instead.  Alternatively, you could add a private constructor or make the class abstract to silence this warning.
+src/br/com/campanhasms/properties/PropertiesReader.java:15	Found 'DD'-anomaly for variable 'property' (lines '15'-'17').
+src/br/com/campanhasms/properties/SMSServiceProperties.java:4	A class which only has private constructors should be final
+src/br/com/campanhasms/properties/SMSServiceProperties.java:12	Parameter 'key' is not assigned and could be declared final
+src/br/com/campanhasms/scheduler/jobs/MailMessagesReceivedJob.java:16	Parameter 'arg0' is not assigned and could be declared final
+src/br/com/campanhasms/scheduler/jobs/QueryRemainCreditJob.java:19	Parameter 'arg0' is not assigned and could be declared final
+src/br/com/campanhasms/scheduler/jobs/QueryRemainCreditJob.java:23	Avoid excessively long variable names like systemPrevaylerModel
+src/br/com/campanhasms/scheduler/jobs/QueryRemainCreditJob.java:23	Local variable 'systemPrevaylerModel' could be declared final
+src/br/com/campanhasms/scheduler/jobs/QueryRemainCreditJob.java:25	Local variable 'textMessage' could be declared final
+src/br/com/campanhasms/scheduler/jobs/QueryRemainCreditJob.java:27	Local variable 'contact' could be declared final
+src/br/com/campanhasms/scheduler/jobs/SMSJobsScheduler.java:15	All methods are static.  Consider using Singleton instead.  Alternatively, you could add a private constructor or make the class abstract to silence this warning.
+src/br/com/campanhasms/scheduler/jobs/SMSJobsScheduler.java:18	Avoid excessively long variable names like MAIL_MESSAGES_RECEIVED_JOB_GROUP_KEY
+src/br/com/campanhasms/scheduler/jobs/SMSJobsScheduler.java:20	Avoid excessively long variable names like MAIL_MESSAGES_RECEIVED_JOB_KEY
+src/br/com/campanhasms/scheduler/jobs/SMSJobsScheduler.java:22	Avoid excessively long variable names like MAIL_MESSAGES_RECEIVED_TRIGGER_GROUP_KEY
+src/br/com/campanhasms/scheduler/jobs/SMSJobsScheduler.java:25	Avoid excessively long variable names like MAIL_MESSAGES_RECEIVED_TRIGGER_KEY
+src/br/com/campanhasms/scheduler/jobs/SMSJobsScheduler.java:27	Avoid excessively long variable names like QUERY_REMAIN_CREDIT_JOB_GROUP_KEY
+src/br/com/campanhasms/scheduler/jobs/SMSJobsScheduler.java:54	Singleton is not thread safe
+src/br/com/campanhasms/scheduler/jobs/SMSJobsScheduler.java:65	Local variable 'job' could be declared final
+src/br/com/campanhasms/scheduler/jobs/SMSJobsScheduler.java:67	Found 'DD'-anomaly for variable 'trigger' (lines '67'-'68').
+src/br/com/campanhasms/scheduler/jobs/SMSJobsScheduler.java:77	Local variable 'job' could be declared final
+src/br/com/campanhasms/scheduler/jobs/SMSJobsScheduler.java:79	Found 'DD'-anomaly for variable 'trigger' (lines '79'-'80').
+src/br/com/campanhasms/scheduler/jobs/SMSJobsScheduler.java:90	Local variable 'job' could be declared final
+src/br/com/campanhasms/scheduler/jobs/SMSJobsScheduler.java:93	Local variable 'trigger' could be declared final
+src/br/com/campanhasms/scheduler/jobs/SMSJobsScheduler.java:104	Local variable 'job' could be declared final
+src/br/com/campanhasms/scheduler/jobs/SendMessageJob.java:22	Parameter 'arg0' is not assigned and could be declared final
+src/br/com/campanhasms/scheduler/jobs/SendMessageJob.java:27	Avoid excessively long variable names like systemPrevaylerModel
+src/br/com/campanhasms/scheduler/jobs/SendMessageJob.java:27	Local variable 'systemPrevaylerModel' could be declared final
+src/br/com/campanhasms/scheduler/jobs/SendMessageJob.java:32	Avoid excessively long variable names like restartCampaignMessage
+src/br/com/campanhasms/scheduler/jobs/SendMessageJob.java:32	Local variable 'restartCampaignMessage' could be declared final
+src/br/com/campanhasms/scheduler/jobs/SendMessageJob.java:41	Prefer StringBuffer over += for concatenating strings
+src/br/com/campanhasms/scheduler/jobs/SendMessageJob.java:42	Avoid instantiating Long objects.Call Long.valueOf() instead
+src/br/com/campanhasms/scheduler/jobs/SendMessageJob.java:54	Avoid excessively long variable names like systemPrevaylerModel
+src/br/com/campanhasms/scheduler/jobs/SendMessageJob.java:54	Local variable 'systemPrevaylerModel' could be declared final
+src/br/com/campanhasms/scheduler/jobs/SystemPrevaylerModelSnapshotJob.java:16	Parameter 'arg0' is not assigned and could be declared final
+src/br/com/campanhasms/sms/contacts/AdminContactsListBuilder.java:16	All methods are static.  Consider using Singleton instead.  Alternatively, you could add a private constructor or make the class abstract to silence this warning.
+src/br/com/campanhasms/sms/contacts/AdminContactsListBuilder.java:18	Avoid excessively long variable names like ADMIN_CONTACTS_XML
+src/br/com/campanhasms/sms/contacts/AdminContactsListBuilder.java:24	Avoid excessively long variable names like concurrentSkipListSet
+src/br/com/campanhasms/sms/contacts/AdminContactsListBuilder.java:24	Local variable 'concurrentSkipListSet' could be declared final
+src/br/com/campanhasms/sms/contacts/AdminContactsListBuilder.java:25	Local variable 'fXmlFile' could be declared final
+src/br/com/campanhasms/sms/contacts/AdminContactsListBuilder.java:26	Local variable 'dbFactory' could be declared final
+src/br/com/campanhasms/sms/contacts/AdminContactsListBuilder.java:27	Local variable 'dBuilder' could be declared final
+src/br/com/campanhasms/sms/contacts/AdminContactsListBuilder.java:28	Local variable 'doc' could be declared final
+src/br/com/campanhasms/sms/contacts/AdminContactsListBuilder.java:36	Avoid instantiating Long objects.Call Long.valueOf() instead
+src/br/com/campanhasms/sms/contacts/AdminContactsListBuilder.java:36	Avoid instantiating new objects inside loops
+src/br/com/campanhasms/sms/contacts/AdminContactsListBuilder.java:42	A method should have only one exit point, and that should be the last statement in the method
+src/br/com/campanhasms/sms/contacts/BlackListContactsListBuilder.java:14	All methods are static.  Consider using Singleton instead.  Alternatively, you could add a private constructor or make the class abstract to silence this warning.
+src/br/com/campanhasms/sms/contacts/BlackListContactsListBuilder.java:16	Avoid excessively long variable names like CONTACTS_IN_BLACK_LIST_XML
+src/br/com/campanhasms/sms/contacts/BlackListContactsListBuilder.java:23	Local variable 'xstream' could be declared final
+src/br/com/campanhasms/sms/contacts/BlackListContactsListBuilder.java:32	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/contacts/BlackListContactsListBuilder.java:32	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/contacts/BlackListContactsListBuilder.java:32	Parameter 'contatos' is not assigned and could be declared final
+src/br/com/campanhasms/sms/contacts/BlackListContactsListBuilder.java:35	Local variable 'xstream' could be declared final
+src/br/com/campanhasms/sms/contacts/BlackListContactsListBuilder.java:37	Local variable 'file' could be declared final
+src/br/com/campanhasms/sms/contacts/ContactsListBuilder.java:15	All methods are static.  Consider using Singleton instead.  Alternatively, you could add a private constructor or make the class abstract to silence this warning.
+src/br/com/campanhasms/sms/contacts/ContactsListBuilder.java:19	Parameter 'file' is not assigned and could be declared final
+src/br/com/campanhasms/sms/contacts/ContactsListBuilder.java:19	Return an empty array rather than null.
+src/br/com/campanhasms/sms/contacts/ContactsListBuilder.java:22	Avoid excessively long variable names like concurrentSkipListSet
+src/br/com/campanhasms/sms/contacts/ContactsListBuilder.java:22	Local variable 'concurrentSkipListSet' could be declared final
+src/br/com/campanhasms/sms/contacts/ContactsListBuilder.java:23	Local variable 'isr' could be declared final
+src/br/com/campanhasms/sms/contacts/ContactsListBuilder.java:24	Local variable 'bufReader' could be declared final
+src/br/com/campanhasms/sms/contacts/ContactsListBuilder.java:26	Avoid assignments in operands
+src/br/com/campanhasms/sms/contacts/ContactsListBuilder.java:26	Found 'DU'-anomaly for variable 'readedLine' (lines '26'-'42').
+src/br/com/campanhasms/sms/contacts/ContactsListBuilder.java:29	Avoid instantiating Long objects.Call Long.valueOf() instead
+src/br/com/campanhasms/sms/contacts/ContactsListBuilder.java:29	Avoid instantiating new objects inside loops
+src/br/com/campanhasms/sms/contacts/ContactsListBuilder.java:37	A method should have only one exit point, and that should be the last statement in the method
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:15	A class which only has private constructors should be final
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:17	Avoid excessively long variable names like contactNormalizationRules
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:17	Avoid using implementation types like 'ArrayList'; use the interface instead
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:17	Avoid using implementation types like 'ArrayList'; use the interface instead
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:20	Avoid excessively long variable names like NORMALIZATION_CONTACTS_XML
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:20	The field name indicates a constant but its modifiers do not
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:20	Variables should start with a lowercase character
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:20	Variables that are not final should not contain underscores (except for underscores in standard prefix/suffix).
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:25	Avoid using implementation types like 'ArrayList'; use the interface instead
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:25	Avoid using implementation types like 'ArrayList'; use the interface instead
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:30	Singleton is not thread safe
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:39	Avoid using implementation types like 'ArrayList'; use the interface instead
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:39	Avoid using implementation types like 'ArrayList'; use the interface instead
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:42	Local variable 'xstream' could be declared final
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:51	Avoid reassigning parameters such as 'contactNumber'
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:53	Local variable 'regex' could be declared final
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:54	Local variable 'regexMatcher' could be declared final
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:57	Avoid instantiating Long objects.Call Long.valueOf() instead
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:57	Avoid instantiating new objects inside loops
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactFactory.java:57	This statement may have some unnecessary parentheses
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactNormalizationRule.java:8	Parameter 'matcherRegex' is not assigned and could be declared final
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactNormalizationRule.java:8	Parameter 'replacerRegex' is not assigned and could be declared final
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactNormalizationRule.java:22	Parameter 'matcherRegex' is not assigned and could be declared final
+src/br/com/campanhasms/sms/contacts/normalization/model/ContactNormalizationRule.java:26	Parameter 'replacerRegex' is not assigned and could be declared final
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:18	Parameter 'obj' is not assigned and could be declared final
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:21	Local variable 'message' could be declared final
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:23	A method should have only one exit point, and that should be the last statement in the method
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:32	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:35	Avoid excessively long variable names like messageTimeInMilis
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:35	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:37	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:37	Private field 'messageType' could be made final; it is only initialized in the declaration or constructor.
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:39	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:39	Private field 'messateText' could be made final; it is only initialized in the declaration or constructor.
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:41	Parameter 'message' is not assigned and could be declared final
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:46	Avoid excessively long variable names like statusReportMessage
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:46	Local variable 'statusReportMessage' could be declared final
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:61	Avoid instantiating Long objects.Call Long.valueOf() instead
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:70	Avoid excessively long variable names like messageTimeInMilis
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:70	Parameter 'messageOriginator' is not assigned and could be declared final
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:70	Parameter 'messageTimeInMilis' is not assigned and could be declared final
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:70	Parameter 'messageType' is not assigned and could be declared final
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:87	Local variable 'time' could be declared final
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:89	Avoid if (x != y) ..; else ..;
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:89	Local variable 'messageOriginator' could be declared final
+src/br/com/campanhasms/sms/model/ReceivedMessage.java:91	Local variable 'messateText' could be declared final
+src/br/com/campanhasms/sms/model/SendedMessage.java:15	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/sms/model/SendedMessage.java:17	Avoid excessively long variable names like messageTimeInMilis
+src/br/com/campanhasms/sms/model/SendedMessage.java:17	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/sms/model/SendedMessage.java:21	Parameter 'obj' is not assigned and could be declared final
+src/br/com/campanhasms/sms/model/SendedMessage.java:24	Local variable 'message' could be declared final
+src/br/com/campanhasms/sms/model/SendedMessage.java:26	A method should have only one exit point, and that should be the last statement in the method
+src/br/com/campanhasms/sms/model/SendedMessage.java:33	Avoid excessively long variable names like messageTimeInMilis
+src/br/com/campanhasms/sms/model/SendedMessage.java:33	Parameter 'destination' is not assigned and could be declared final
+src/br/com/campanhasms/sms/model/SendedMessage.java:33	Parameter 'messageTimeInMilis' is not assigned and could be declared final
+src/br/com/campanhasms/sms/model/SendedMessage.java:39	Parameter 'message' is not assigned and could be declared final
+src/br/com/campanhasms/sms/model/SendedMessage.java:43	Avoid instantiating Long objects.Call Long.valueOf() instead
+src/br/com/campanhasms/sms/model/SendedMessage.java:51	Parameter 'sendedMessage' is not assigned and could be declared final
+src/br/com/campanhasms/sms/model/SendedMessage.java:57	Local variable 'time' could be declared final
+src/br/com/campanhasms/sms/model/SendedMessage.java:59	Avoid excessively long variable names like messageDestination
+src/br/com/campanhasms/sms/model/SendedMessage.java:59	Avoid if (x != y) ..; else ..;
+src/br/com/campanhasms/sms/model/SendedMessage.java:59	Local variable 'messageDestination' could be declared final
+src/br/com/campanhasms/sms/notification/CallNotification.java:12	Parameter 'callerId' is not assigned and could be declared final
+src/br/com/campanhasms/sms/notification/CallNotification.java:12	Parameter 'gateway' is not assigned and could be declared final
+src/br/com/campanhasms/sms/notification/GatewayStatusNotification.java:14	Parameter 'gateway' is not assigned and could be declared final
+src/br/com/campanhasms/sms/notification/GatewayStatusNotification.java:14	Parameter 'newStatus' is not assigned and could be declared final
+src/br/com/campanhasms/sms/notification/GatewayStatusNotification.java:14	Parameter 'oldStatus' is not assigned and could be declared final
+src/br/com/campanhasms/sms/notification/OrphanedMessageNotification.java:14	Parameter 'gateway' is not assigned and could be declared final
+src/br/com/campanhasms/sms/notification/OrphanedMessageNotification.java:14	Parameter 'msg' is not assigned and could be declared final
+src/br/com/campanhasms/sms/notification/OutboundMessageNotification.java:16	Parameter 'gateway' is not assigned and could be declared final
+src/br/com/campanhasms/sms/notification/OutboundMessageNotification.java:16	Parameter 'msg' is not assigned and could be declared final
+src/br/com/campanhasms/sms/reports/AbstractReportsRequirements.java:3	To be compliant to J2EE, a webapp should not use any thread.
+src/br/com/campanhasms/sms/reports/AbstractReportsRequirements.java:12	Parameter 'value' is not assigned and could be declared final
+src/br/com/campanhasms/sms/reports/AbstractReportsRequirements.java:16	Parameter 'value' is not assigned and could be declared final
+src/br/com/campanhasms/sms/reports/AbstractReportsRequirements.java:19	A method should have only one exit point, and that should be the last statement in the method
+src/br/com/campanhasms/sms/reports/NotSupportedReport.java:17	Prefer StringBuffer over += for concatenating strings
+src/br/com/campanhasms/sms/reports/NotSupportedReport.java:18	Prefer StringBuffer over += for concatenating strings
+src/br/com/campanhasms/sms/reports/SmsRatingReport.java:17	Prefer StringBuffer over += for concatenating strings
+src/br/com/campanhasms/sms/reports/SmsRatingReport.java:18	Prefer StringBuffer over += for concatenating strings
+src/br/com/campanhasms/sms/reports/SmsRatingReport.java:19	Prefer StringBuffer over += for concatenating strings
+src/br/com/campanhasms/sms/reports/SmsRatingReport.java:20	Prefer StringBuffer over += for concatenating strings
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:22	All methods are static.  Consider using Singleton instead.  Alternatively, you could add a private constructor or make the class abstract to silence this warning.
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:24	Avoid excessively long variable names like ADMIN_CONTACTS_GROUP
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:28	Parameter 'text' is not assigned and could be declared final
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:34	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:34	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:34	Avoid using implementation types like 'ArrayList'; use the interface instead
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:34	Avoid using implementation types like 'ArrayList'; use the interface instead
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:36	Local variable 'msgList' could be declared final
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:41	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:41	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:41	Parameter 'COMPortName' is not assigned and could be declared final
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:44	Local variable 'gateway' could be declared final
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:64	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:64	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:66	Local variable 'msgList' could be declared final
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:77	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:77	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:77	Parameter 'contactNumber' is not assigned and could be declared final
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:77	Parameter 'message' is not assigned and could be declared final
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:78	Local variable 'outboundMessage' could be declared final
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:83	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:83	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/impl/SMSServiceWrapper.java:83	Parameter 'message' is not assigned and could be declared final
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:7	All methods are static.  Consider using Singleton instead.  Alternatively, you could add a private constructor or make the class abstract to silence this warning.
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:10	Parameter 'text' is not assigned and could be declared final
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:16	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:16	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:16	Avoid using implementation types like 'ArrayList'; use the interface instead
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:16	Avoid using implementation types like 'ArrayList'; use the interface instead
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:18	Local variable 'msgList' could be declared final
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:24	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:24	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:24	Document empty method
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:24	Parameter 'COMPortName' is not assigned and could be declared final
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:28	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:28	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:28	Document empty method
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:32	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:32	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:32	Parameter 'contactNumber' is not assigned and could be declared final
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:32	Parameter 'message' is not assigned and could be declared final
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:33	System.out.print is used
+src/br/com/campanhasms/sms/service/test/SMSServiceWrapper.java:34	System.out.print is used
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:1	A high number of imports can indicate a high degree of coupling within an object.
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:67	This class has too many methods, consider refactoring it.
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:67	Too many fields
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:69	Avoid excessively long variable names like DDD_DOCUMENT_FILTER
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:75	Avoid excessively long variable names like PHONE_NUMBER_DOCUMENT_FILTER
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:77	Avoid excessively long variable names like SMS_TEXT_FIELD_DOCUMENT_FILTER
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:77	Avoid instantiating Integer objects. Call Integer.valueOf() instead.
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:85	Avoid excessively long variable names like SP_PHONE_NUMBER_DOCUMENT_FILTER
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:90	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:91	Avoid excessively long variable names like btnAddContactInBlackList
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:91	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:92	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:93	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:94	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:145	Overridable method 'getFmtTextBlackListPhoneNumber' called during object construction
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:146	Overridable method 'setCOMPort' called during object construction
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:152	Parameter 'args' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:153	To be compliant to J2EE, a webapp should not use any thread.
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:157	Local variable 'window' could be declared final
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:160	Avoid printStackTrace(); use a logger call instead.
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:197	Parameter 'arg0' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:199	Local variable 'phoneNumber' could be declared final
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:199	The String literal "\\D" appears 5 times in this file; the first occurrence is on line 199
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:200	Local variable 'phoneDDD' could be declared final
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:201	Avoid instantiating Long objects.Call Long.valueOf() instead
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:201	Local variable 'contato' could be declared final
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:230	Parameter 'arg0' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:232	Local variable 'phoneNumber' could be declared final
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:234	Avoid instantiating Long objects.Call Long.valueOf() instead
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:258	Avoid variables with short names like e
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:258	Parameter 'e' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:280	Parameter 'arg0' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:347	Avoid instantiating Long objects.Call Long.valueOf() instead
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:386	Avoid variables with short names like e
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:410	Avoid variables with short names like e
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:445	Avoid empty catch blocks
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:515	Document empty method
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:569	Document empty method
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:594	Avoid printStackTrace(); use a logger call instead.
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:884	Avoid instantiating Long objects.Call Long.valueOf() instead
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:918	System.exit() should not be used in J2EE/JEE apps
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:939	Avoid empty catch blocks
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:943	Avoid empty catch blocks
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:947	Avoid empty catch blocks
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:951	Avoid empty catch blocks
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:964	Avoid unused method parameters such as 'string'.
+src/br/com/campanhasms/view/forms/SMSCampaignWindowForm.java:995	Avoid unused method parameters such as 'string'.
+src/br/com/campanhasms/view/forms/eventslisteners/AddItemList.java:7	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/view/forms/eventslisteners/AddItemList.java:7	Private field 'itemToAdd' could be made final; it is only initialized in the declaration or constructor.
+src/br/com/campanhasms/view/forms/eventslisteners/AddItemList.java:8	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/view/forms/eventslisteners/AddItemList.java:8	Private field 'listModel' could be made final; it is only initialized in the declaration or constructor.
+src/br/com/campanhasms/view/forms/eventslisteners/AddItemList.java:10	Parameter 'itemToAdd' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/eventslisteners/AddItemList.java:10	Parameter 'listModel' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/eventslisteners/AddItemList.java:19	A method should have only one exit point, and that should be the last statement in the method
+src/br/com/campanhasms/view/forms/eventslisteners/MensagemSMSOnChange.java:15	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/view/forms/eventslisteners/MensagemSMSOnChange.java:15	Private field 'lblReference' could be made final; it is only initialized in the declaration or constructor.
+src/br/com/campanhasms/view/forms/eventslisteners/MensagemSMSOnChange.java:17	Parameter 'lblReference' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/eventslisteners/MensagemSMSOnChange.java:24	Parameter 'event' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/eventslisteners/MensagemSMSOnChange.java:26	Local variable 'textArea' could be declared final
+src/br/com/campanhasms/view/forms/eventslisteners/MensagemSMSOnChange.java:27	Avoid instantiating Integer objects. Call Integer.valueOf() instead.
+src/br/com/campanhasms/view/forms/eventslisteners/MensagemSMSOnChange.java:27	Do not add empty strings
+src/br/com/campanhasms/view/forms/eventslisteners/MensagemSMSOnChange.java:33	Document empty method
+src/br/com/campanhasms/view/forms/eventslisteners/MensagemSMSOnChange.java:33	Parameter 'event' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/eventslisteners/MensagemSMSOnChange.java:38	Document empty method
+src/br/com/campanhasms/view/forms/eventslisteners/MensagemSMSOnChange.java:38	Parameter 'arg0' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/eventslisteners/MensagemSMSOnChange.java:44	Parameter 'event' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/eventslisteners/MensagemSMSOnChange.java:46	Local variable 'textArea' could be declared final
+src/br/com/campanhasms/view/forms/eventslisteners/MensagemSMSOnChange.java:47	Avoid instantiating Integer objects. Call Integer.valueOf() instead.
+src/br/com/campanhasms/view/forms/eventslisteners/RemoveItemList.java:7	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/view/forms/eventslisteners/RemoveItemList.java:7	Private field 'itemToRemove' could be made final; it is only initialized in the declaration or constructor.
+src/br/com/campanhasms/view/forms/eventslisteners/RemoveItemList.java:8	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/br/com/campanhasms/view/forms/eventslisteners/RemoveItemList.java:8	Private field 'listModel' could be made final; it is only initialized in the declaration or constructor.
+src/br/com/campanhasms/view/forms/eventslisteners/RemoveItemList.java:10	Parameter 'itemToRemove' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/eventslisteners/RemoveItemList.java:10	Parameter 'listModel' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/eventslisteners/RemoveItemList.java:21	A method should have only one exit point, and that should be the last statement in the method
+src/br/com/campanhasms/view/forms/exception/FormDataException.java:11	Document empty constructor
+src/br/com/campanhasms/view/forms/exception/FormDataException.java:11	It is a good practice to call super() in a constructor
+src/br/com/campanhasms/view/forms/exception/FormDataException.java:15	Parameter 'message' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/exception/FormDataException.java:20	Parameter 'exception' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/exception/FormDataException.java:20	Parameter 'message' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/exception/FormDataException.java:25	Parameter 'arg0' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/exception/FormDataException.java:25	Parameter 'arg1' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/model/IFormDataWrapper.java:9	Avoid modifiers which are implied by the context
+src/br/com/campanhasms/view/forms/model/IFormDataWrapper.java:11	Avoid modifiers which are implied by the context
+src/br/com/campanhasms/view/forms/model/IFormDataWrapper.java:13	Avoid modifiers which are implied by the context
+src/br/com/campanhasms/view/forms/model/IFormDataWrapper.java:15	Avoid modifiers which are implied by the context
+src/br/com/campanhasms/view/forms/model/IFormDataWrapper.java:18	Avoid excessively long variable names like commPortIdentifier
+src/br/com/campanhasms/view/forms/model/IFormDataWrapper.java:18	Avoid modifiers which are implied by the context
+src/br/com/campanhasms/view/forms/model/IFormDataWrapper.java:21	Avoid excessively long variable names like listNotificatinReceivers
+src/br/com/campanhasms/view/forms/model/IFormDataWrapper.java:24	Avoid excessively long variable names like smsPriorityContactsList
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:27	Abstract classes should be named AbstractXXX
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:41	It is a good practice to call super() in a constructor
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:41	Parameter 'filter' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:42	Overridable method 'setFilter' called during object construction
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:55	Avoid variables with short names like a
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:55	Avoid variables with short names like fb
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:55	Parameter 'a' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:55	Parameter 'fb' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:55	Parameter 'offs' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:55	Parameter 'str' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:57	Avoid using if...else statements without curly braces
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:59	Avoid using if...else statements without curly braces
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:70	Local variable 'doc' could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:82	Local variable 'laf' could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:87	Avoid variables with short names like fm
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:87	Local variable 'fm' could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:88	Local variable 'component' could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:94	Avoid variables with short names like fb
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:96	Avoid using if...else statements without curly braces
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:98	Avoid using if...else statements without curly braces
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:102	Avoid variables with short names like a
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:104	Avoid using if...else statements without curly braces
+src/br/com/campanhasms/view/forms/validation/domain/ChainedDocumentFilter.java:126	Local variable 'doc' could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/EmailInputVerifier.java:13	Parameter 'emailComponent' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/EmailInputVerifier.java:16	Avoid excessively long variable names like parsedEmailComponent
+src/br/com/campanhasms/view/forms/validation/domain/EmailInputVerifier.java:16	Local variable 'parsedEmailComponent' could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/EmailInputVerifier.java:18	A method should have only one exit point, and that should be the last statement in the method
+src/br/com/campanhasms/view/forms/validation/domain/PhoneFieldDocumentFilter.java:10	It is a good practice to call super() in a constructor
+src/br/com/campanhasms/view/forms/validation/domain/PhoneFieldDocumentFilter.java:10	Parameter 'sizeLimit' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/PhoneFieldDocumentFilter.java:19	Avoid variables with short names like a
+src/br/com/campanhasms/view/forms/validation/domain/PhoneFieldDocumentFilter.java:19	Avoid variables with short names like fb
+src/br/com/campanhasms/view/forms/validation/domain/PhoneFieldDocumentFilter.java:19	Parameter 'a' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/PhoneFieldDocumentFilter.java:19	Parameter 'fb' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/PhoneFieldDocumentFilter.java:19	Parameter 'offs' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/PhoneFieldDocumentFilter.java:19	Parameter 'str' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/PhoneFieldDocumentFilter.java:30	A method should have only one exit point, and that should be the last statement in the method
+src/br/com/campanhasms/view/forms/validation/domain/PhoneFieldDocumentFilter.java:36	Avoid variables with short names like fb
+src/br/com/campanhasms/view/forms/validation/domain/PhoneFieldDocumentFilter.java:37	Local variable 'newFieldSize' could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/PhoneFieldDocumentFilter.java:42	Avoid variables with short names like a
+src/br/com/campanhasms/view/forms/validation/domain/PhoneFieldDocumentFilter.java:42	Avoid variables with short names like fb
+src/br/com/campanhasms/view/forms/validation/domain/SMSTextFieldDocumentFilter.java:10	It is a good practice to call super() in a constructor
+src/br/com/campanhasms/view/forms/validation/domain/SMSTextFieldDocumentFilter.java:10	Parameter 'sizeLimit' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/SMSTextFieldDocumentFilter.java:20	Avoid variables with short names like a
+src/br/com/campanhasms/view/forms/validation/domain/SMSTextFieldDocumentFilter.java:20	Avoid variables with short names like fb
+src/br/com/campanhasms/view/forms/validation/domain/SMSTextFieldDocumentFilter.java:20	Parameter 'a' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/SMSTextFieldDocumentFilter.java:20	Parameter 'fb' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/SMSTextFieldDocumentFilter.java:20	Parameter 'offs' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/SMSTextFieldDocumentFilter.java:20	Parameter 'str' is not assigned and could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/SMSTextFieldDocumentFilter.java:29	Avoid variables with short names like fb
+src/br/com/campanhasms/view/forms/validation/domain/SMSTextFieldDocumentFilter.java:31	Local variable 'newFieldSize' could be declared final
+src/br/com/campanhasms/view/forms/validation/domain/SMSTextFieldDocumentFilter.java:37	Avoid variables with short names like a
+src/br/com/campanhasms/view/forms/validation/domain/SMSTextFieldDocumentFilter.java:37	Avoid variables with short names like fb
+src/br/com/campanhasms/zipping/ZipUtility.java:14	All methods are static.  Consider using Singleton instead.  Alternatively, you could add a private constructor or make the class abstract to silence this warning.
+src/br/com/campanhasms/zipping/ZipUtility.java:17	Parameter 'extractTo' is not assigned and could be declared final
+src/br/com/campanhasms/zipping/ZipUtility.java:17	Parameter 'zip' is not assigned and could be declared final
+src/br/com/campanhasms/zipping/ZipUtility.java:19	Local variable 'archive' could be declared final
+src/br/com/campanhasms/zipping/ZipUtility.java:21	Avoid variables with short names like e
+src/br/com/campanhasms/zipping/ZipUtility.java:21	Local variable 'e' could be declared final
+src/br/com/campanhasms/zipping/ZipUtility.java:24	Local variable 'entry' could be declared final
+src/br/com/campanhasms/zipping/ZipUtility.java:26	Avoid instantiating new objects inside loops
+src/br/com/campanhasms/zipping/ZipUtility.java:26	Local variable 'file' could be declared final
+src/br/com/campanhasms/zipping/ZipUtility.java:35	Avoid variables with short names like in
+src/br/com/campanhasms/zipping/ZipUtility.java:35	Local variable 'in' could be declared final
+src/br/com/campanhasms/zipping/ZipUtility.java:37	Avoid instantiating new objects inside loops
+src/br/com/campanhasms/zipping/ZipUtility.java:40	Avoid instantiating new objects inside loops
+src/br/com/campanhasms/zipping/ZipUtility.java:44	Avoid assignments in operands
+src/br/com/campanhasms/zipping/ZipUtility.java:44	Found 'DD'-anomaly for variable 'read' (lines '44'-'44').
+src/br/com/campanhasms/zipping/ZipUtility.java:44	Found 'DU'-anomaly for variable 'read' (lines '44'-'53').
+src/br/com/campanhasms/zipping/ZipUtility.java:56	Parameter 'base' is not assigned and could be declared final
+src/br/com/campanhasms/zipping/ZipUtility.java:56	Parameter 'directory' is not assigned and could be declared final
+src/br/com/campanhasms/zipping/ZipUtility.java:56	Parameter 'zos' is not assigned and could be declared final
+src/br/com/campanhasms/zipping/ZipUtility.java:60	Found 'DU'-anomaly for variable 'buffer' (lines '60'-'78').
+src/br/com/campanhasms/zipping/ZipUtility.java:61	Found 'DD'-anomaly for variable 'read' (lines '61'-'72').
+src/br/com/campanhasms/zipping/ZipUtility.java:61	Found 'DU'-anomaly for variable 'read' (lines '61'-'78').
+src/br/com/campanhasms/zipping/ZipUtility.java:67	Avoid instantiating new objects inside loops
+src/br/com/campanhasms/zipping/ZipUtility.java:67	Avoid variables with short names like in
+src/br/com/campanhasms/zipping/ZipUtility.java:69	Avoid instantiating new objects inside loops
+src/br/com/campanhasms/zipping/ZipUtility.java:72	Avoid assignments in operands
+src/br/com/campanhasms/zipping/ZipUtility.java:72	Found 'DD'-anomaly for variable 'read' (lines '72'-'72').
+src/br/com/campanhasms/zipping/ZipUtility.java:72	Found 'DU'-anomaly for variable 'read' (lines '72'-'78').
+src/org/smslib/modem/AModemDriver.java:50	Abstract classes should be named AbstractXXX
+src/org/smslib/modem/AModemDriver.java:50	The class 'AModemDriver' has a Cyclomatic Complexity of 3 (Highest = 33).
+src/org/smslib/modem/AModemDriver.java:50	This class has too many methods, consider refactoring it.
+src/org/smslib/modem/AModemDriver.java:51	The class 'AsyncMessageProcessor' has a Cyclomatic Complexity of 5 (Highest = 11).
+src/org/smslib/modem/AModemDriver.java:51	To be compliant to J2EE, a webapp should not use any thread.
+src/org/smslib/modem/AModemDriver.java:52	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/org/smslib/modem/AModemDriver.java:52	Private field 'msgList' could be made final; it is only initialized in the declaration or constructor.
+src/org/smslib/modem/AModemDriver.java:54	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/org/smslib/modem/AModemDriver.java:56	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/org/smslib/modem/AModemDriver.java:56	Private field 'SYNC' could be made final; it is only initialized in the declaration or constructor.
+src/org/smslib/modem/AModemDriver.java:56	The field name indicates a constant but its modifiers do not
+src/org/smslib/modem/AModemDriver.java:56	Variables should start with a lowercase character
+src/org/smslib/modem/AModemDriver.java:58	It is a good practice to call super() in a constructor
+src/org/smslib/modem/AModemDriver.java:70	The method 'run' has a Cyclomatic Complexity of 11.
+src/org/smslib/modem/AModemDriver.java:76	Avoid using if statements without curly braces
+src/org/smslib/modem/AModemDriver.java:86	Avoid instantiating new objects inside loops
+src/org/smslib/modem/AModemDriver.java:96	Avoid using if statements without curly braces
+src/org/smslib/modem/AModemDriver.java:111	Avoid using if statements without curly braces
+src/org/smslib/modem/AModemDriver.java:119	The class 'AsyncNotifier' has a Cyclomatic Complexity of 4 (Highest = 13).
+src/org/smslib/modem/AModemDriver.java:119	To be compliant to J2EE, a webapp should not use any thread.
+src/org/smslib/modem/AModemDriver.java:121	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/org/smslib/modem/AModemDriver.java:121	It is somewhat confusing to have a field name matching the declaring class name
+src/org/smslib/modem/AModemDriver.java:121	Use explicit scoping instead of the default package private level
+src/org/smslib/modem/AModemDriver.java:123	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/org/smslib/modem/AModemDriver.java:123	Use explicit scoping instead of the default package private level
+src/org/smslib/modem/AModemDriver.java:125	Parameter 'myEvent' is not assigned and could be declared final
+src/org/smslib/modem/AModemDriver.java:125	Parameter 'myResponse' is not assigned and could be declared final
+src/org/smslib/modem/AModemDriver.java:136	Private field 'eventQueue' could be made final; it is only initialized in the declaration or constructor.
+src/org/smslib/modem/AModemDriver.java:138	Private field 'SYNC' could be made final; it is only initialized in the declaration or constructor.
+src/org/smslib/modem/AModemDriver.java:138	The field name indicates a constant but its modifiers do not
+src/org/smslib/modem/AModemDriver.java:138	Variables should start with a lowercase character
+src/org/smslib/modem/AModemDriver.java:140	It is a good practice to call super() in a constructor
+src/org/smslib/modem/AModemDriver.java:150	Parameter 'indication' is not assigned and could be declared final
+src/org/smslib/modem/AModemDriver.java:151	Avoid variables with short names like p
+src/org/smslib/modem/AModemDriver.java:151	Local variable 'p' could be declared final
+src/org/smslib/modem/AModemDriver.java:152	Avoid variables with short names like m
+src/org/smslib/modem/AModemDriver.java:152	Local variable 'm' could be declared final
+src/org/smslib/modem/AModemDriver.java:153	Avoid using if statements without curly braces
+src/org/smslib/modem/AModemDriver.java:154	A method should have only one exit point, and that should be the last statement in the method
+src/org/smslib/modem/AModemDriver.java:159	The method 'run' has a Cyclomatic Complexity of 13.
+src/org/smslib/modem/AModemDriver.java:169	Found 'DD'-anomaly for variable 'response' (lines '169'-'169').
+src/org/smslib/modem/AModemDriver.java:169	Found 'DD'-anomaly for variable 'response' (lines '169'-'174').
+src/org/smslib/modem/AModemDriver.java:169	Found 'DD'-anomaly for variable 'response' (lines '169'-'183').
+src/org/smslib/modem/AModemDriver.java:169	Found 'DD'-anomaly for variable 'response' (lines '169'-'193').
+src/org/smslib/modem/AModemDriver.java:169	Found 'DU'-anomaly for variable 'response' (lines '169'-'215').
+src/org/smslib/modem/AModemDriver.java:174	Found 'DD'-anomaly for variable 'response' (lines '174'-'169').
+src/org/smslib/modem/AModemDriver.java:174	Found 'DD'-anomaly for variable 'response' (lines '174'-'174').
+src/org/smslib/modem/AModemDriver.java:174	Found 'DD'-anomaly for variable 'response' (lines '174'-'183').
+src/org/smslib/modem/AModemDriver.java:174	Found 'DD'-anomaly for variable 'response' (lines '174'-'193').
+src/org/smslib/modem/AModemDriver.java:174	Found 'DU'-anomaly for variable 'response' (lines '174'-'215').
+src/org/smslib/modem/AModemDriver.java:185	Avoid instantiating new objects inside loops
+src/org/smslib/modem/AModemDriver.java:196	Avoid instantiating new objects inside loops
+src/org/smslib/modem/AModemDriver.java:196	Local variable 'ussdResponse' could be declared final
+src/org/smslib/modem/AModemDriver.java:202	Avoid using if statements without curly braces
+src/org/smslib/modem/AModemDriver.java:217	Parameter 'event' is not assigned and could be declared final
+src/org/smslib/modem/AModemDriver.java:217	Parameter 'response' is not assigned and could be declared final
+src/org/smslib/modem/AModemDriver.java:219	Avoid variables with short names like ev
+src/org/smslib/modem/AModemDriver.java:219	Local variable 'ev' could be declared final
+src/org/smslib/modem/AModemDriver.java:228	Use explicit scoping instead of the default package private level
+src/org/smslib/modem/AModemDriver.java:230	Use explicit scoping instead of the default package private level
+src/org/smslib/modem/AModemDriver.java:233	Assigning an Object to null is a code smell.  Consider refactoring.
+src/org/smslib/modem/AModemDriver.java:238	Use block level rather than method level synchronization
+src/org/smslib/modem/AModemDriver.java:243	Use block level rather than method level synchronization
+src/org/smslib/modem/AModemDriver.java:244	Avoid variables with short names like c
+src/org/smslib/modem/AModemDriver.java:266	Avoid using if...else statements without curly braces
+src/org/smslib/modem/AModemDriver.java:269	New exception is thrown in catch block, original stack trace may be lost
+src/org/smslib/modem/AModemDriver.java:275	Use block level rather than method level synchronization
+src/org/smslib/modem/AModemDriver.java:283	A method should have only one exit point, and that should be the last statement in the method
+src/org/smslib/modem/AModemDriver.java:287	Avoid using if...else statements without curly braces
+src/org/smslib/modem/AModemDriver.java:290	New exception is thrown in catch block, original stack trace may be lost
+src/org/smslib/modem/AModemDriver.java:296	Use block level rather than method level synchronization
+src/org/smslib/modem/AModemDriver.java:297	Avoid variables with short names like i
+src/org/smslib/modem/AModemDriver.java:301	Found 'DU'-anomaly for variable 'size' (lines '301'-'318').
+src/org/smslib/modem/AModemDriver.java:303	A method should have only one exit point, and that should be the last statement in the method
+src/org/smslib/modem/AModemDriver.java:305	Found 'DU'-anomaly for variable 'i' (lines '305'-'318').
+src/org/smslib/modem/AModemDriver.java:309	Found 'DU'-anomaly for variable 'size' (lines '309'-'318').
+src/org/smslib/modem/AModemDriver.java:320	Use block level rather than method level synchronization
+src/org/smslib/modem/AModemDriver.java:341	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/org/smslib/modem/AModemDriver.java:341	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/org/smslib/modem/AModemDriver.java:347	A switch with less than 3 branches is inefficient, use a if statement instead.
+src/org/smslib/modem/AModemDriver.java:347	Switch statements should have a default label
+src/org/smslib/modem/AModemDriver.java:350	Avoid instantiating new objects inside loops
+src/org/smslib/modem/AModemDriver.java:366	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/org/smslib/modem/AModemDriver.java:366	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/org/smslib/modem/AModemDriver.java:369	A method should have only one exit point, and that should be the last statement in the method
+src/org/smslib/modem/AModemDriver.java:391	To be compliant to J2EE, a webapp should not use any thread.
+src/org/smslib/modem/AModemDriver.java:392	It is a good practice to call super() in a constructor
+src/org/smslib/modem/AModemDriver.java:419	Found 'DD'-anomaly for variable 'data' (lines '419'-'419').
+src/org/smslib/modem/AModemDriver.java:419	Found 'DU'-anomaly for variable 'data' (lines '419'-'435').
+src/org/smslib/modem/AModemDriver.java:431	Avoid printStackTrace(); use a logger call instead.
+src/org/smslib/modem/AModemDriver.java:438	The field name indicates a constant but its modifiers do not
+src/org/smslib/modem/AModemDriver.java:438	Use explicit scoping instead of the default package private level
+src/org/smslib/modem/AModemDriver.java:438	Variables should start with a lowercase character
+src/org/smslib/modem/AModemDriver.java:440	Variables that are final and static should be in all caps.
+src/org/smslib/modem/AModemDriver.java:442	Variables that are final and static should be in all caps.
+src/org/smslib/modem/AModemDriver.java:444	Avoid excessively long variable names like asyncMessageProcessor
+src/org/smslib/modem/AModemDriver.java:450	Avoid excessively long variable names like cnmiEmulationProcessor
+src/org/smslib/modem/AModemDriver.java:452	Use of modifier volatile is not recommended.
+src/org/smslib/modem/AModemDriver.java:475	Avoid excessively long variable names like SYNC_InboundReader
+src/org/smslib/modem/AModemDriver.java:477	Avoid unused constructor parameters such as 'deviceParms'.
+src/org/smslib/modem/AModemDriver.java:478	Overridable method 'setSYNCReader' called during object construction
+src/org/smslib/modem/AModemDriver.java:479	Overridable method 'setSYNCCommander' called during object construction
+src/org/smslib/modem/AModemDriver.java:480	Overridable method 'setSYNCInboundReader' called during object construction
+src/org/smslib/modem/AModemDriver.java:481	Overridable method 'setGateway' called during object construction
+src/org/smslib/modem/AModemDriver.java:482	Overridable method 'setConnected' called during object construction
+src/org/smslib/modem/AModemDriver.java:488	Avoid using for statements without curly braces
+src/org/smslib/modem/AModemDriver.java:503	Avoid really long methods.
+src/org/smslib/modem/AModemDriver.java:503	The method connect() has an NPath complexity of 8918
+src/org/smslib/modem/AModemDriver.java:547	Avoid using if...else statements without curly braces
+src/org/smslib/modem/AModemDriver.java:549	Avoid using if...else statements without curly braces
+src/org/smslib/modem/AModemDriver.java:572	Avoid if (x != y) ..; else ..;
+src/org/smslib/modem/AModemDriver.java:583	These nested if statements could be combined
+src/org/smslib/modem/AModemDriver.java:589	Avoid empty catch blocks
+src/org/smslib/modem/AModemDriver.java:596	Avoid empty catch blocks
+src/org/smslib/modem/AModemDriver.java:603	Avoid empty catch blocks
+src/org/smslib/modem/AModemDriver.java:610	Avoid empty catch blocks
+src/org/smslib/modem/AModemDriver.java:655	Local variable 'response' could be declared final
+src/org/smslib/modem/AModemDriver.java:712	A method should have only one exit point, and that should be the last statement in the method
+src/org/smslib/modem/AModemDriver.java:712	Avoid using if...else statements without curly braces
+src/org/smslib/modem/AModemDriver.java:739	The method getResponse() has an NPath complexity of 7810
+src/org/smslib/modem/AModemDriver.java:753	Avoid if (x != y) ..; else ..;
+src/org/smslib/modem/AModemDriver.java:768	Use equals() to compare object references.
+src/org/smslib/modem/AModemDriver.java:792	New exception is thrown in catch block, original stack trace may be lost
+src/org/smslib/modem/AModemDriver.java:841	Avoid excessively long variable names like myAsyncMessageProcessor
+src/org/smslib/modem/AModemDriver.java:853	Avoid excessively long variable names like myCnmiEmulationProcessor
+src/org/smslib/modem/AModemDriver.java:898	Found 'DU'-anomaly for variable 'retries' (lines '898'-'940').
+src/org/smslib/modem/AModemDriver.java:906	Avoid instantiating new objects inside loops
+src/org/smslib/modem/AModemDriver.java:909	Found 'DD'-anomaly for variable 'answer' (lines '909'-'911').
+src/org/smslib/modem/AModemDriver.java:913	Switch statements should have a default label

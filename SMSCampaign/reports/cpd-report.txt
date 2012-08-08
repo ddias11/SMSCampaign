@@ -1,0 +1,266 @@
+Found a 7 line (122 tokens) duplication in the following files: 
+Starting at line 10 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\sms\service\test\SMSServiceWrapper.java
+Starting at line 28 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\sms\service\impl\SMSServiceWrapper.java
+
+	private static String convertToASCII2(String text) {
+		return text.replaceAll("[„‚‡·‰]", "a").replaceAll("[ÍËÈÎ]", "e").replaceAll("[ÓÏÌÔ]", "i").replaceAll("[ıÙÚÛˆ]", "o").replaceAll("[˚˙˘¸]", "u")
+				.replaceAll("[√¬¿¡ƒ]", "A").replaceAll("[ »…À]", "E").replaceAll("[ŒÃÕœ]", "I").replaceAll("[’‘“”÷]", "O").replaceAll("[€Ÿ⁄‹]", "U").replace('Á', 'c')
+				.replace('«', 'C').replace('Ò', 'n').replace('—', 'N');
+	}
+
+	public static ArrayList<InboundMessage> getMessagesReceived() throws Exception {
+=====================================================================
+Found a 10 line (76 tokens) duplication in the following files: 
+Starting at line 26 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\view\forms\validation\domain\SMSTextFieldDocumentFilter.java
+Starting at line 34 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\view\forms\validation\domain\PhoneFieldDocumentFilter.java
+
+	}
+
+	private boolean isSizeLimitValid(FilterBypass fb, String str, int length) {
+		int newFieldSize = fb.getDocument().getLength() + str.length() - length;
+		return newFieldSize <= getSizeLimit();
+	}
+
+	@Override
+	public void replace(FilterBypass fb, int offs, int length, String str, AttributeSet a) throws BadLocationException {
+		if (isSizeLimitValid(fb, str, length) && isOnlyNumbers(str)) {
+=====================================================================
+Found a 7 line (72 tokens) duplication in the following files: 
+Starting at line 81 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+Starting at line 345 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+
+					getGateway().readMessages(this.msgList, MessageClasses.ALL);
+					for (InboundMessage msg : this.msgList) {
+						switch (msg.getType()) {
+						case INBOUND:
+						case STATUSREPORT:
+							Service.getInstance().getNotifyQueueManager().getNotifyQueue().add(new InboundMessageNotification(getGateway(), msg.getType(), msg));
+							break;
+=====================================================================
+Found a 7 line (68 tokens) duplication in the following files: 
+Starting at line 245 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+Starting at line 276 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+
+			if (this.buffer == null)
+				this.buffer = new byte[Service.getInstance().getSettings().SERIAL_BUFFER_SIZE];
+			while (true) {
+				try {
+					if (this.bufferStart == this.bufferEnd)
+						wait(Service.getInstance().getSettings().SERIAL_TIMEOUT);
+					if (this.bufferStart == this.bufferEnd)
+=====================================================================
+Found a 9 line (61 tokens) duplication in the following files: 
+Starting at line 98 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+Starting at line 206 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+
+				} catch (GatewayException e) {
+					getGateway().setStatus(GatewayStatuses.RESTART);
+				} catch (IOException e) {
+					getGateway().setStatus(GatewayStatuses.RESTART);
+				} catch (TimeoutException e) {
+					getGateway().setStatus(GatewayStatuses.RESTART);
+				}
+			}
+			Logger.getInstance().logDebug("AsyncNotifier thread ended.", null, getGateway().getGatewayId());
+=====================================================================
+Found a 11 line (51 tokens) duplication in the following files: 
+Starting at line 10 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\view\forms\validation\domain\SMSTextFieldDocumentFilter.java
+Starting at line 10 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\view\forms\validation\domain\PhoneFieldDocumentFilter.java
+
+	public PhoneFieldDocumentFilter(int sizeLimit) {
+		this.sizeLimit = sizeLimit;
+	}
+
+	public int getSizeLimit() {
+		return sizeLimit;
+	}
+
+	@Override
+	public void insertString(FilterBypass fb, int offs, String str, AttributeSet a) throws BadLocationException {
+		if (isSizeLimitValid(fb, str, 0) && isOnlyNumbers(str)) {
+=====================================================================
+Found a 12 line (43 tokens) duplication in the following files: 
+Starting at line 38 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\view\forms\validation\domain\SMSTextFieldDocumentFilter.java
+Starting at line 43 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\view\forms\validation\domain\PhoneFieldDocumentFilter.java
+
+		if (isSizeLimitValid(fb, str, length) && isOnlyNumbers(str)) {
+			fb.replace(offs, length, str, a);
+		} else {
+			throw new BadLocationException("New characters exceeds max size of document", offs);
+		}
+	}
+
+	public void setSizeLimit(int sizeLimit) {
+		this.sizeLimit = sizeLimit;
+	}
+
+}
+=====================================================================
+Found a 5 line (41 tokens) duplication in the following files: 
+Starting at line 14 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\view\forms\eventslisteners\RemoveItemList.java
+Starting at line 14 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\view\forms\eventslisteners\AddItemList.java
+
+	}
+
+	public boolean execute() {
+		for (int i = 0; i < this.listModel.getSize(); i++) {
+			if (this.listModel.getElementAt(i).equals(this.itemToAdd)) {
+=====================================================================
+Found a 5 line (40 tokens) duplication in the following files: 
+Starting at line 167 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+Starting at line 172 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+
+						Logger.getInstance().logDebug("Inbound status report message detected!", null, getGateway().getGatewayId());
+						event.event = AsyncEvents.NOTHING;
+						response = event.response;
+						getAsyncMessageProcessor().setProcess();
+					} else if (event.event == AsyncEvents.INBOUNDCALL) {
+=====================================================================
+Found a 6 line (38 tokens) duplication in the following files: 
+Starting at line 68 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\view\forms\validation\domain\ChainedDocumentFilter.java
+Starting at line 124 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\view\forms\validation\domain\ChainedDocumentFilter.java
+
+	public void uninstallFilter(JTextComponent... components) {
+		for (JTextComponent component : components) {
+			Document doc = component.getDocument();
+
+			if (doc instanceof AbstractDocument) {
+				((AbstractDocument) doc).setDocumentFilter(null);
+=====================================================================
+Found a 3 line (34 tokens) duplication in the following files: 
+Starting at line 200 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\view\forms\SMSCampaignWindowForm.java
+Starting at line 233 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\view\forms\SMSCampaignWindowForm.java
+
+						String phoneDDD = getFmtTextPriorityPhoneDDD().getText().replaceAll("\\D", "");
+						Contato contato = ContactFactory.getInstance().createContact(new Long(phoneDDD + phoneNumber));
+						if (getLstSMSBlackListContactsModel().contains(contato.getFormattedContact())) {
+=====================================================================
+Found a 9 line (32 tokens) duplication in the following files: 
+Starting at line 52 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\sms\model\SendedMessage.java
+Starting at line 81 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\sms\model\ReceivedMessage.java
+
+		return receivedMessage.getMessaFormatToComparison().compareTo(getMessaFormatToComparison());
+	}
+
+	public String getMessaFormatToComparison() {
+
+
+		String time = String.format("%015d", this.messageTimeInMilis);
+
+		String messageOriginator = this.messageOriginator != null ? this.messageOriginator.getFormattedContact() : "";
+=====================================================================
+Found a 5 line (29 tokens) duplication in the following files: 
+Starting at line 37 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\persistence\SystemPrevayler.java
+Starting at line 46 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\persistence\SystemPrevayler.java
+
+	private static void expurgeSnapshotFiles() {
+		expurgeFiles(new FileFilter() {
+			@Override
+			public boolean accept(File arg0) {
+				return arg0.getName().matches(".*\\.snapshot");
+=====================================================================
+Found a 3 line (29 tokens) duplication in the following files: 
+Starting at line 264 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+Starting at line 285 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+
+				} catch (InterruptedException e) {
+					if (getGateway().getStatus() == GatewayStatuses.STARTED)
+						Logger.getInstance().logWarn("Ignoring InterruptedException in Queue.peek().", e, getGateway().getGatewayId());
+=====================================================================
+Found a 5 line (28 tokens) duplication in the following files: 
+Starting at line 54 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\sms\model\ReceivedMessage.java
+Starting at line 61 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\sms\model\ReceivedMessage.java
+
+				this.messageOriginator = ContactFactory.getInstance().createContact(new Long(message.getOriginator().replaceAll("\\D", "")));
+			} catch (Exception e) {
+				LOGGER.error("Erro when instantiate " + ReceivedMessage.class.getSimpleName() + ";", e);
+			}
+		}
+=====================================================================
+Found a 3 line (28 tokens) duplication in the following files: 
+Starting at line 35 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\sms\service\impl\SMSServiceWrapper.java
+Starting at line 65 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\sms\service\impl\SMSServiceWrapper.java
+
+		LOGGER.info("Removing Stored Messages");
+		ArrayList<InboundMessage> msgList = new ArrayList<InboundMessage>();
+		Service.getInstance().readMessages(msgList, MessageClasses.ALL);
+=====================================================================
+Found a 6 line (28 tokens) duplication in the following files: 
+Starting at line 32 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\view\forms\validation\domain\SMSTextFieldDocumentFilter.java
+Starting at line 98 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\view\forms\validation\domain\ChainedDocumentFilter.java
+
+			filter.remove(fb, offset, length);
+	}
+
+	@Override
+	public void replace(FilterBypass fb, int offs, int length, String str, AttributeSet a) throws BadLocationException {
+		if (filter == null)
+=====================================================================
+Found a 8 line (28 tokens) duplication in the following files: 
+Starting at line 21 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\view\forms\validation\domain\SMSTextFieldDocumentFilter.java
+Starting at line 20 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\view\forms\validation\domain\PhoneFieldDocumentFilter.java
+
+		if (isSizeLimitValid(fb, str, 0) && isOnlyNumbers(str)) {
+			fb.insertString(offs, str, a);
+		} else {
+			throw new BadLocationException("New characters exceeds max size of document", offs);
+		}
+	}
+
+	private boolean isOnlyNumbers(String str) {
+=====================================================================
+Found a 3 line (28 tokens) duplication in the following files: 
+Starting at line 275 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+Starting at line 320 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+
+		public synchronized void put(byte c) {
+			if (this.buffer == null)
+				this.buffer = new byte[Service.getInstance().getSettings().SERIAL_BUFFER_SIZE];
+=====================================================================
+Found a 1 line (27 tokens) duplication in the following files: 
+Starting at line 47 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\sms\notification\InboundMessageNotification.java
+Starting at line 70 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\sms\notification\InboundMessageNotification.java
+
+				String originator = ContactFactory.getInstance().createContact(new Long(msg.getOriginator().replaceAll("\\D", "0"))).getFormattedContact();
+=====================================================================
+Found a 2 line (27 tokens) duplication in the following files: 
+Starting at line 526 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+Starting at line 554 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+
+					Logger.getInstance().logWarn("Cannot understand SIMPIN response: " + response + ", will wait for a while...", null, getGateway().getGatewayId());
+					Thread.sleep(Service.getInstance().getSettings().AT_WAIT_SIMPIN);
+=====================================================================
+Found a 2 line (27 tokens) duplication in the following files: 
+Starting at line 245 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+Starting at line 299 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+
+			if (this.buffer == null)
+				this.buffer = new byte[Service.getInstance().getSettings().SERIAL_BUFFER_SIZE];
+=====================================================================
+Found a 4 line (26 tokens) duplication in the following files: 
+Starting at line 535 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+Starting at line 543 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+
+							throw new GatewayException("SIM PIN provided is not accepted by the GSM modem.");
+						Thread.sleep(Service.getInstance().getSettings().AT_WAIT_SIMPIN);
+						continue;
+					} else if (response.indexOf("READY") >= 0)
+=====================================================================
+Found a 6 line (25 tokens) duplication in the following files: 
+Starting at line 69 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\scheduler\jobs\SMSJobsScheduler.java
+Starting at line 81 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\scheduler\jobs\SMSJobsScheduler.java
+Starting at line 94 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\br\com\campanhasms\scheduler\jobs\SMSJobsScheduler.java
+
+				.withSchedule(CronScheduleBuilder.cronSchedule(JobsScheduleProperties.getString("JobsScheduler.SEND_SMS_SCHEDULE"))).startNow().build(); //$NON-NLS-1$
+
+		getScheduler().scheduleJob(job, trigger);
+	}
+
+	public static void scheduleSystemPrevaylerModelSnapshotJob() throws SchedulerException {
+=====================================================================
+Found a 2 line (25 tokens) duplication in the following files: 
+Starting at line 496 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+Starting at line 526 of C:\Users\diegod\git\SMSCampaignRemote\SMSCampaign\src\org\smslib\modem\AModemDriver.java
+
+						Logger.getInstance().logDebug("SIM found busy, waiting...", null, getGateway().getGatewayId());
+						Thread.sleep(Service.getInstance().getSettings().AT_WAIT_SIMPIN);
