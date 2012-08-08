@@ -12,6 +12,7 @@ public class MailMessagesReceivedJob implements Job {
 	private static final Logger LOGGER = Logger.getLogger(MailMessagesReceivedJob.class);
 
 	@Override
+
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		try {
 			LOGGER.info("Executing the Mail Messages Received Job");

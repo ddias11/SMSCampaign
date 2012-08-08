@@ -16,7 +16,7 @@ import br.com.campanhasms.zipping.ZipUtility;
 
 public class MailServiceWrapper {
 
-	private final Logger LOGGER = Logger.getLogger(getClass());
+	private final static Logger LOGGER = Logger.getLogger(MailServiceWrapper.class);
 
 	private HtmlEmail mailMessageInstace;
 
@@ -33,8 +33,7 @@ public class MailServiceWrapper {
 		File lastZippedLogFiles = listFiles[listFiles.length - 1];
 		attachment.setPath(lastZippedLogFiles.getAbsolutePath());
 		attachment.setDisposition(EmailAttachment.ATTACHMENT);
-		attachment.setDescription("SMS Campaign Logs; "
-				+ (listFiles.length > 0 ? "There are previous zip files in the App Folder" : ""));
+		attachment.setDescription("SMS Campaign Logs; " + (listFiles.length > 0 ? "There are previous zip files in the App Folder" : ""));
 		attachment.setName(lastZippedLogFiles.getName());
 
 		return attachment;
@@ -67,8 +66,8 @@ public class MailServiceWrapper {
 		return mailMessageInstace;
 	}
 
-	public void sendGmailMessage(String messageContent, List<String> to, String subject) throws EmailException {
-		messageContent = "<HTML>" + messageContent + "</HTML>"; //$NON-NLS-1$ //$NON-NLS-2$
+	public void sendGmailMessage(final String messageContent, final List<String> to, final String subject) throws EmailException {
+		String messageContentToSend = "<HTML>" + messageContent + "</HTML>"; //$NON-NLS-1$ //$NON-NLS-2$
 		for (String mailAddress : to) {
 			getMailMessageInstace().addTo(mailAddress);
 		}
@@ -76,14 +75,13 @@ public class MailServiceWrapper {
 		getMailMessageInstace().setHostName(MailProperties.getString("MailServiceWrapper.SMTP")); //$NON-NLS-1$
 		getMailMessageInstace().setFrom(MailProperties.getString("MailServiceWrapper.FROM_MAIL_ADDRESS")); //$NON-NLS-1$
 		getMailMessageInstace().setSubject(subject);
-		getMailMessageInstace().setHtmlMsg(messageContent);
-		getMailMessageInstace().setMsg(messageContent);
-		getMailMessageInstace()
-				.setAuthentication(
-						MailProperties.getString("MailServiceWrapper.FROM_MAIL_ADDRESS"), MailProperties.getString("MailServiceWrapper.FROM_MAIL_PASSWORD")); //$NON-NLS-1$ //$NON-NLS-2$
-		getMailMessageInstace().setSmtpPort(new Integer(MailProperties.getString("MailServiceWrapper.SMTP_PORT"))); //$NON-NLS-1$
-		getMailMessageInstace().setSSL(new Boolean(MailProperties.getString("MailServiceWrapper.SSL"))); //$NON-NLS-1$
-		getMailMessageInstace().setTLS(new Boolean(MailProperties.getString("MailServiceWrapper.TLS"))); //$NON-NLS-1$
+		getMailMessageInstace().setHtmlMsg(messageContentToSend);
+		getMailMessageInstace().setMsg(messageContentToSend);
+		getMailMessageInstace().setAuthentication(
+				MailProperties.getString("MailServiceWrapper.FROM_MAIL_ADDRESS"), MailProperties.getString("MailServiceWrapper.FROM_MAIL_PASSWORD")); //$NON-NLS-1$ //$NON-NLS-2$
+		getMailMessageInstace().setSmtpPort(Integer.valueOf(MailProperties.getString("MailServiceWrapper.SMTP_PORT"))); //$NON-NLS-1$
+		getMailMessageInstace().setSSL(Boolean.valueOf(MailProperties.getString("MailServiceWrapper.SSL"))); //$NON-NLS-1$
+		getMailMessageInstace().setTLS(Boolean.valueOf(MailProperties.getString("MailServiceWrapper.TLS"))); //$NON-NLS-1$
 		try {
 			EmailAttachment emailAttachment = getEmailAttachment();
 			getMailMessageInstace().attach(emailAttachment);

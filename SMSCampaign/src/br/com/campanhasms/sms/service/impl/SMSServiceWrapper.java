@@ -10,7 +10,9 @@ import org.smslib.Service;
 import org.smslib.Service.ServiceStatus;
 import org.smslib.modem.SerialModemGateway;
 
+import br.com.campanhasms.model.Contato;
 import br.com.campanhasms.properties.PrevaylerProperties;
+import br.com.campanhasms.sms.contacts.AdminContactsListBuilder;
 import br.com.campanhasms.sms.notification.CallNotification;
 import br.com.campanhasms.sms.notification.GatewayStatusNotification;
 import br.com.campanhasms.sms.notification.InboundMessageNotification;
@@ -24,10 +26,9 @@ public class SMSServiceWrapper {
 	private static final Logger LOGGER = Logger.getLogger(SMSServiceWrapper.class);
 
 	private static String convertToASCII2(String text) {
-		return text.replaceAll("[ãâàáä]", "a").replaceAll("[êèéë]", "e").replaceAll("[îìíï]", "i")
-				.replaceAll("[õôòóö]", "o").replaceAll("[ûúùü]", "u").replaceAll("[ÃÂÀÁÄ]", "A")
-				.replaceAll("[ÊÈÉË]", "E").replaceAll("[ÎÌÍÏ]", "I").replaceAll("[ÕÔÒÓÖ]", "O")
-				.replaceAll("[ÛÙÚÜ]", "U").replace('ç', 'c').replace('Ç', 'C').replace('ñ', 'n').replace('Ñ', 'N');
+		return text.replaceAll("[ãâàáä]", "a").replaceAll("[êèéë]", "e").replaceAll("[îìíï]", "i").replaceAll("[õôòóö]", "o").replaceAll("[ûúùü]", "u")
+				.replaceAll("[ÃÂÀÁÄ]", "A").replaceAll("[ÊÈÉË]", "E").replaceAll("[ÎÌÍÏ]", "I").replaceAll("[ÕÔÒÓÖ]", "O").replaceAll("[ÛÙÚÜ]", "U").replace('ç', 'c')
+				.replace('Ç', 'C').replace('ñ', 'n').replace('Ñ', 'N');
 	}
 
 	public static ArrayList<InboundMessage> getMessagesReceived() throws Exception {
@@ -40,8 +41,7 @@ public class SMSServiceWrapper {
 	public static void initialize(String COMPortName) throws Exception {
 		if (isServiceStopped()) {
 			LOGGER.info("Initializing SMS Service...");
-			SerialModemGateway gateway = new SerialModemGateway("Modem - " + COMPortName, COMPortName, 115200,
-					"Huawei", "E160");
+			SerialModemGateway gateway = new SerialModemGateway("Modem - " + COMPortName, COMPortName, 115200, "Huawei", "E160");
 			Service.getInstance().S.QUEUE_DIRECTORY = PrevaylerProperties.getString("SystemPrevayler.PREVAYLER_BASE_DIR");
 			Service.getInstance().S.MASK_IMSI = false;
 			gateway.setInbound(true);
@@ -67,11 +67,9 @@ public class SMSServiceWrapper {
 		Service.getInstance().readMessages(msgList, MessageClasses.ALL);
 		for (InboundMessage inboundMessage : msgList) {
 			if (Service.getInstance().deleteMessage(inboundMessage)) {
-				LOGGER.info("Message [Originator: " + inboundMessage.getOriginator() + "Text: "
-						+ inboundMessage.getText() + "] was sucessfuly removed");
+				LOGGER.info("Message [Originator: " + inboundMessage.getOriginator() + "Text: " + inboundMessage.getText() + "] was sucessfuly removed");
 			} else {
-				LOGGER.info("Message [Originator: " + inboundMessage.getOriginator() + "Text: "
-						+ inboundMessage.getText() + "] was not removed");
+				LOGGER.info("Message [Originator: " + inboundMessage.getOriginator() + "Text: " + inboundMessage.getText() + "] was not removed");
 			}
 		}
 	}
@@ -80,6 +78,12 @@ public class SMSServiceWrapper {
 		OutboundMessage outboundMessage = new OutboundMessage(contactNumber, convertToASCII2(message));
 		outboundMessage.setStatusReport(true);
 		Service.getInstance().queueMessage(outboundMessage);
+	}
+
+	public static void sendMessageToAdminContact(String message) throws Exception {
+		for (Contato adminContact : AdminContactsListBuilder.getAdminContacts()) {
+			sendMessage(adminContact.getFormattedContact(), message);
+		}
 	}
 
 }

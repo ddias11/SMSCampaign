@@ -8,6 +8,7 @@ public class EmailRatingReport extends AbstractReportsRequirements {
 
 	private static final Logger LOGGER = Logger.getLogger(EmailRatingReport.class);
 
+	@Override
 	public void execute() {
 		try {
 			LOGGER.info("Trying to send Email Rating Report");

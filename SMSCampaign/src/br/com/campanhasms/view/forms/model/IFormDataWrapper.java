@@ -14,9 +14,12 @@ public interface IFormDataWrapper {
 
 	public String getTextMessage();
 
+
 	public void setCOMPort(String commPortIdentifier) throws FormDataException;
 
+
 	public void setListNotificationReceivers(List<String> listNotificatinReceivers) throws FormDataException;
+
 
 	public void setSMSPriorityContactsList(List<String> smsPriorityContactsList);
 

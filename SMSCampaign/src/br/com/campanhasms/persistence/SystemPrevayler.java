@@ -30,8 +30,7 @@ public class SystemPrevayler {
 		File[] listFilteredFiles = new File(PrevaylerProperties.getString("SystemPrevayler.PREVAYLER_BASE_DIR")).listFiles(filter); //$NON-NLS-1$
 
 		for (int i = 0; i < listFilteredFiles.length - 1; i++) {
-			LOGGER.info("Expurge file: " + listFilteredFiles[i].getName());
-			listFilteredFiles[i].delete();
+			LOGGER.info("Expurging the file: " + listFilteredFiles[i].getName() + "Result => " + (listFilteredFiles[i].delete()?"Success":"Error"));
 		}
 	}
 
@@ -59,8 +58,7 @@ public class SystemPrevayler {
 			factory.configureTransactionFiltering(false);
 			factory.configurePrevalenceDirectory(PrevaylerProperties.getString("SystemPrevayler.PREVAYLER_BASE_DIR")); //$NON-NLS-1$
 			factory.configurePrevalentSystem(new SystemPrevaylerModel());
-			factory.configureJournalFileSizeThreshold(new Integer(PrevaylerProperties
-					.getString("SystemPrevayler.PREVAYLER_JOURNAL_FILE_SIZE"))); //$NON-NLS-1$
+			factory.configureJournalFileSizeThreshold(new Integer(PrevaylerProperties.getString("SystemPrevayler.PREVAYLER_JOURNAL_FILE_SIZE"))); //$NON-NLS-1$
 			try {
 				systemPrevayler = factory.create();
 			} catch (ClassNotFoundException | IOException e) {

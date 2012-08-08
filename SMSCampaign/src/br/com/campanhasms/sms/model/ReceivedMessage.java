@@ -13,11 +13,24 @@ import br.com.campanhasms.sms.contacts.normalization.model.ContactFactory;
 
 public class ReceivedMessage implements Serializable, Comparable<ReceivedMessage> {
 
+	@Override
+
+	public boolean equals(Object obj) {
+		if(obj instanceof ReceivedMessage) {
+
+			ReceivedMessage message = (ReceivedMessage) obj;
+
+			return message.getMessaFormatToComparison().equals(getMessaFormatToComparison());
+		}
+		return super.equals(obj);
+	}
+
 	private static final Logger LOGGER = Logger.getLogger(ReceivedMessage.class);
-	
+
 	private static final long serialVersionUID = -5078789497534008164L;
 
 	private Contato messageOriginator;
+
 
 	private Long messageTimeInMilis;
 
@@ -29,6 +42,7 @@ public class ReceivedMessage implements Serializable, Comparable<ReceivedMessage
 		this.messageType = message.getType();
 		if (MessageTypes.STATUSREPORT.equals(message.getType()) && message instanceof StatusReportMessage) {
 			try {
+
 				StatusReportMessage statusReportMessage = (StatusReportMessage) message;
 				this.messageTimeInMilis = statusReportMessage.getSent().getTime();
 				Long contactNumber = 0l;
@@ -44,7 +58,7 @@ public class ReceivedMessage implements Serializable, Comparable<ReceivedMessage
 		} else {
 			try {
 				this.messageTimeInMilis = message.getDate().getTime() / 100000;
-				this.messageOriginator = new Contato(new Long(message.getOriginator().replaceAll("\\D", "")));
+				this.messageOriginator = ContactFactory.getInstance().createContact(Long.valueOf(message.getOriginator().replaceAll("\\D", "")));
 			} catch (Exception e) {
 				LOGGER.error("Erro when instantiate " + ReceivedMessage.class.getSimpleName() + ";", e);
 			}
@@ -52,8 +66,8 @@ public class ReceivedMessage implements Serializable, Comparable<ReceivedMessage
 		this.messateText = message.getText();
 	}
 
-	public ReceivedMessage(Long messageTimeInMilis, String messateText, Contato messageOriginator,
-			MessageTypes messageType) {
+
+	public ReceivedMessage(Long messageTimeInMilis, String messateText, Contato messageOriginator, MessageTypes messageType) {
 		super();
 		this.messageTimeInMilis = messageTimeInMilis;
 		this.messateText = messateText;
@@ -62,16 +76,20 @@ public class ReceivedMessage implements Serializable, Comparable<ReceivedMessage
 	}
 
 	@Override
+
 	public int compareTo(ReceivedMessage receivedMessage) {
 		return receivedMessage.getMessaFormatToComparison().compareTo(getMessaFormatToComparison());
 	}
 
 	public String getMessaFormatToComparison() {
 
+
 		String time = String.format("%015d", this.messageTimeInMilis);
+
 		String messageOriginator = this.messageOriginator != null ? this.messageOriginator.getFormattedContact() : "";
-		String messateText = String.format("%" + SMSServiceProperties.getString("MensagemSMS.SMS_LENGTH") + "s",
-				this.messateText);
+
+		String messateText = String.format("%" + SMSServiceProperties.getString("MensagemSMS.SMS_LENGTH") + "s", this.messateText);
+
 		String messageType = String.format("%7s", this.messageType.name());
 
 		return time.concat(messageOriginator).concat(messateText).concat(messageType);

@@ -2,7 +2,7 @@ package br.com.campanhasms.sms.contacts;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.TreeSet;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import org.apache.log4j.Logger;
 
@@ -17,25 +17,25 @@ public class BlackListContactsListBuilder {
 	private static final Logger LOGGER = Logger.getLogger(BlackListContactsListBuilder.class);
 
 	@SuppressWarnings("unchecked")
-	public static TreeSet<Contato> getPersistedContactsInBlackList() {
+	public static ConcurrentSkipListSet<Contato> getPersistedContactsInBlackList() {
 
 		try {
 			XStream xstream = new XStream(new StaxDriver());
 			xstream.autodetectAnnotations(true);
-			return (TreeSet<Contato>) xstream.fromXML(new File(CONTACTS_IN_BLACK_LIST_XML));
+			return (ConcurrentSkipListSet<Contato>) xstream.fromXML(new File(CONTACTS_IN_BLACK_LIST_XML));
 		} catch (Exception e) {
 			LOGGER.error("Error when reading Black List Contacts from file: " + CONTACTS_IN_BLACK_LIST_XML, e);
 			throw e;
 		}
 	}
-	
-	public static void persistContactsInBlackList(TreeSet<Contato> contatos) throws Exception {
+
+	public static void persistContactsInBlackList(ConcurrentSkipListSet<Contato> contatos) throws Exception {
 
 		try {
 			XStream xstream = new XStream(new StaxDriver());
 			xstream.autodetectAnnotations(true);
 			File file = new File(CONTACTS_IN_BLACK_LIST_XML);
-			if(!file.exists()) {
+			if (!file.exists()) {
 				file.createNewFile();
 			}
 			xstream.toXML(contatos, new FileOutputStream(file));

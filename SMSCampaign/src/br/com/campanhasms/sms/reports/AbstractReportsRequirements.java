@@ -1,7 +1,6 @@
 package br.com.campanhasms.sms.reports;
 
-
-public abstract class AbstractReportsRequirements implements Runnable{
+public abstract class AbstractReportsRequirements implements Runnable {
 
 	public enum ReportRequiredType {
 		EMAIL_RATING(2),
@@ -28,10 +27,9 @@ public abstract class AbstractReportsRequirements implements Runnable{
 		}
 
 	}
-	
-	
+
 	public abstract void execute();
-	
+
 	@Override
 	public void run() {
 		execute();

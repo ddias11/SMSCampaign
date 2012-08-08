@@ -12,6 +12,7 @@ public class SystemPrevaylerModelSnapshotJob implements Job {
 	private static final Logger LOGGER = Logger.getLogger(SystemPrevaylerModelSnapshotJob.class);
 
 	@Override
+
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		try {
 			LOGGER.info("Executing System Prevayler Model Snapshot Job");

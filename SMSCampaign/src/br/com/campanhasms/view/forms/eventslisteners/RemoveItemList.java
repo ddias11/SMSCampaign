@@ -17,6 +17,7 @@ public class RemoveItemList<E> {
 		for (int i = 0; i < this.listModel.getSize(); i++) {
 			if (this.listModel.getElementAt(i).equals(this.itemToRemove)) {
 				this.listModel.removeElement(this.itemToRemove);
+
 				return true;
 			}
 		}

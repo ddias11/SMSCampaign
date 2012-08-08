@@ -20,24 +20,29 @@ public class MensagemSMSOnChange implements KeyListener, CaretListener {
 	}
 
 	@Override
+
 	public void caretUpdate(CaretEvent event) {
+
 		JTextArea textArea = (JTextArea) event.getSource();
-		lblReference
-				.setText(new Integer(SMSServiceProperties.getString("MensagemSMS.SMS_LENGTH")) - textArea.getText().length() + ""); //$NON-NLS-1$ //$NON-NLS-2$
+		lblReference.setText(new Integer(SMSServiceProperties.getString("MensagemSMS.SMS_LENGTH")) - textArea.getText().length() + ""); //$NON-NLS-1$ //$NON-NLS-2$
 
 	}
 
 	@Override
+
 	public void keyPressed(KeyEvent event) {
 	}
 
 	@Override
+
 	public void keyReleased(KeyEvent arg0) {
 
 	}
 
 	@Override
+
 	public void keyTyped(KeyEvent event) {
+
 		JTextArea textArea = (JTextArea) event.getSource();
 		if (textArea.getText().length() >= new Integer(SMSServiceProperties.getString("MensagemSMS.SMS_LENGTH"))) { //$NON-NLS-1$
 			event.consume();

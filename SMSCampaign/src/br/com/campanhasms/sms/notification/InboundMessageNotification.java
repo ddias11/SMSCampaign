@@ -1,8 +1,7 @@
 package br.com.campanhasms.sms.notification;
 
 import java.io.IOException;
-import java.util.GregorianCalendar;
-
+import java.util.Calendar;
 import org.apache.log4j.Logger;
 import org.smslib.AGateway;
 import org.smslib.GatewayException;
@@ -16,6 +15,7 @@ import org.smslib.TimeoutException;
 import br.com.campanhasms.model.Contato;
 import br.com.campanhasms.persistence.SystemPrevayler;
 import br.com.campanhasms.sms.contacts.AdminContactsListBuilder;
+import br.com.campanhasms.sms.contacts.normalization.model.ContactFactory;
 import br.com.campanhasms.sms.reports.AbstractReportsRequirements.ReportRequiredType;
 import br.com.campanhasms.sms.reports.EmailRatingReport;
 import br.com.campanhasms.sms.reports.NotSupportedReport;
@@ -33,9 +33,10 @@ public class InboundMessageNotification implements IInboundMessageNotification {
 		}
 	}
 
-	private boolean isFromAdminContact(String originator) {
+	private boolean isFromAdminContact(Contato originator) {
+
 		for (Contato contato : AdminContactsListBuilder.getAdminContacts()) {
-			if (originator.trim().matches("\\d*" + contato.getContactNumber().toString())) {
+			if (originator.getFormattedContact().equals(contato.getFormattedContact())) {
 				return true;
 			}
 		}
@@ -43,11 +44,12 @@ public class InboundMessageNotification implements IInboundMessageNotification {
 	}
 
 	private boolean isFunctionMessage(InboundMessage msg) {
-		return isRecentlyMessage(msg) && isFromAdminContact(msg.getOriginator());
+		Contato originator = ContactFactory.getInstance().createContact(Long.valueOf(msg.getOriginator().replaceAll("\\D", "0")));
+		return isRecentlyMessage(msg) && isFromAdminContact(originator);
 	}
 
 	private boolean isRecentlyMessage(InboundMessage msg) {
-		Long dateDiff = GregorianCalendar.getInstance().getTimeInMillis() - msg.getDate().getTime();
+		Long dateDiff = Calendar.getInstance().getTimeInMillis() - msg.getDate().getTime();
 		return dateDiff < (1L * (1000L * 60L * 60L));
 	}
 
@@ -59,17 +61,14 @@ public class InboundMessageNotification implements IInboundMessageNotification {
 			case STATUSREPORT:
 				if (msg instanceof StatusReportMessage) {
 					StatusReportMessage statusReportMessage = (StatusReportMessage) msg;
-					LOGGER.info("Processing a " + MessageTypes.STATUSREPORT.name() + " from Recipient: "
-							+ statusReportMessage.getRecipient() + "; from Originator: "
-							+ statusReportMessage.getOriginator());
-					Logger.getLogger("validContacts").info(
-							"recipient: " + statusReportMessage.getRecipient() + "; from originator: "
-									+ statusReportMessage.getOriginator());
+					String recipient = ContactFactory.getInstance().createContact(Long.valueOf(statusReportMessage.getRecipient().replaceAll("\\D", "0"))).getFormattedContact();
+					LOGGER.info("Processing a " + MessageTypes.STATUSREPORT.name() + " from Recipient: " + recipient);
+					Logger.getLogger("validContacts").info("recipient: " + recipient);
 				}
 				break;
 			default:
-				LOGGER.info("Processing a " + MessageTypes.INBOUND.name() +" Message Notification from Originator: " + msg.getOriginator() + "; Text: "
-						+ msg.getText());
+				String originator = ContactFactory.getInstance().createContact(Long.valueOf(msg.getOriginator().replaceAll("\\D", "0"))).getFormattedContact();
+				LOGGER.info("Processing a " + MessageTypes.INBOUND.name() + " Message Notification from Originator: " + originator + "; Text: " + msg.getText());
 				if (isFunctionMessage(msg)) {
 					Integer requiredFunction = -1;
 					try {

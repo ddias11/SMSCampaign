@@ -1,7 +1,7 @@
 package br.com.campanhasms.sms.contacts;
 
 import java.io.File;
-import java.util.TreeSet;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -21,7 +21,7 @@ public class AdminContactsListBuilder {
 	public static Contato[] getAdminContacts() {
 
 		try {
-			TreeSet<Contato> treeSet = new TreeSet<Contato>();
+			ConcurrentSkipListSet<Contato> concurrentSkipListSet = new ConcurrentSkipListSet<Contato>();
 			File fXmlFile = new File(ADMIN_CONTACTS_XML);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -31,15 +31,15 @@ public class AdminContactsListBuilder {
 			NodeList contactsNodeList = doc.getElementsByTagName("Contact");
 			for (int i = 0; i < contactsNodeList.getLength(); i++) {
 				try {
-					
-				String readedValue = contactsNodeList.item(i).getChildNodes().item(0).getNodeValue();
-				treeSet.add(ContactFactory.getInstance().createContact(new Long(readedValue)));
+
+					String readedValue = contactsNodeList.item(i).getChildNodes().item(0).getNodeValue();
+					concurrentSkipListSet.add(ContactFactory.getInstance().createContact(Long.valueOf(readedValue)));
 				} catch (NumberFormatException e) {
 					LOGGER.error("Error when creating admin contact ", e);
 				}
 			}
 
-			return treeSet.toArray(new Contato[treeSet.size()]);
+			return concurrentSkipListSet.toArray(new Contato[concurrentSkipListSet.size()]);
 		} catch (Exception e) {
 			LOGGER.error("Error when importing admin contact from file: " + ADMIN_CONTACTS_XML, e);
 			return null;

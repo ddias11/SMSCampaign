@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.TreeSet;
+import java.nio.charset.Charset;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import org.apache.log4j.Logger;
 
@@ -18,14 +19,14 @@ public class ContactsListBuilder {
 	public static Contato[] getContactsFromFile(File file) {
 		try {
 			LOGGER.info("Importing contact from file: " + file.getAbsolutePath());
-			TreeSet<Contato> treeSet = new TreeSet<Contato>();
-			InputStreamReader isr = new InputStreamReader(new FileInputStream(file));
+			ConcurrentSkipListSet<Contato> concurrentSkipListSet = new ConcurrentSkipListSet<Contato>();
+			InputStreamReader isr = new InputStreamReader(new FileInputStream(file), Charset.defaultCharset());
 			BufferedReader bufReader = new BufferedReader(isr);
 			String readedLine;
 			while ((readedLine = bufReader.readLine()) != null) {
 				if (!"".equals(readedLine)) {
 					try {
-						treeSet.add(ContactFactory.getInstance().createContact(new Long(readedLine)));
+						concurrentSkipListSet.add(ContactFactory.getInstance().createContact(Long.valueOf(readedLine)));
 					} catch (NumberFormatException e) {
 						LOGGER.error("Error when creating admin contact ", e);
 					}
@@ -33,7 +34,7 @@ public class ContactsListBuilder {
 			}
 			bufReader.close();
 			isr.close();
-			return treeSet.toArray(new Contato[treeSet.size()]);
+			return concurrentSkipListSet.toArray(new Contato[concurrentSkipListSet.size()]);
 		} catch (Exception e) {
 			LOGGER.info("Error when importing contact from file: " + file.getAbsolutePath(), e);
 		}

@@ -2,7 +2,7 @@ package br.com.campanhasms.persistence.model;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.TreeSet;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import org.apache.log4j.Logger;
 import org.smslib.InboundMessage;
@@ -23,63 +23,21 @@ public class SystemPrevaylerModel implements Serializable, IFormDataWrapper {
 
 	private static final long serialVersionUID = -651641218710234008L;
 
+	private ConcurrentSkipListSet<Contato> blackListContacts;
+
 	private String commPortIdentifier;
 
-	private Long currentContact = null;
+	private Contato currentContact = null;
 
-	private TreeSet<SendedMessage> lastSendedMessages;
+	private ConcurrentSkipListSet<SendedMessage> lastSendedMessages;
 
 	private List<String> listNotificationReceivers;
-	
-	private TreeSet<Contato> blackListContacts;
-
-	public TreeSet<Contato> getBlackListContacts() {
-		if (blackListContacts == null) {
-			blackListContacts = new TreeSet<Contato>();
-			loadBlackListContactsFromXml();
-			
-		}
-		return blackListContacts;
-	}
-
-	public void loadBlackListContactsFromXml() {
-		try {
-			blackListContacts = BlackListContactsListBuilder.getPersistedContactsInBlackList();
-		} catch (Exception e) {
-			blackListContacts = new TreeSet<Contato>();
-			LOGGER.error("Setting empty BlackList");
-		}
-	}
-
-	public boolean addContactInBlackList(Contato contato) {
-		boolean contactWasAdded = getBlackListContacts().add(contato);
-		if(contactWasAdded) {
-			persistXML();
-		}
-		return contactWasAdded;
-	}
-	
-	public void persistXML() {
-		try {
-			BlackListContactsListBuilder.persistContactsInBlackList(getBlackListContacts());
-		} catch (Exception e) {
-			LOGGER.error("The BlackList was not synchronized");
-		}
-	}
-
-	public boolean removeContactFromBlackList(Contato contato) {
-		boolean contactWasRemoved = getBlackListContacts().remove(contato);
-		if(contactWasRemoved) {
-			persistXML();
-		}
-		return contactWasRemoved;
-	}
 
 	private Integer messagesConfirmedCounter;
 
-	private TreeSet<ReceivedMessage> receivedMessages = null;
+	private ConcurrentSkipListSet<ReceivedMessage> receivedMessages = null;
 
-	private Integer sendedMessagesCouter = new Integer(0);
+	private Integer sendedMessagesCouter = Integer.valueOf(0);
 
 	private List<String> smsPriorityContactsList;
 
@@ -87,6 +45,14 @@ public class SystemPrevaylerModel implements Serializable, IFormDataWrapper {
 
 	public SystemPrevaylerModel() {
 
+	}
+
+	public boolean addContactInBlackList(Contato contato) {
+		boolean contactWasAdded = getBlackListContacts().add(contato);
+		if (contactWasAdded) {
+			persistXML();
+		}
+		return contactWasAdded;
 	}
 
 	public boolean addReceivedMessage(InboundMessage inboundMessage) {
@@ -101,18 +67,27 @@ public class SystemPrevaylerModel implements Serializable, IFormDataWrapper {
 		return isAdded;
 	}
 
+	public ConcurrentSkipListSet<Contato> getBlackListContacts() {
+		if (blackListContacts == null) {
+			blackListContacts = new ConcurrentSkipListSet<Contato>();
+			loadBlackListContactsFromXml();
+
+		}
+		return blackListContacts;
+	}
+
 	@Override
 	public String getCOMPort() {
 		return this.commPortIdentifier;
 	}
 
-	public Long getCurrentContact() {
+	public Contato getCurrentContact() {
 		return currentContact;
 	}
 
-	public TreeSet<SendedMessage> getLastSendedMessages() {
+	public ConcurrentSkipListSet<SendedMessage> getLastSendedMessages() {
 		if (lastSendedMessages == null) {
-			lastSendedMessages = new TreeSet<SendedMessage>();
+			lastSendedMessages = new ConcurrentSkipListSet<SendedMessage>();
 		}
 		if (lastSendedMessages.size() > 10)
 			lastSendedMessages.remove(lastSendedMessages.first());
@@ -138,9 +113,9 @@ public class SystemPrevaylerModel implements Serializable, IFormDataWrapper {
 		return getMessageCounter(MessageTypes.STATUSREPORT);
 	}
 
-	public TreeSet<ReceivedMessage> getReceivedMessages() {
+	public ConcurrentSkipListSet<ReceivedMessage> getReceivedMessages() {
 		if (receivedMessages == null) {
-			receivedMessages = new TreeSet<ReceivedMessage>();
+			receivedMessages = new ConcurrentSkipListSet<ReceivedMessage>();
 
 		}
 		return receivedMessages;
@@ -166,9 +141,34 @@ public class SystemPrevaylerModel implements Serializable, IFormDataWrapper {
 
 	public void incrementMessagesConfirmedCounter() {
 		if (messagesConfirmedCounter == null) {
-			messagesConfirmedCounter = new Integer(0);
+			messagesConfirmedCounter = Integer.valueOf(0);
 		}
 		this.messagesConfirmedCounter++;
+	}
+
+	public void loadBlackListContactsFromXml() {
+		try {
+			blackListContacts = BlackListContactsListBuilder.getPersistedContactsInBlackList();
+		} catch (Exception e) {
+			blackListContacts = new ConcurrentSkipListSet<Contato>();
+			LOGGER.error("Setting empty BlackList");
+		}
+	}
+
+	public void persistXML() {
+		try {
+			BlackListContactsListBuilder.persistContactsInBlackList(getBlackListContacts());
+		} catch (Exception e) {
+			LOGGER.error("The BlackList was not synchronized");
+		}
+	}
+
+	public boolean removeContactFromBlackList(Contato contato) {
+		boolean contactWasRemoved = getBlackListContacts().remove(contato);
+		if (contactWasRemoved) {
+			persistXML();
+		}
+		return contactWasRemoved;
 	}
 
 	@Override
@@ -180,17 +180,17 @@ public class SystemPrevaylerModel implements Serializable, IFormDataWrapper {
 		this.commPortIdentifier = commPortIdentifier;
 	}
 
-	public void setCurrentContact(Long currentContact) {
-		LOGGER.info("Setting Current Contact with value: " + currentContact);
+	public void setCurrentContact(Contato currentContact) {
+		LOGGER.info("Setting Current Contact with value: " + currentContact.getFormattedContact());
 		this.currentContact = currentContact;
 	}
 
 	@Override
 	public void setListNotificationReceivers(List<String> listNotificatinReceivers) throws FormDataException {
-		LOGGER.info("Setting ListNotificationReceivers with value: " + listNotificatinReceivers.toString());
 		if (listNotificatinReceivers == null || listNotificatinReceivers.size() == 0) {
 			throw new FormDataException(Messages.getString("MESSAGE.INVALID_LIST_NOTIFICATION_RECEIVERS_MSG")); //$NON-NLS-1$
 		}
+		LOGGER.info("Setting ListNotificationReceivers with value: " + listNotificatinReceivers.toString());
 		this.listNotificationReceivers = listNotificatinReceivers;
 	}
 

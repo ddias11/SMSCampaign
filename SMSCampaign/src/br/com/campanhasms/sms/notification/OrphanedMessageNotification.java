@@ -10,6 +10,7 @@ public class OrphanedMessageNotification implements IOrphanedMessageNotification
 	private static final Logger LOGGER = Logger.getLogger(OrphanedMessageNotification.class);
 
 	@Override
+
 	public boolean process(AGateway gateway, InboundMessage msg) {
 		LOGGER.info("Processing a Orphaned Message Notification");
 		return false;
