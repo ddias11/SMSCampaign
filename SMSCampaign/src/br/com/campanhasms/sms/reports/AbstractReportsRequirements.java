@@ -3,6 +3,7 @@ package br.com.campanhasms.sms.reports;
 public abstract class AbstractReportsRequirements implements Runnable {
 
 	public enum ReportRequiredType {
+		CLEAR_RECEIVED_MESSAGES(3),
 		EMAIL_RATING(2),
 		NOT_DEFINED(-1),
 		SMS_RATING(1);

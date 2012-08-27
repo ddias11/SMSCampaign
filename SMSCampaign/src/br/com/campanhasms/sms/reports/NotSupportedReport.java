@@ -16,6 +16,7 @@ public class NotSupportedReport extends AbstractReportsRequirements {
 
 			message += "\nSend SMS with text \"" + ReportRequiredType.SMS_RATING.getValue() + "\" for " + ReportRequiredType.SMS_RATING.name() + "; ";
 			message += "\nSend SMS with text \"" + ReportRequiredType.EMAIL_RATING.getValue() + "\" for " + ReportRequiredType.EMAIL_RATING.name() + "; ";
+			message += "\nSend SMS with text \"" + ReportRequiredType.CLEAR_RECEIVED_MESSAGES.getValue() + "\" for " + ReportRequiredType.CLEAR_RECEIVED_MESSAGES.name() + "; ";
 			SMSServiceWrapper.sendMessageToAdminContact(message);
 			LOGGER.info("Not Supported Report sended ");
 		} catch (Exception e1) {

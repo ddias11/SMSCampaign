@@ -58,6 +58,10 @@ public class SystemPrevaylerModel implements Serializable, IFormDataWrapper {
 	public boolean addReceivedMessage(InboundMessage inboundMessage) {
 		return getReceivedMessages().add(new ReceivedMessage(inboundMessage));
 	}
+	
+	public void clearReceivedMessages() {
+		getReceivedMessages().clear();
+	}
 
 	public boolean addSendedMessage(OutboundMessage outboundMessage) {
 		boolean isAdded = getLastSendedMessages().add(new SendedMessage(outboundMessage));

@@ -86,10 +86,16 @@ public class InboundMessageNotification implements IInboundMessageNotification {
 						new Thread(new EmailRatingReport()).start();
 						break;
 
+					case CLEAR_RECEIVED_MESSAGES:
+						LOGGER.error("Cleanning the received messages...");
+						SystemPrevayler.getSystemPrevaylerModel().clearReceivedMessages();
+						break;
+
 					case NOT_DEFINED:
 						new Thread(new NotSupportedReport()).start();
 						break;
 					}
+					SystemPrevayler.getSystemPrevaylerModel().getReceivedMessages().remove(msg);
 				}
 				break;
 			}

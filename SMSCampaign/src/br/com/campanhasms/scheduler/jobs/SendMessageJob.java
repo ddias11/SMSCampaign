@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.smslib.Service;
+import org.smslib.Service.ServiceStatus;
 
 import br.com.campanhasms.model.Contato;
 import br.com.campanhasms.persistence.SystemPrevayler;
@@ -18,35 +20,42 @@ public class SendMessageJob implements Job {
 	private static final Logger LOGGER = Logger.getLogger(SendMessageJob.class);
 
 	@Override
-
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		try {
-			LOGGER.info("Executing Send Message Job");
-			SystemPrevayler.execute(new GetNextContactNumber());
+		SystemPrevaylerModel systemPrevaylerModel = SystemPrevayler.getSystemPrevaylerModel();
+		if (ServiceStatus.STARTED.equals(Service.getInstance().getServiceStatus())) {
+			try {
+				LOGGER.info("Executing Send Message Job");
+				SystemPrevayler.execute(new GetNextContactNumber());
 
-			SystemPrevaylerModel systemPrevaylerModel = SystemPrevayler.getSystemPrevaylerModel();
-			Contato currentContact = systemPrevaylerModel.getCurrentContact();
-			if (currentContact.isContactUnderLowerBounds()) {
-				currentContact = restartContactGeneration();
+				Contato currentContact = systemPrevaylerModel.getCurrentContact();
+				if (currentContact.isContactUnderLowerBounds()) {
+					currentContact = restartContactGeneration();
 
-				String restartCampaignMessage = "SMS Campaign finished. Restarting at contact " + currentContact.getFormattedContact();
-				LOGGER.info(restartCampaignMessage);
+					String restartCampaignMessage = "SMS Campaign finished. Restarting at contact " + currentContact.getFormattedContact();
+					LOGGER.info(restartCampaignMessage);
+					SMSServiceWrapper.initialize(systemPrevaylerModel.getCOMPort());
+					SMSServiceWrapper.sendMessageToAdminContact(restartCampaignMessage);
+				}
+				String textMessage = systemPrevaylerModel.getTextMessage();
+				String contact = currentContact.getFormattedContact();
 				SMSServiceWrapper.initialize(systemPrevaylerModel.getCOMPort());
-				SMSServiceWrapper.sendMessageToAdminContact(restartCampaignMessage);
-			}
-			String textMessage = systemPrevaylerModel.getTextMessage();
-			String contact = currentContact.getFormattedContact();
-			SMSServiceWrapper.initialize(systemPrevaylerModel.getCOMPort());
-			if (Boolean.valueOf(ApplicationProperties.getString("Application.isDebugMode"))) {
-				textMessage += ";Dbg Msg to " + contact;
-				contact = ContactFactory.getInstance().createContact(Long.valueOf(ApplicationProperties.getString("Application.DebugContact"))).getFormattedContact();
-			}
+				if (Boolean.valueOf(ApplicationProperties.getString("Application.isDebugMode"))) {
+					textMessage += ";Dbg Msg to " + contact;
+					contact = ContactFactory.getInstance().createContact(Long.valueOf(ApplicationProperties.getString("Application.DebugContact"))).getFormattedContact();
+				}
 
-			SMSServiceWrapper.sendMessage(contact, textMessage);
-		} catch (Exception e) {
-			LOGGER.error("Error when executing Send Message Job", e);
+				SMSServiceWrapper.sendMessage(contact, textMessage);
+			} catch (Exception e) {
+				LOGGER.error("Error when executing Send Message Job", e);
+			}
+		} else {
+			try {
+				SMSServiceWrapper.initialize(systemPrevaylerModel.getCOMPort());
+			} catch (Exception e) {
+				LOGGER.error("Error when re-initializing SMS Service", e);
+			}
+			LOGGER.warn("SMS Service was not started when executing Send Message Job");
 		}
-
 	}
 
 	private Contato restartContactGeneration() {

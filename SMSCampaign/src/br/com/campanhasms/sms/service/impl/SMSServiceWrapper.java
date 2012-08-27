@@ -42,8 +42,8 @@ public class SMSServiceWrapper {
 		if (isServiceStopped()) {
 			LOGGER.info("Initializing SMS Service...");
 			SerialModemGateway gateway = new SerialModemGateway("Modem - " + COMPortName, COMPortName, 115200, "Huawei", "E160");
-			Service.getInstance().S.QUEUE_DIRECTORY = PrevaylerProperties.getString("SystemPrevayler.PREVAYLER_BASE_DIR");
-			Service.getInstance().S.MASK_IMSI = false;
+//			Service.getInstance().S.QUEUE_DIRECTORY = PrevaylerProperties.getString("SystemPrevayler.PREVAYLER_BASE_DIR");
+//			Service.getInstance().S.MASK_IMSI = false;
 			gateway.setInbound(true);
 			gateway.setOutbound(true);
 			gateway.setSimPin("0000");
